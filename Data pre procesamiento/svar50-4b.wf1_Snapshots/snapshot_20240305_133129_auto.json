@@ -1,0 +1,351 @@
+
+{
+	"commands" : null,
+	"description" : "Generated based on timer.",
+	"label" : "auto",
+	"workbook_meta" : 
+	{
+		"_name" : "c:\\users\\jgor\\documents\\svar50_app\\svar504b_app\\data pre procesamiento\\svar50-4b.wf1",
+		"_pages" : 
+		[
+			
+			{
+				"_frequency" : "M",
+				"_last_update" : [ 738949.5633680555, "03/05/2024 13:31" ],
+				"_name" : "Monthly",
+				"_obj_count" : 15,
+				"_objects" : 
+				[
+					
+					{
+						"_data_type" : "date",
+						"_name" : "@DATE",
+						"_obs_max" : [ 738854.0, "12/01/2023" ],
+						"_obs_min" : [ 730485.0, "01/01/2001" ],
+						"_type" : "INDEX"
+					},
+					
+					{
+						"_name" : "BM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "C",
+						"_type" : "COEF"
+					},
+					
+					{
+						"_name" : "CPI_SUB",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "CPI_TOT",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "I",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "I_STAR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "IPEI",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_BM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_CPI_NOSUB",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_CPI_SUB",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_CPI_TOT",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_IPEI",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_S",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RESID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "S",
+						"_type" : "SERIES"
+					}
+				],
+				"_obs_count" : 276
+			},
+			
+			{
+				"_frequency" : "Q",
+				"_last_update" : [ 738949.5012615741, "03/05/2024 12:01" ],
+				"_name" : "quarterly",
+				"_obj_count" : 45,
+				"_objects" : 
+				[
+					
+					{
+						"_data_type" : "date",
+						"_name" : "@DATE",
+						"_obs_max" : [ 738793.0, "10/01/2023" ],
+						"_obs_min" : [ 730485.0, "01/01/2001" ],
+						"_type" : "INDEX"
+					},
+					
+					{
+						"_name" : "BM_LAST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "BM_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "C",
+						"_type" : "COEF"
+					},
+					
+					{
+						"_name" : "CPI_SUB_LAST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "CPI_SUB_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_BM_LAST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_BM_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_CPI_LAST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_CPI_NOSUB_LAST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_CPI_NOSUB_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_CPI_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_CPI_SUB_LAST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_CPI_SUB_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_IPEI_LAST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_IPEI_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_S_LAST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_S_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_Y",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "D4_LN_Y_STAR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "GROUP01",
+						"_type" : "GROUP"
+					},
+					
+					{
+						"_name" : "I",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "I_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "I_STAR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "I_STAR_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "IPEI_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_BM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_BM_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_CPI_NOSUB",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_CPI_NOSUB_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_CPI_SUB",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_CPI_SUB_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_CPI_TOT_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_IPEI_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_S",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_S_PROM",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_Y",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "LN_Y_STAR",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "PIB",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "RES_REC",
+						"_type" : "MATRIX"
+					},
+					
+					{
+						"_name" : "RESID",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "S",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "SVAR504B",
+						"_type" : "VAR"
+					},
+					
+					{
+						"_name" : "TEST",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "VZ",
+						"_type" : "SERIES"
+					},
+					
+					{
+						"_name" : "Y_STAR",
+						"_type" : "SERIES"
+					}
+				],
+				"_obs_count" : 92
+			}
+		]
+	}
+}
