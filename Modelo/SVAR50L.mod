@@ -1,7 +1,13 @@
 %%% SVAR50-4B %%%%%%%
 %{
-This version includes the log levels of those variables where a
-reconstruction is needed, to obtain forecasts in the simulation process.
+
+This version includes:
+
+SVAR Endogenous block
+Additional identities
+Log-levels 
+4Q-MovSum for GDP's
+Annualized QoQ Growth Rates
 
 DIE -04/03/2024
 MJGM
@@ -9,33 +15,46 @@ MJGM
 
 !transition_variables
 % Log levels
-'PIB Externo (100*log)'                                         ln_y_star,
-'PIB Externo, Suma móvil de 4 trimestres (100*log)'             ln_y_star_sm,
-'Precios de transables (100*log)'                               ln_ipei,
-'PIB Real (100*log)'                                            ln_y,
-'PIB Real, Suma móvil de 4 trimestres (100*log)'                ln_y_sm,
-'Indice Subyacente Óptima MSE (100*log)'                        ln_cpi_sub,
-'Tipo de Cambio Nominal (100*log)'                              ln_s,
-'Base Monetaria (100*log)'                                      ln_bm,
-'Indice de Precios al Consumidor (100*log)'                     ln_cpi,
-'Indice Tipo de Cambio Real (100*log)'                          ln_z,
+'PIB Externo (100*log)'                                         ln_y_star, %1
+'PIB Externo, Suma móvil de 4 trimestres (100*log)'             ln_y_star_sm, %2
+'Precios de transables (100*log)'                               ln_ipei, %3
+'Indice de inflación No subyacente'                             ln_cpi_nosub, %4
+'PIB Real (100*log)'                                            ln_y, %5
+'PIB Real, Suma móvil de 4 trimestres (100*log)'                ln_y_sm, %6
+'Indice Subyacente Óptima MSE (100*log)'                        ln_cpi_sub, %7
+'Tipo de Cambio Nominal (100*log)'                              ln_s, %8
+'Base Monetaria (100*log)'                                      ln_bm, %9
+'Indice de Precios al Consumidor (100*log)'                     ln_cpi, %10
+'Indice Tipo de Cambio Real (100*log)'                          ln_z, %11
+'Velocidad de circulación, nivel',                              ln_v, %12
 
-% Growth rates
-'Crecimiento Económico Externo (%)'                             d4_ln_y_star,
-'Crecimiento Económico Externo - Suma Móvil 4T (%)'             d4_ln_y_star_sm,
-'Precios de transables YoY (%)'                                 d4_ln_ipei,
-'Tasa de fondos federales'                                      i_star,
-'Inflación No Subyacente YoY (%)'                               d4_ln_cpi_nosub,
-'Crecimiento Económico Inrterno (%)'                            d4_ln_y,
-'Crecimiento Económico Inrterno - Suma Móvil 4T (%)'            d4_ln_y_sm,
-'Inflación Subyacente Óptima MSE'                               d4_ln_cpi_sub,
-'Depreciación Cambiaria Nominal (%)'                            d4_ln_s,
-'Tasa de variación Interanual de la Base Monetaria'             d4_ln_bm,
-'Tasa de Interés Líder de Política Monetaria'                   i,
-'Inflación Total Internual'                                     d4_ln_cpi,
-'Tasa de variación del Tipo de Cambio Real'                     d4_ln_z,
-'Velocidad de circulación'                                      d4_ln_v,
-'Tasa de interés real de PM'                                    r
+% YoY Growth rates
+'Crecimiento Económico Externo (%)'                             d4_ln_y_star, %13
+'Crecimiento Económico Externo - Suma Móvil 4T (%)'             d4_ln_y_star_sm, %14
+'Precios de transables YoY (%)'                                 d4_ln_ipei, %15
+'Tasa de fondos federales'                                      i_star, %16
+'Inflación No Subyacente (YoY %)'                               d4_ln_cpi_nosub, %17
+'Crecimiento Económico Inrterno (%)'                            d4_ln_y, %18
+'Crecimiento Económico Inrterno - Suma Móvil 4T (%)'            d4_ln_y_sm, %19
+'Inflación Subyacente Óptima MSE (YoY %)'                       d4_ln_cpi_sub, %20
+'Depreciación Cambiaria Nominal (YoY %)'                        d4_ln_s, %21
+'Tasa de variación de la Base Monetaria (YoY %)'                d4_ln_bm, %22 
+'Tasa de Interés Líder de Política Monetaria'                   i, %23
+'Inflación Total Internual (YoY %)'                             d4_ln_cpi, %24
+'Tasa de variación del Tipo de Cambio Real (YoY)'               d4_ln_z, %25
+'Velocidad de circulación (YoY %)'                              d4_ln_v, %26
+'Tasa de interés real de PM'                                    r, %27
+
+% Annualized QoQ Growth rates
+'Precios de transables QoQ (%)'                                 dla_ipei, %28
+'Tasa de variación del Tipo de Cambio Real (QoQ)'               dla_z, %29
+'Depreciación Cambiaria Nominal (QoQ %)'                        dla_s, %30
+'Inflación No Subyacente QoQ (%)'                               dla_cpi_nosub, %31
+'Inflación Subyacente Óptima MSE (QoQ %)'                       dla_cpi_sub, %32
+'Inflación Total Internual (QoQ %)'                             dla_cpi, %33
+'Tasa de variación de la Base Monetaria (QoQ %)'                dla_bm, %34
+'Velocidad de circulación (YoY %)'                              dla_v, %35
+
 
 !transition_shocks
 s_d4_ln_y_star,
@@ -62,6 +81,7 @@ i_ss,
 d4_ln_cpi_ss,
 d4_ln_z_ss, 
 d4_ln_v_ss,
+r_ss
 
 %%%% SVAR PARAMETERS %%%%
 % Constants
@@ -89,17 +109,53 @@ g_1_81, g_1_82, g_1_83, g_1_84, g_1_85, g_1_86, g_1_87, g_1_88, g_1_89,
 g_1_91, g_1_92, g_1_93, g_1_94, g_1_95, g_1_96, g_1_97, g_1_98, g_1_99,
 
 !transition_equations
-% Levels & Transformations
-ln_y_star = ln_y_star{-4} + d4_ln_y_star;
-ln_ipei = ln_ipei{-4} + d4_ln_ipei;
-ln_y = ln_y{-4} + d4_ln_y;
-ln_y_sm = movsum(ln_y, -4);
-d4_ln_y_sm = 1/4*(ln_y_sm - ln_y_sm{-4});
-ln_cpi_sub = ln_cpi_sub{-4} + d4_ln_cpi_sub;
-ln_s = ln_s{-4} + d4_ln_s;
-ln_bm = ln_bm{-4} + d4_ln_bm;
+% Log-Levels
+ln_y_star = ln_y_star{-4} + d4_ln_y_star; %1
+ln_y_star_sm = movsum(ln_y_star, -4); %2
+ln_ipei = ln_ipei{-4} + d4_ln_ipei; %3
+ln_y = ln_y{-4} + d4_ln_y; %4
+ln_y_sm = movsum(ln_y, -4); %5
+ln_cpi_sub = ln_cpi_sub{-4} + d4_ln_cpi_sub;%6
+ln_cpi_nosub = ln_cpi_nosub{-4} + d4_ln_cpi_nosub; %7
+ln_s = ln_s{-4} + d4_ln_s; %8
+ln_bm = ln_bm{-4} + d4_ln_bm; %9
+ln_cpi = ln_cpi{-4} + d4_ln_cpi; %10
+ln_z = ln_z{-4} + d4_ln_z; %11
+ln_v = ln_v{-4} + d4_ln_v; %12
 
-% Endogeouns block
+% MovSum YoY Growth rates
+d4_ln_y_star_sm = 1/4*(ln_y_star_sm - ln_y_star_sm{-4}); %13
+d4_ln_y_sm = 1/4*(ln_y_sm - ln_y_sm{-4}); %14
+
+% Annualized QoQ Growth rates
+dla_ipei = 4*(ln_ipei - ln_ipei{-1}); %15
+dla_cpi_sub = 4*(ln_cpi_sub - ln_cpi_sub{-1}); %16
+dla_cpi_nosub = 4*(ln_cpi_nosub - ln_cpi_nosub{-1}); %17
+dla_s = 4*(ln_s - ln_s{-1}); %19
+dla_bm = 4*(ln_bm - ln_bm{-1}); %20
+dla_cpi = 4*(ln_cpi - ln_cpi{-1}); %21
+dla_z = 4*(ln_z - ln_z{-1}); %22
+dla_v = 4*(ln_v - ln_v{-1}); %23
+
+% Theorical identities 
+% Headline Inflation 
+(d4_ln_cpi - d4_ln_cpi_ss) =   (d4_ln_cpi_nosub - d4_ln_cpi_nosub_ss) ...
+                             + (d4_ln_cpi_sub - d4_ln_cpi_sub_ss); %24
+                         
+% Real Exchange Rate
+(d4_ln_z - d4_ln_z_ss) =  (d4_ln_s - d4_ln_s_ss) ...
+                        + (d4_ln_ipei - d4_ln_ipei_ss) ... 
+                        - (d4_ln_cpi_sub - d4_ln_cpi_sub_ss); %25
+% Money vel
+(d4_ln_v - d4_ln_v_ss) =  (d4_ln_cpi_sub - d4_ln_cpi_sub_ss) ...
+                        + (d4_ln_y - d4_ln_y_ss) ...
+                        - (d4_ln_bm - d4_ln_bm_ss); %26
+% Real Interest Rate
+(r - r_ss) = (i - i_ss) - (d4_ln_cpi_sub{+4} - d4_ln_cpi_sub_ss); %27
+
+
+
+%%%%%%%%%%%%%%%% SVAR Endogeouns block (9 Equations) %%%%%%%%%%%%%%%%%%%%%
 
 % Foreign Output
 g_0_11 * d4_ln_y_star + ...
@@ -299,22 +355,6 @@ g_1_97 * d4_ln_s{-1} + ...
 g_1_98 * d4_ln_bm{-1} + ...
 g_1_99 * i{-1} + ...
 s_i;
-
-% Aditional Equations
-
-% Headline Inflation 
-(d4_ln_cpi - d4_ln_cpi_ss) = (d4_ln_cpi_nosub - d4_ln_cpi_nosub_ss) + (d4_ln_cpi_sub - d4_ln_cpi_sub_ss);
-ln_cpi = ln_cpi{-4} + d4_ln_cpi;
-
-% Real Exchange Rate
-(d4_ln_z - d4_ln_z_ss) = (d4_ln_s - d4_ln_s_ss) + (d4_ln_ipei - d4_ln_ipei_ss) - (d4_ln_cpi_sub - d4_ln_cpi_sub_ss);
-ln_z = ln_z{-4} + d4_ln_z;
-
-% Money vel
-(d4_ln_v - d4_ln_v_ss) = (d4_ln_cpi_sub - d4_ln_cpi_sub_ss) + (d4_ln_y - d4_ln_y_ss) - (d4_ln_bm - d4_ln_bm_ss);
-
-% Real Interest Rate
-r = i - d4_ln_cpi_sub{+4};
 
 !measurement_variables
 obs_ln_y_star,
