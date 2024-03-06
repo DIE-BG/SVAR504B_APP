@@ -95,6 +95,6 @@ levels.ln_y = levels.ln_y_qq;
 obs = {'ln_y_star', 'ln_ipei', 'i_star', 'ln_y', 'ln_cpi_sub', 'ln_s', 'ln_bm', 'i', 'ln_cpi'};
 obs = levels*obs;
 obs = databank.clip(obs, DATES.hist_start, DATES.hist_end);
-databank.toCSV(obs, fullfile('data', 'data_corr.csv'), Inf);
+databank.toCSV(obs, MODEL.data_file_name, Inf, 'Decimals=', 5);
 
 
