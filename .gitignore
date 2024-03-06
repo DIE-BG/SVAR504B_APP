@@ -1,0 +1,10 @@
+# Ignored files
+
+*snapshot*
+*.asv
+
+**/~$*.xlsx
+*.~f1
+*.evsettings
+*.~rg
+Modelo/SVAR50/**/*.csv
