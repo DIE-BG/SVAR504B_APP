@@ -110,3 +110,6 @@ MODEL.PreProc.quarterly = databank.clip(MODEL.PreProc.quarterly, MODEL.DATES.his
 obs = {'ln_y_star', 'ln_ipei', 'i_star', 'ln_y', 'ln_cpi_sub', 'ln_s', 'ln_bm', 'i', 'ln_cpi'};
 MODEL.PreProc.obs = levels*obs;
 MODEL.PreProc.obs = databank.clip(MODEL.PreProc.obs, MODEL.DATES.hist_start, MODEL.DATES.hist_end);
+
+% 
+databank.toCSV(MODEL.PreProc.obs, MODEL.data_file_name, Inf, 'Decimals=', 5);
