@@ -36,11 +36,11 @@ i_star = databank.fromFred('DFF', 'Frequency=', 'M');
 % VARIABLES INTERNAS
 % Producto
 % Quarterly
-y = databank.fromCSV(fullfile('raw', '5 Y', 'PIB.csv'));
+y = databank.fromCSV(fullfile('raw', '5 Y', 'GDP_quarterly.csv'));
 
 % CPI_sub, s, bm, i, cpi
 % Monthly
-levels = databank.fromCSV(fullfile('raw', 'levels.csv'));
+levels = databank.fromCSV(fullfile('raw', 'levels_monthly.csv'));
 
 % Union de datos mensuales y trimestrales
 levels.y_star_qq = y_star.GDPC1;
@@ -93,6 +93,10 @@ end
 levels.ln_y_star = levels.ln_y_star_qq;
 levels.ln_y = levels.ln_y_qq;
 
-dbnames(levels)
 %% exportamos
-ln = {'ln_y_star', 'ln_ipei', 'i_star', 'ln_y', 'ln_cpi_sub', ''}
+obs = {'ln_y_star', 'ln_ipei', 'i_star', 'ln_y', 'ln_cpi_sub', 'ln_s', 'ln_bm', 'i', 'ln_cpi'};
+obs = levels*obs;
+
+databank.toCSV(obs, 'data_corr.csv', Inf);
+
+

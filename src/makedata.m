@@ -6,9 +6,7 @@ Las principales fuentes son:
     1) FRED (Variables externas)
     2) Banguat (Variables Internas)
 %}
-clear
-clc
-%% Datos en forma primigenia
+%% Datos primitivos
 % VARIALBES EXTERNAS
 % Producto de EEUU
 % Quarterly/billions
@@ -27,7 +25,7 @@ exp_indx = databank.fromFred('IQ');
 % Parametro alpha
 % uso para la construcción del IPEI
 % Monthly
-a = databank.fromCSV(fullfile('raw', '2 IPEI', 'alpha.csv'));
+a = databank.fromCSV(fullfile('pre', 'raw', '2 IPEI', 'alpha.csv'));
 
 % Tasa de fondos federales
 % Monthly
@@ -36,11 +34,11 @@ i_star = databank.fromFred('DFF', 'Frequency=', 'M');
 % VARIABLES INTERNAS
 % Producto
 % Quarterly
-y = databank.fromCSV(fullfile('raw', '5 Y', 'PIB.csv'));
+y = databank.fromCSV(fullfile('pre', 'raw', '5 Y', 'GDP_quarterly.csv'));
 
 % CPI_sub, s, bm, i, cpi
 % Monthly
-levels = databank.fromCSV(fullfile('raw', 'levels.csv'));
+levels = databank.fromCSV(fullfile('pre', 'raw', 'levels_monthly.csv'));
 
 % Union de datos mensuales y trimestrales
 levels.y_star_qq = y_star.GDPC1;
@@ -96,7 +94,7 @@ levels.ln_y = levels.ln_y_qq;
 %% exportamos
 obs = {'ln_y_star', 'ln_ipei', 'i_star', 'ln_y', 'ln_cpi_sub', 'ln_s', 'ln_bm', 'i', 'ln_cpi'};
 obs = levels*obs;
-
-databank.toCSV(obs, 'data_corr.csv', Inf);
+obs = databank.clip(obs, DATES.hist_start, DATES.hist_end);
+databank.toCSV(obs, fullfile('data', 'data_corr.csv'), Inf);
 
 
