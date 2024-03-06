@@ -1,4 +1,4 @@
-%%% SVAR50-4B %%%%%%%
+%%% SVAR50-4B
 %{
 
 This version includes:
@@ -27,6 +27,7 @@ MJGM
 'Indice de Precios al Consumidor (100*log)'                     ln_cpi, %10
 'Indice Tipo de Cambio Real (100*log)'                          ln_z, %11
 'Velocidad de circulación, nivel',                              ln_v, %12
+'Precios de transables en GTQ(100*log)'                         ln_ipei_q,
 
 % YoY Growth rates
 'Crecimiento Económico Externo (%)'                             d4_ln_y_star, %13
@@ -44,6 +45,7 @@ MJGM
 'Tasa de variación del Tipo de Cambio Real (YoY)'               d4_ln_z, %25
 'Velocidad de circulación (YoY %)'                              d4_ln_v, %26
 'Tasa de interés real de PM'                                    r, %27
+'Precios de transables en GTQ YoY (%)'                          d4_ln_ipei_q,
 
 % Annualized QoQ Growth rates
 'Precios de transables QoQ (%)'                                 dla_ipei, %28
@@ -54,7 +56,7 @@ MJGM
 'Inflación Total Internual (QoQ %)'                             dla_cpi, %33
 'Tasa de variación de la Base Monetaria (QoQ %)'                dla_bm, %34
 'Velocidad de circulación (YoY %)'                              dla_v, %35
-
+'Precios de transables en GTQ QoQ (%)'                          dla_ipei_q
 
 !transition_shocks
 s_d4_ln_y_star,
@@ -122,10 +124,13 @@ ln_bm = ln_bm{-4} + d4_ln_bm; %9
 ln_cpi = ln_cpi{-4} + d4_ln_cpi; %10
 ln_z = ln_z{-4} + d4_ln_z; %11
 ln_v = ln_v{-4} + d4_ln_v; %12
+ln_ipei_q = ln_ipei + ln_s;
 
-% MovSum YoY Growth rates
+% MovSum and other YoY Growth rates
 d4_ln_y_star_sm = 1/4*(ln_y_star_sm - ln_y_star_sm{-4}); %13
 d4_ln_y_sm = 1/4*(ln_y_sm - ln_y_sm{-4}); %14
+d4_ln_ipei_q = ln_ipei_q - ln_ipei_q{-4};
+
 
 % Annualized QoQ Growth rates
 dla_ipei = 4*(ln_ipei - ln_ipei{-1}); %15
@@ -136,6 +141,8 @@ dla_bm = 4*(ln_bm - ln_bm{-1}); %20
 dla_cpi = 4*(ln_cpi - ln_cpi{-1}); %21
 dla_z = 4*(ln_z - ln_z{-1}); %22
 dla_v = 4*(ln_v - ln_v{-1}); %23
+dla_ipei_q = 4*(ln_ipei_q - ln_ipei_q{-4});
+
 
 % Theorical identities 
 % Headline Inflation 
@@ -357,24 +364,24 @@ g_1_99 * i{-1} + ...
 s_i;
 
 !measurement_variables
-obs_ln_y_star,
-obs_ln_ipei,
-obs_i_star,
-obs_ln_y,
-obs_ln_cpi_sub,
-obs_ln_s, 
-obs_ln_bm,
-obs_i,
-obs_ln_cpi
+m_ln_y_star,
+m_ln_ipei,
+m_i_star,
+m_ln_y,
+m_ln_cpi_sub,
+m_ln_s, 
+m_ln_bm,
+m_i,
+m_ln_cpi
 
 !measurement_equations
-obs_ln_y_star = ln_y_star;
-obs_ln_ipei = ln_ipei;
-obs_i_star = i_star;
-obs_ln_y = ln_y;
-obs_ln_cpi_sub = ln_cpi_sub;
-obs_ln_s = ln_s;
-obs_ln_bm = ln_bm;
-obs_i = i;
-obs_ln_cpi = ln_cpi;
+m_ln_y_star = ln_y_star;
+m_ln_ipei = ln_ipei;
+m_i_star = i_star;
+m_ln_y = ln_y;
+m_ln_cpi_sub = ln_cpi_sub;
+m_ln_s = ln_s;
+m_ln_bm = ln_bm;
+m_i = i;
+m_ln_cpi = ln_cpi;
 
