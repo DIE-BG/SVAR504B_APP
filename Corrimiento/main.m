@@ -96,4 +96,9 @@ MODEL = SimTools.sim.shd_dsc(MODEL);
 MODEL = SimTools.sim.diff_shd_dsc(MODEL);
 
 %% POST-PROCESSING
+pp_list = {'ln_y_star', 'ln_ipei', 'ln_z','ln_s','ln_cpi_sub','ln_ipei_q','ln_y','ln_bm','ln_v'};
+list_nivel = {'ln_s','ln_bm'};
 
+MODEL = PostProcessing(MODEL,...
+                       'list',pp_list,...
+                       'list_niv', list_nivel);
