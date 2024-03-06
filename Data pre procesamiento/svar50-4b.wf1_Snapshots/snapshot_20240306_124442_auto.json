@@ -1,6 +1,14 @@
 
 {
-	"commands" : null,
+	"commands" : 
+	[
+		"close LN_CPI_TOT_PROM",
+		"close LN_IPEI_PROM",
+		"i_prom.sheet",
+		"close I_PROM",
+		"close I_STAR_PROM",
+		"close LN_Y_STAR"
+	],
 	"description" : "Generated based on timer.",
 	"label" : "auto",
 	"workbook_meta" : 
@@ -11,7 +19,7 @@
 			
 			{
 				"_frequency" : "M",
-				"_last_update" : [ 738949.5329629630, "03/05/2024 12:47" ],
+				"_last_update" : [ 738950.4518055556, "03/06/2024 10:50" ],
 				"_name" : "Monthly",
 				"_obj_count" : 15,
 				"_objects" : 
@@ -105,7 +113,7 @@
 			
 			{
 				"_frequency" : "Q",
-				"_last_update" : [ 738949.5012615741, "03/05/2024 12:01" ],
+				"_last_update" : [ 738950.5307523148, "03/06/2024 12:44" ],
 				"_name" : "quarterly",
 				"_obj_count" : 45,
 				"_objects" : 

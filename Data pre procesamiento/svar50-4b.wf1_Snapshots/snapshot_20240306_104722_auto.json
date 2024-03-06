@@ -11,7 +11,7 @@
 			
 			{
 				"_frequency" : "M",
-				"_last_update" : [ 738949.5358564815, "03/05/2024 12:51" ],
+				"_last_update" : [ 738945.4912847222, "03/01/2024 11:47" ],
 				"_name" : "Monthly",
 				"_obj_count" : 15,
 				"_objects" : 
@@ -105,7 +105,7 @@
 			
 			{
 				"_frequency" : "Q",
-				"_last_update" : [ 738949.5012615741, "03/05/2024 12:01" ],
+				"_last_update" : [ 738950.4493865741, "03/06/2024 10:47" ],
 				"_name" : "quarterly",
 				"_obj_count" : 45,
 				"_objects" : 

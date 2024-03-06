@@ -1,6 +1,11 @@
 
 {
-	"commands" : null,
+	"commands" : 
+	[
+		"close D4_LN_CPI_SUB_PROM",
+		"close LN_CPI_SUB_PROM",
+		"close LN_S_PROM"
+	],
 	"description" : "Generated based on timer.",
 	"label" : "auto",
 	"workbook_meta" : 
@@ -11,7 +16,7 @@
 			
 			{
 				"_frequency" : "M",
-				"_last_update" : [ 738949.5434259259, "03/05/2024 13:02" ],
+				"_last_update" : [ 738950.4518055556, "03/06/2024 10:50" ],
 				"_name" : "Monthly",
 				"_obj_count" : 15,
 				"_objects" : 
@@ -105,7 +110,7 @@
 			
 			{
 				"_frequency" : "Q",
-				"_last_update" : [ 738949.5012615741, "03/05/2024 12:01" ],
+				"_last_update" : [ 738950.5270717592, "03/06/2024 12:38" ],
 				"_name" : "quarterly",
 				"_obj_count" : 45,
 				"_objects" : 
