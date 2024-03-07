@@ -31,7 +31,7 @@ MODEL.param_file_name = 'setparam.m';
 
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2024-02';
+MODEL.CORR_DATE = '2023-11';
 MODEL.CORR_DATE_ANT = '2023-11';
 
 MODEL.data_file_name = fullfile( ...
@@ -102,3 +102,7 @@ list_nivel = {'ln_s','ln_bm'};
 MODEL = PostProcessing(MODEL,...
                        'list',pp_list,...
                        'list_niv', list_nivel);
+%% TEMPORAL
+temp_s = MODEL.PostProc;
+save('data\fulldata\PostProcessing-2023_11.mat', 'temp_s');
+
