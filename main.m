@@ -74,8 +74,7 @@ MODEL.ExoVar = { ...
                 'i'};
             
 %% PRE-PROCESSING
-
-
+PreProcessing;
 
 %% Lectura de Modelo, datos y proceso de filtrado
 MODEL = SimTools.sim.read_model(MODEL);
