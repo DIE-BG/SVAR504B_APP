@@ -74,7 +74,7 @@ MODEL.ExoVar = { ...
                 'i'};
             
 %% PRE-PROCESSING
-makedata;
+PreProcessing;
 
 
 %% Lectura de Modelo, datos y proceso de filtrado

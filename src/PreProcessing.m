@@ -6,9 +6,7 @@ Las principales fuentes son:
     1) FRED (Variables externas)
     2) Banguat (Variables Internas)
 %}
-clear
-clc
-%% Datos en forma primigenia
+%% Datos primitivos
 % VARIALBES EXTERNAS
 % Producto de EEUU
 % Quarterly/billions
@@ -24,11 +22,6 @@ imp_indx = databank.fromFred('IR');
 % Monthly
 exp_indx = databank.fromFred('IQ');
 
-% Parametro alpha
-% uso para la construcción del IPEI
-% Monthly
-a = databank.fromCSV(fullfile('raw', '2 IPEI', 'alpha.csv'));
-
 % Tasa de fondos federales
 % Monthly
 i_star = databank.fromFred('DFF', 'Frequency=', 'M');
@@ -36,17 +29,16 @@ i_star = databank.fromFred('DFF', 'Frequency=', 'M');
 % VARIABLES INTERNAS
 % Producto
 % Quarterly
-y = databank.fromCSV(fullfile('raw', '5 Y', 'GDP_quarterly.csv'));
+y = databank.fromCSV(fullfile('data', 'raw', '5 Y', 'GDP_quarterly.csv'));
 
 % CPI_sub, s, bm, i, cpi
 % Monthly
-levels = databank.fromCSV(fullfile('raw', 'levels_monthly.csv'));
+levels = databank.fromCSV(fullfile('data', 'raw', 'monthly.csv'));
 
 % Union de datos mensuales y trimestrales
 levels.y_star_qq = y_star.GDPC1;
 levels.imp_indx_mm = imp_indx.IR;
 levels.exp_indx_mm = exp_indx.IQ;
-levels.a_mm = a.alpha;
 levels.i_star_mm = i_star.DFF;
 levels.y_qq = y.PIB;
 
@@ -54,15 +46,15 @@ levels.y_qq = y.PIB;
 % construcción del IPEI
 % Primero se recorta la serie de importaciones y exportaciones al rango del
 % parametro alpha
-levels.exp_indx_mm = levels.exp_indx_mm.clip(levels.a_mm.Start, levels.a_mm.End);
-levels.imp_indx_mm = levels.imp_indx_mm.clip(levels.a_mm.Start, levels.a_mm.End);
-levels.ipei_mm = levels.a_mm*levels.exp_indx_mm + (1-levels.a_mm)*levels.imp_indx_mm;
+levels.exp_indx_mm = levels.exp_indx_mm.clip(levels.a_prom_mm.Start, levels.a_prom_mm.End);
+levels.imp_indx_mm = levels.imp_indx_mm.clip(levels.a_prom_mm.Start, levels.a_prom_mm.End);
+levels.ipei_mm = levels.a_prom_mm*levels.exp_indx_mm + (1-levels.a_prom_mm)*levels.imp_indx_mm;
 
 % Logaritmos
 names = dbnames(levels);
 % logaritmos
 % excepciones
-exc = {'i_star_mm', 'i_mm', 'a_mm', 'imp_indx_mm', 'exp_indx_mm'};
+exc = {'i_star_mm', 'i_mm', 'a_mm', 'a_prom_mm', 'imp_indx_mm', 'exp_indx_mm'};
 
 for i = 1:length(names)
     if isempty(strmatch(names{i},exc,'exact'))
@@ -89,14 +81,34 @@ for i = 1:length(names)
    levels.(names{i}(1:end-3)) = levels.(names{i}).convert('Q', 'method=', @mean);     
    end
 end
-
 levels.ln_y_star = levels.ln_y_star_qq;
 levels.ln_y = levels.ln_y_qq;
+names = dbnames(levels);
 
-%% exportamos
+%% separamos datos
+% 1) variables con frecuencia mensual (niveles y logaritmos)
+
+for i = 1:length(names)
+    ind = regexp(names(i), '.*mm$', 'match');
+    if ~isempty(ind{1})  
+    MODEL.PreProc.monthly.(names{i}) = levels.(names{i});
+    end
+end
+
+% 2) varaibles con frecuencia trimestral (niveles y logaritmos)
+for i = 1:length(names)
+    ind = regexp(names(i), '.*qq$', 'match');
+    if ~isempty(ind{1})
+    MODEL.PreProc.quarterly.(names{i}) = levels.(names{i});
+    end
+end
+
+MODEL.PreProc.monthly = databank.clip(MODEL.PreProc.monthly, MODEL.PreProc.monthly.a_mm.Start, MODEL.PreProc.monthly.a_mm.End);
+MODEL.PreProc.quarterly = databank.clip(MODEL.PreProc.quarterly, MODEL.DATES.hist_start, MODEL.DATES.hist_end);
+
+% variables observables
 obs = {'ln_y_star', 'ln_ipei', 'i_star', 'ln_y', 'ln_cpi_sub', 'ln_s', 'ln_bm', 'i', 'ln_cpi'};
-obs = levels*obs;
+MODEL.PreProc.obs = levels*obs;
+MODEL.PreProc.obs = databank.clip(MODEL.PreProc.obs, MODEL.DATES.hist_start, MODEL.DATES.hist_end);
 
-databank.toCSV(obs, 'data_corr.csv', Inf);
-
-
+databank.toCSV(MODEL.PreProc.obs, MODEL.data_file_name, Inf, 'Decimals=', 5);
