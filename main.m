@@ -15,7 +15,7 @@ structfun(@addpath, PATH)
 
 %% Configuración de fechas
 DATES.hist_start = qq(2005, 1);
-DATES.hist_end = qq(2023, 4);
+DATES.hist_end = qq(2023, 3);
 DATES.pred_start = DATES.hist_end + 1;
 DATES.pred_end = DATES.hist_end + 60;
 DATES.hist_end_ant = qq(2023 ,3);
@@ -84,11 +84,8 @@ MODEL = SimTools.scripts.read_data_corr(MODEL);
 MODEL = SimTools.sim.kalman_smth(MODEL);
 
 %%
-
-MODEL = SimTools.scripts.jprediction_mms_corr( ...
-    MODEL, ...
-    'DataBase', MODEL.F,...
-    'SaveFullData', true);
+MODEL = predictions(MODEL,...
+                    'SaveFullData', true);
 
 %% Descomposición de choques
 MODEL = SimTools.sim.shd_dsc(MODEL);
