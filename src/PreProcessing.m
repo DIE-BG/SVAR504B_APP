@@ -29,7 +29,7 @@ i_star = databank.fromFred('DFF', 'Frequency=', 'M');
 % VARIABLES INTERNAS
 % Producto
 % Quarterly
-y = databank.fromCSV(fullfile('data', 'raw', '5 Y', 'GDP_quarterly.csv'));
+y = databank.fromCSV(fullfile('data', 'raw', 'GDP_quarterly.csv'));
 
 % CPI_sub, s, bm, i, cpi
 % Monthly
@@ -111,4 +111,10 @@ obs = {'ln_y_star', 'ln_ipei', 'i_star', 'ln_y', 'ln_cpi_sub', 'ln_s', 'ln_bm', 
 MODEL.PreProc.obs = levels*obs;
 MODEL.PreProc.obs = databank.clip(MODEL.PreProc.obs, MODEL.DATES.hist_start, MODEL.DATES.hist_end);
 
-databank.toCSV(MODEL.PreProc.obs, MODEL.data_file_name, Inf, 'Decimals=', 5);
+for i = 1:length(obs)
+    MODEL.PreProc.obs.(obs{i}).UserData.endhist = dat2char(MODEL.DATES.hist_end);
+end
+
+databank.toCSV(MODEL.PreProc.obs, MODEL.data_file_name, Inf, 'Decimals=', 5, 'UserData=', 'endhist');
+
+databank.

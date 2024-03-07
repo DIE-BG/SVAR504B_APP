@@ -76,7 +76,6 @@ MODEL.ExoVar = { ...
 %% PRE-PROCESSING
 PreProcessing;
 
-
 %% Lectura de Modelo, datos y proceso de filtrado
 MODEL = SimTools.sim.read_model(MODEL);
 % Lectura de datos con variables observables en data_corr.csv
