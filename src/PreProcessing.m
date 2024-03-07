@@ -115,6 +115,4 @@ for i = 1:length(obs)
     MODEL.PreProc.obs.(obs{i}).UserData.endhist = dat2char(MODEL.DATES.hist_end);
 end
 
-databank.toCSV(MODEL.PreProc.obs, MODEL.data_file_name, Inf, 'Decimals=', 5, 'UserData=', 'endhist');
-
-databank.
+databank.toCSV(MODEL.PreProc.obs, MODEL.data_file_name, Inf, 'Decimals=', 5, 'UserDataFields=', 'endhist');
