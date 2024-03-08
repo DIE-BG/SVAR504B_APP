@@ -32,7 +32,7 @@ Graficas con los datos fuente
     data_table = [];
         data_table(:, 1) = MODEL.PreProc.quarterly.y_star_qq(tab_range-9);
 
-        text_Color = [[0 0 0]];
+        text_Color = [[0 0 1]];
 
 
     SimTools.scripts.plot_data_table( ...
@@ -51,7 +51,7 @@ Graficas con los datos fuente
             'Marker', '.', ...
             'MarkerSize', 17, ...
             'LineWidth', 1.25, ...
-            'color', [0,0,0]);  
+            'color', [0,0,1]);  
             
       %Titulos
     title('Producto de Estados Unidos',...
@@ -103,7 +103,7 @@ for i = 1:length(toplot)
         data_table = [];
             data_table(:, 1) = MODEL.PreProc.monthly.(toplot{i})(tab_range_mm);
 
-            text_Color = [[0 0 0]];
+            text_Color = [[0 0 1]];
 
         if i == 1
         SimTools.scripts.plot_data_table( ...
@@ -136,7 +136,7 @@ for i = 1:length(toplot)
                 'Marker', '.', ...
                 'MarkerSize', 17, ...
                 'LineWidth', 1.25, ...
-                'color', [0,0,0]);  
+                'color', [0,0,1]);  
 
           %Titulos
         title(MODEL.PreProc.monthly.(toplot{i}).Comment{1})      
@@ -174,7 +174,7 @@ end
         data_table = [];
             data_table(:, 1) = MODEL.PreProc.quarterly.imp_indx_qq(tab_range-9);
 
-            text_Color = [[0 0 0]];
+            text_Color = [[0 0 1]];
 
 
         SimTools.scripts.plot_data_table( ...
@@ -193,7 +193,7 @@ end
                 'Marker', '.', ...
                 'MarkerSize', 17, ...
                 'LineWidth', 1.25, ...
-                'color', [0,0,0]);  
+                'color', [0,0,1]);  
 
           %Titulos
         title(MODEL.PreProc.quarterly.imp_indx_qq.Comment{1})      
@@ -244,7 +244,7 @@ for i = 1:length(toplot)
         data_table = [];
             data_table(:, 1) = MODEL.PreProc.monthly.(toplot{i})(tab_range_mm);
 
-            text_Color = [[0 0 0]];
+            text_Color = [[0 0 1]];
 
         if i == 1
         SimTools.scripts.plot_data_table( ...
@@ -277,7 +277,7 @@ for i = 1:length(toplot)
                 'Marker', '.', ...
                 'MarkerSize', 17, ...
                 'LineWidth', 1.25, ...
-                'color', [0,0,0]);  
+                'color', [0,0,1]);  
 
           %Titulos
         title(MODEL.PreProc.monthly.(toplot{i}).Comment{1})      
@@ -315,7 +315,7 @@ end
         data_table = [];
             data_table(:, 1) = MODEL.PreProc.quarterly.exp_indx_qq(tab_range-9);
 
-            text_Color = [[0 0 0]];
+            text_Color = [[0 0 1]];
 
 
         SimTools.scripts.plot_data_table( ...
@@ -334,10 +334,10 @@ end
                 'Marker', '.', ...
                 'MarkerSize', 17, ...
                 'LineWidth', 1.25, ...
-                'color', [0,0,0]);  
+                'color', [0,0,1]);  
 
           %Titulos
-        title(MODEL.PreProc.quarterly.imp_indx_qq.Comment{1})      
+        title(MODEL.PreProc.quarterly.exp_indx_qq.Comment{1})      
 
     SimTools.scripts.pausaGuarda(...
     fullfile('Plots', sprintf("%s.png",MODEL.PreProc.quarterly.exp_indx_qq.Comment{1})), ...

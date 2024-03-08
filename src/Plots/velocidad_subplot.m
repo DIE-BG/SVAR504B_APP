@@ -34,11 +34,11 @@ for i = 1:length(toplot)
         
     % Colores
     % historia
-    set(h(end), 'color', [0 0 0], 'LineWidth', 0.5);
+    set(h(end), 'color', [0 0 1], 'LineWidth', 0.5);
     % Corr actual
-    set(h(1), 'color', [0 0.498 0]);
+    set(h(1), 'color', [0 0 1]);
     % Corr anterior
-    set(h(2), 'color', [0.4940 0.1840 0.5560]);    
+    set(h(2), 'color', [1 0 0]);    
     
     %linea vertical
     vline(MODEL.DATES.hist_end, ...
@@ -51,7 +51,7 @@ for i = 1:length(toplot)
         
     % leyenda
     legend({MODEL.leg_act,...
-        MODEL.leg_ant, 'Historia'},...
+        MODEL.leg_ant},...
         'Location','best', 'Interpreter', 'none',...
         'FontSize', 8);
     
