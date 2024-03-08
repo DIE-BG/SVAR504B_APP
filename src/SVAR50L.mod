@@ -26,7 +26,7 @@ MJGM
 'Base Monetaria (100*log)'                                      ln_bm, %9
 'Indice de Precios al Consumidor (100*log)'                     ln_cpi, %10
 'Indice Tipo de Cambio Real (100*log)'                          ln_z, %11
-'Velocidad de circulacion, nivel',                              ln_v, %12
+'Velocidad de circulacion, nivel'                               ln_v, %12
 'Precios de transables en GTQ(100*log)'                         ln_ipei_q,
 
 % YoY Growth rates
@@ -141,7 +141,7 @@ dla_bm = 4*(ln_bm - ln_bm{-1}); %20
 dla_cpi = 4*(ln_cpi - ln_cpi{-1}); %21
 dla_z = 4*(ln_z - ln_z{-1}); %22
 dla_v = 4*(ln_v - ln_v{-1}); %23
-dla_ipei_q = 4*(ln_ipei_q - ln_ipei_q{-4});
+dla_ipei_q = 4*(ln_ipei_q - ln_ipei_q{-1});
 
 
 % Theorical identities 
