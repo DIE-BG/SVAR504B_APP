@@ -26,7 +26,7 @@ MJGM
 'Base Monetaria (100*log)'                                      ln_bm, %9
 'Indice de Precios al Consumidor (100*log)'                     ln_cpi, %10
 'Indice Tipo de Cambio Real (100*log)'                          ln_z, %11
-'Velocidad de circulacion, nivel',                              ln_v, %12
+'Velocidad de circulacion, nivel'                              ln_v, %12
 'Precios de transables en GTQ(100*log)'                         ln_ipei_q,
 
 % YoY Growth rates
