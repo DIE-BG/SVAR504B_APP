@@ -1,6 +1,7 @@
 # Ignored files
 plots
 
+plots\*\.png
 *.pdf
 *snapshot*
 *.asv
