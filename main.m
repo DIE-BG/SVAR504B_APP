@@ -1,8 +1,6 @@
 %{ 
-SimTools: branch->  modelo-con-variables-de-medida
 
-DIE - 2024
-MJGM
+SimTools: branch->  modelo-con-variables-de-medida
 %}
 
 MODEL.NAME = 'SVAR_50_4B';
@@ -17,12 +15,12 @@ structfun(@addpath, PATH)
 DATES.hist_start = qq(2005, 1);
 DATES.hist_end = qq(2023, 4);
 DATES.pred_start = DATES.hist_end + 1;
-DATES.pred_end = DATES.hist_end + 60;
+DATES.pred_end = DATES.hist_end + 30;
 DATES.hist_end_ant = qq(2023 ,3);
 DATES.hist_end_estimation = qq(2023,1);
 MODEL.DATES = DATES;
 
-tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+8];
+tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2025,4), qq(2026,4)];
 
 % fechas para gráficas en frecuencia mensual
 MODEL.DATES.hist_end_mm = mm(2023, 12);
@@ -52,13 +50,15 @@ MODEL.data_file_name = fullfile( ...
 MODEL.FULLDATANAME_ACT = fullfile( ...
     'data', ...
     'fulldata', ...
+    MODEL.CORR_DATE,...
     sprintf('fulldata_%s_%s.csv', MODEL.CORR_DATE,MODEL.CORR_VER) ...
 );
 
 MODEL.FULLDATANAME_ANT = fullfile( ...
     'data', ...
     'fulldata', ...
-    sprintf('fulldata_%s.csv', MODEL.CORR_DATE_ANT) ...
+    MODEL.CORR_DATE_ANT,...
+    sprintf('fulldata_%s_%s.csv', MODEL.CORR_DATE_ANT,MODEL.CORR_VER) ...
 );
 
 %% 
@@ -94,10 +94,6 @@ MODEL = SimTools.sim.kalman_smth(MODEL);
 MODEL = predictions(MODEL,...
                     'SaveFullData', true);
 
-%% Descomposición de choques
-% MODEL = SimTools.sim.shd_dsc(MODEL);
-% MODEL = SimTools.sim.diff_shd_dsc(MODEL);
-
 %% POST-PROCESSING
 pp_list = {'ln_y_star', 'ln_ipei', 'ln_z','ln_s','ln_cpi_sub','ln_ipei_q','ln_y','ln_bm','ln_v'};
 list_nivel = {'ln_s','ln_bm'};
@@ -105,20 +101,42 @@ list_nivel = {'ln_s','ln_bm'};
 MODEL = PostProcessing(MODEL,...
                        'list',pp_list,...
                        'list_niv', list_nivel);
-                   
+     
 %% plots
+% datos fuente y Preprocesamiento
+PreProcPlots;
+% Simulación
+SimulationPlots;
+% Post Procesamiento
+PostProcPlots;
+%% Otras Gráficas
 % tipo de cambio real
 tc_real(MODEL,...
         'corr_ant', MODEL.CORR_DATE_ANT,...
         'tab_range', tab_range,...
         'pred_ant', qq(2023, 3));
 
-    
-%% Pre y post processing
-% utilizados en el proximo corrimiento
+% Velocidad
+velocidad_subplot;
+
+%% Descomposición de choques
+MODEL = SimTools.sim.shd_dsc(MODEL);
+MODEL = SimTools.sim.diff_shd_dsc(MODEL);
+
+temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec');
+SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
+                             'Variables',MODEL.ExoVar);
+                         
+temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec_diff');
+SimTools.scripts.plot_shd_dsc_and_diff(MODEL,...
+                                      'SavePath', temp_path,...
+                                      'Variables',MODEL.ExoVar);
+                                  
+%% Almacenamiento de datos de Pre y post procesamiento
+
 pre_proc = MODEL.PreProc;
 post_proc = MODEL.PostProc;
-save(fullfile('data', 'fulldata', sprintf("PreProcessing-%s.mat", MODEL.CORR_DATE)), 'pre_proc');
-save(fullfile('data', 'fulldata', sprintf("PostProcessing-%s.mat", MODEL.CORR_DATE)), 'post_proc');
+save(fullfile('data', 'fulldata',MODEL.CORR_DATE, sprintf("PreProcessing-%s.mat", MODEL.CORR_DATE)), 'pre_proc');
+save(fullfile('data', 'fulldata',MODEL.CORR_DATE, sprintf("PostProcessing-%s.mat", MODEL.CORR_DATE)), 'post_proc');
 
 
