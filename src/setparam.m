@@ -5,28 +5,34 @@
 % ESTADOS ESTACIONARIOS (Promedios historicos)
 MODEL.SS = csvread('SteadyState.csv');
 
-%%
-% Carga de matriz de coeficientes
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% Carga de matriz de coeficientes %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-MODEL.GAMMA_0 = csvread(MODEL.GAMMA_0_NAME);
-
+% Coeficientes VAR en forma reducida
+% Matriz de rezagos VAR en forma Reducida
 MODEL.PHI     = csvread(MODEL.PHI_NAME);
 MODEL.PHI     = MODEL.PHI(:, 1:end-1);
-
+% Imposición de ss en constante de modelo en forma reducida
 MODEL.C = (eye(size(MODEL.PHI)) - MODEL.PHI) * MODEL.SS;
-
+% Matriz de covarianzas
 MODEL.COV_MAT = csvread(MODEL.COV_MAT_NAME);
 
+% Coeficientes VAR en forma estructural
+% Matriz de efectos contemporaneos (cholesky) de VAR Estructural
+MODEL.GAMMA_0 = csvread(MODEL.GAMMA_0_NAME);
+% Cálculo de matriz de rezagos de VAR Estructural
 MODEL.GAMMA_1 = MODEL.GAMMA_0 * MODEL.PHI;
-
+% Matriz de constantes de VAR Estructural
 MODEL.K = MODEL.GAMMA_0 * MODEL.C;
 
+%% Asignación de parámetros con nomenclatura del .mod
 
-% Asignacion de estados estacionarios.
+% Estados estacionarios.
 for i = 1:length(MODEL.SS)
     s.(strcat(char(MODEL.ExoVar(i)),'_ss')) = MODEL.SS(i);
 end
-% Asignacion de constantes.
+% Constantes.
 for i = 1:length(MODEL.K)
     s.(sprintf('k%i', i)) = MODEL.K(i);
 end
@@ -49,7 +55,7 @@ for i = 1:length(MODEL.K)
 end
 
 %% ----- Seccion para la asignacion de parametros adicionales. -----
-
+% Estados Estacionarios de identidades en .mod
 s.d4_ln_cpi_ss = s.d4_ln_cpi_nosub_ss + s.d4_ln_cpi_sub_ss;
 s.d4_ln_z_ss = s.d4_ln_s_ss + s.d4_ln_ipei_ss - s.d4_ln_cpi_sub_ss;
 s.d4_ln_v_ss = s.d4_ln_cpi_sub_ss + s.d4_ln_y_ss - s.d4_ln_bm_ss;
