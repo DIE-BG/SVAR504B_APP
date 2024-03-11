@@ -3,6 +3,10 @@
     circulación. Todas las variables son logaritmos naturales
     desestacionalizados.
 %}
+
+if ~isfolder('otras')
+    mkdir('otras')
+end
 %% fulldata corrimiento anterior
 corr_ant = databank.fromCSV(fullfile('data', 'fulldata', MODEL.CORR_DATE_ANT, sprintf("fulldata_%s_v0.csv", MODEL.CORR_DATE_ANT)));
 load(fullfile('data', 'fulldata', MODEL.CORR_DATE_ANT, sprintf("PreProcessing-%s.mat", MODEL.CORR_DATE_ANT)));
@@ -58,8 +62,7 @@ for i = 1:length(toplot)
      sgtitle('Componentes de la Velocidad de Circulación')
     
     if i == 4
-       SimTools.scripts.pausaGuarda(fullfile('plots',... 
-                                     'corrimiento', ...
+       SimTools.scripts.pausaGuarda(fullfile('plots',...
                                       MODEL.CORR_DATE, MODEL.CORR_VER,...
                                       'otras',...
                                       'Velocidad (componentes).png'), ...
@@ -68,3 +71,4 @@ for i = 1:length(toplot)
        
 end
 
+close all;
