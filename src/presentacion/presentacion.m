@@ -35,7 +35,13 @@ exportToPPTX('addtext',{...
 
 %% secciones
 VarExt;     
- 
+TCReal;
+TCNominal;
+Inflaciones;
+TasasInteres;
+
+
+
 %% Guardar y cerrar
 exportToPPTX( ...
     'save', ...
@@ -46,7 +52,7 @@ exportToPPTX('close');
 %%
 %{
 
-%% REFERENCIA PARA DIAPOSITIVA CON 2 GRÁFICAS
+%% REFERENCIA PARA DIAPOSITIVA CON 1 GRÁFICAS
 exportToPPTX('addslide');
 exportToPPTX('addpicture',...
             fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,... 
