@@ -175,7 +175,7 @@ list = {'s','bm'};
 
 % Carga de datos de postprocesamiento mes anterior
 temp = load('PostProcessing-2023-11.mat');
-PostProcAnt = temp.temp_s;
+PostProcAnt = temp.post_proc;
 %%
 for rng = 1:length(params.StartDate)
 
