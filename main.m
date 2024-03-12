@@ -61,7 +61,7 @@ MODEL.FULLDATANAME_ANT = fullfile( ...
     sprintf('fulldata_%s_%s.csv', MODEL.CORR_DATE_ANT,MODEL.CORR_VER) ...
 );
 
-%% 
+
 %% Nombre de matriz de coeficientes
 MODEL.COV_MAT_NAME = 'COV_MAT.CSV';
 MODEL.GAMMA_0_NAME = 'GAMMA_0.CSV';
