@@ -96,7 +96,7 @@ MODEL = predictions(MODEL,...
 
 %% POST-PROCESSING
 pp_list = {'ln_y_star', 'ln_ipei', 'ln_z','ln_s','ln_cpi_sub','ln_ipei_q','ln_y','ln_bm','ln_v'};
-list_nivel = {'ln_s','ln_bm'};
+list_nivel = {'ln_y','ln_s','ln_bm'};
 
 MODEL = PostProcessing(MODEL,...
                        'list',pp_list,...
@@ -130,13 +130,20 @@ MODEL = SimTools.sim.diff_shd_dsc(MODEL);
 
 temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec');
 SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
-                             'Variables',MODEL.ExoVar);
+                             'Variables',{'d4_ln_y'});%MODEL.ExoVar
+
+% temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec_short');
+% SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
+%                              'Variables',MODEL.ExoVar);                         
                          
 temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec_diff');
 SimTools.scripts.plot_shd_dsc_and_diff(MODEL,...
                                       'SavePath', temp_path,...
-                                      'Variables',MODEL.ExoVar);
+                                      'Variables',{'d4_ln_y'});
+
                                   
+%% 
+presentacion;
 %% Almacenamiento de datos de Pre y post procesamiento
 
 pre_proc = MODEL.PreProc;
