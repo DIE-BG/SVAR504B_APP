@@ -6,7 +6,7 @@
 % 
 % exportToPPTX('open',fullfile('presentacion','dieTemplate.pptx'));
 
-%% Presentación - Variables Externas
+%% Encabezado
 
 exportToPPTX('addslide','Layout','Encabezado de sección');
 exportToPPTX('addtext','Tipo de Cambio Real','Position','title','fontsize',48);
