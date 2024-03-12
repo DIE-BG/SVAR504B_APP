@@ -170,11 +170,12 @@ end
 
 %% GRAFICAS EN NIVELES: TCN y BM
 params.LegendsNames = {MODEL.leg_act, MODEL.leg_ant};
-tit ={{'Tipo de Cambio Nominal (GTQ/USD)'},{'Base Monetaria (Millones de Quetzales)'}};
-list = {'s','bm'};
+tit ={{'Producto Interno Bruto','Millones de Quetzales'},{'Tipo de Cambio Nominal (GTQ/USD)'},...
+      {'Base Monetaria (Millones de Quetzales)'}};
+list = {'y','s','bm'};
 
 % Carga de datos de postprocesamiento mes anterior
-temp = load('PostProcessing-2023-11.mat');
+temp = load(fullfile('data','fulldata',MODEL.CORR_DATE_ANT,'PostProcessing-2023-11.mat'));
 PostProcAnt = temp.post_proc;
 %%
 for rng = 1:length(params.StartDate)
@@ -289,4 +290,5 @@ close all
 end
 end
 
+%% 
 
