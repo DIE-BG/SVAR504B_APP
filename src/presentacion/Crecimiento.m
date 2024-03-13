@@ -11,11 +11,18 @@
 exportToPPTX('addslide','Layout','Encabezado de sección');
 exportToPPTX('addtext','Crecimiento Interno','Position','title','fontsize',48);
 
-%%
+%% Producto Interno
 exportToPPTX('addslide');
 exportToPPTX('addpicture',...
             fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,... 
-                     'PreProcessing','Producto de Estados Unidos.png'),... %%%%% ACTUALIZAR
+                     'PreProcessing','Producto Real de Guatemala.png'),... 
+            'Position',[3.25/2.54 0 27.38/2.54 17.55/2.54]); 
+
+% Producto Interno short
+exportToPPTX('addslide');
+exportToPPTX('addpicture',...
+            fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,... 
+                     'PreProcessing','Producto Real de Guatemala_short.png'),... 
             'Position',[3.25/2.54 0 27.38/2.54 17.55/2.54]); 
         
 % Simulacion

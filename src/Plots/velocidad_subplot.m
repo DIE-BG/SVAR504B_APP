@@ -88,7 +88,7 @@ for i = 1:length(toplot)
     
     subplot(2,2,i)
     
-     h = plot(...
+     h = plot(MODEL.PostProc_temp.l_sa.ln_v_sa.range,...
              [MODEL.PostProc_temp.l_sa.(toplot{i}),... %corr actual
              post_proc_tem.l_sa.(toplot{i}),... %corr anterior
              MODEL.PostProc_temp.l_sa.(toplot{i})],... % historia
