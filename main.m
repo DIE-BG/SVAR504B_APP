@@ -1,6 +1,7 @@
 %{ 
 
 SimTools: branch->  modelo-con-variables-de-medida
+
 %}
 
 MODEL.NAME = 'SVAR_50_4B';
@@ -123,22 +124,20 @@ velocidad_subplot;
 MODEL = SimTools.sim.shd_dsc(MODEL);
 MODEL = SimTools.sim.diff_shd_dsc(MODEL);
 
-temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec');
+% Rango Completo
+temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec\long');
 SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
-                             'Variables',{'d4_ln_y'});%MODEL.ExoVar
-
-% temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec_short');
-% SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
-%                              'Variables',MODEL.ExoVar);                         
-                         
-temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec_diff');
-SimTools.scripts.plot_shd_dsc_and_diff(MODEL,...
-                                      'SavePath', temp_path,...
-                                      'Variables',{'d4_ln_y'});
-
-                                  
-%% 
+                             'Rng', {},...
+                             'Variables',{'d4_ln_y'});
+% Rango corto
+temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec\short');
+SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
+                             'Rng', MODEL.DATES.hist_end-20:MODEL.DATES.hist_end+20,...
+                             'Variables',{'d4_ln_y'});                         
+                                                          
+%% Presentación
 presentacion;
+
 %% Almacenamiento de datos de Pre y post procesamiento
 
 pre_proc = MODEL.PreProc;
