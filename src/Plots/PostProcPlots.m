@@ -70,6 +70,9 @@ for var = 1:length(list)
         'LineWidth', 2 ...
         );
     
+    ax = gca;
+    ax.YAxis.Exponent = 0; 
+    
     hold on
         
     plot(...
@@ -78,6 +81,10 @@ for var = 1:length(list)
             'LineWidth', 1.65, ...
             'LineStyle', '--' ...
             );
+        
+    ax = gca;
+    ax.YAxis.Exponent = 0; 
+                  
         hold off
         %Returns handles to the patch and line objects
         chi = get(gca, 'Children');
@@ -206,7 +213,8 @@ for var = 1:length(list)
         'MarkerSize', 17, ...
         'LineWidth', 2 ...
         );
-    
+    ax = gca;
+    ax.YAxis.Exponent = 0; 
     hold on
         
     plot(...
@@ -215,6 +223,10 @@ for var = 1:length(list)
             'LineWidth', 1.65, ...
             'LineStyle', '--' ...
             );
+        
+    ax = gca;
+    ax.YAxis.Exponent = 0; 
+        
     hold off
         %Returns handles to the patch and line objects
         chi = get(gca, 'Children');
