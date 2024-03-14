@@ -15,48 +15,48 @@ MJGM
 
 !transition_variables
 % Log levels
-'PIB Externo (100*log)'                                         ln_y_star, %1
-'PIB Externo, Suma movil de 4 trimestres (100*log)'             ln_y_star_sm, %2
-'Precios de transables (100*log)'                               ln_ipei, %3
-'Indice de inflacion No subyacente'                             ln_cpi_nosub, %4
-'PIB Real (100*log)'                                            ln_y, %5
-'PIB Real, Suma movil de 4 trimestres (100*log)'                ln_y_sm, %6
-'Indice Subyacente Optima MSE (100*log)'                        ln_cpi_sub, %7
-'Tipo de Cambio Nominal (100*log)'                              ln_s, %8
-'Base Monetaria (100*log)'                                      ln_bm, %9
-'Indice de Precios al Consumidor (100*log)'                     ln_cpi, %10
-'Indice Tipo de Cambio Real (100*log)'                          ln_z, %11
-'Velocidad de circulacion, nivel'                               ln_v, %12
-'Precios de transables en GTQ(100*log)'                         ln_ipei_q,
+'Producto Interno Bruto Real EEUU (Logaritmo)'                                                      ln_y_star, %1
+'Producto Interno Bruto Real EEUU, Suma movil de 4 trimestres (Logaritmo)'                          ln_y_star_sm, %2
+'Índice de Precios de transables (Logaritmo)'                                                       ln_ipei, %3
+'Indice Inflación No subyacente (Logaritmo)'                                                        ln_cpi_nosub, %4
+'Producto Interno Bruto Real Guatemala (Logaritmo)'                                                 ln_y, %5
+'Producto Interno Bruto Real Guatemala, Suma movil de 4 trimestres (Logaritmo)'                     ln_y_sm, %6
+'Indice Inflación Subyacente Optima MSE (Logaritmo)'                                                ln_cpi_sub, %7
+'Tipo de Cambio Nominal (Logaritmo)'                                                                ln_s, %8
+'Base Monetaria (Logaritmo)'                                                                        ln_bm, %9
+'Indice de Precios al Consumidor (Logaritmo)'                                                       ln_cpi, %10
+'Indice Tipo de Cambio Real (Logaritmo)'                                                            ln_z, %11
+'Velocidad de circulacion de la Base Monetaria(Logaritmo)'                                          ln_v, %12
+' Índice de Precios de Transables GTQ (Logaritmo)'                                                  ln_ipei_q,
 
 % YoY Growth rates
-'Crecimiento Economico Externo (%)'                             d4_ln_y_star, %13
-'Crecimiento Economico Externo - Suma Movil 4T (%)'             d4_ln_y_star_sm, %14
-'Precios de transables YoY (%)'                                 d4_ln_ipei, %15
-'Tasa de fondos federales'                                      i_star, %16
-'Inflacion No Subyacente (YoY %)'                               d4_ln_cpi_nosub, %17
-'Crecimiento Economico Inrterno (%)'                            d4_ln_y, %18
-'Crecimiento Economico Inrterno - Suma Movil 4T (%)'            d4_ln_y_sm, %19
-'Inflación Subyacente Optima MSE (YoY %)'                       d4_ln_cpi_sub, %20
-'Depreciacion Cambiaria Nominal (YoY %)'                        d4_ln_s, %21
-'Tasa de variacion de la Base Monetaria (YoY %)'                d4_ln_bm, %22 
-'Tasa de Interes Lider de Politica Monetaria'                   i, %23
-'Inflacion Total Internual (YoY %)'                             d4_ln_cpi, %24
-'Tasa de variacion del Tipo de Cambio Real (YoY)'               d4_ln_z, %25
-'Velocidad de circulacion (YoY %)'                              d4_ln_v, %26
-'Tasa de interes real de PM'                                    r, %27
-'Precios de transables en GTQ YoY (%)'                          d4_ln_ipei_q,
+'Tasa de Variación Interanual del PIB de EEUU'                                                      d4_ln_y_star, %13
+'Tasa de Variación Interanual de la suma de 4 Trimestres del PIB de EEUU'                           d4_ln_y_star_sm, %14
+'Tasa de Variación Interanual del Índice de Precios de Transables'                                  d4_ln_ipei, %15
+'Tasa de Interes de fondos federales'                                                               i_star, %16
+'Inflacion No Subyacente Interanual'                                                                d4_ln_cpi_nosub, %17
+'Tasa de Variación Interanual del PIB de Guatemala'                                                 d4_ln_y, %18
+'Tasa de Variación Interanual de la suma de 4 Trimestres del PIB de Guatemala'                      d4_ln_y_sm, %19
+'Inflación Subyacente Optima MSE Interanual'                                                        d4_ln_cpi_sub, %20
+'Tasa de Variación Interanual del Tipo de Cambio Nominal'                                           d4_ln_s, %21
+'Tasa de Variación Interanual de la Base Monetaria'                                                 d4_ln_bm, %22 
+'Tasa de Interes Lider de Politica Monetaria'                                                       i, %23
+'Inflacion Total Internual'                                                                         d4_ln_cpi, %24
+'Tasa de Variación Interanual del Tipo de Cambio Real'                                              d4_ln_z, %25
+'Tasa de Variación Interanual de la Velocidad de circulacion de la Base Monetaria'                  d4_ln_v, %26
+'Tasa de interes real de Politica Monetaria'                                                        r, %27
+'Tasa de Variación Interanual del Índice de Precios de Transables en GTQ'                           d4_ln_ipei_q,
 
 % Annualized QoQ Growth rates
-'Precios de transables QoQ (%)'                                 dla_ipei, %28
-'Tasa de variacion del Tipo de Cambio Real (QoQ)'               dla_z, %29
-'Depreciacion Cambiaria Nominal (QoQ %)'                        dla_s, %30
-'Inflacion No Subyacente QoQ (%)'                               dla_cpi_nosub, %31
-'Inflacion Subyacente Optima MSE (QoQ %)'                       dla_cpi_sub, %32
-'Inflacion Total Internual (QoQ %)'                             dla_cpi, %33
-'Tasa de variacion de la Base Monetaria (QoQ %)'                dla_bm, %34
-'Velocidad de circulacion (YoY %)'                              dla_v, %35
-'Precios de transables en GTQ QoQ (%)'                          dla_ipei_q
+'Tasa de Variación Intertrimestral Anualizada del Índice de Precios de Transables'                  dla_ipei, %28
+'Tasa de Variación Intertrimestral Anualizada del Tipo de Cambio Real'                              dla_z, %29
+'Tasa de Variación Intertrimestral Anualizada del Tipo de Cambio Nominal'                           dla_s, %30
+'Inflacion No Subyacente Intertrimestral Anualizada'                                                dla_cpi_nosub, %31
+'Inflacion Subyacente Optima MSE Intertrimestral Anualizada'                                        dla_cpi_sub, %32
+'Inflacion Total Intertrimestral Anualizada'                                                        dla_cpi, %33
+'Tasa de Variación Intertrimestral Anualizada de la Base Monetaria'                                 dla_bm, %34
+'Tasa de Variación Intertrimestral Anualizada de la Velocidad de circulacion de la Base Monetaria'  dla_v, %35
+'Tasa de Variación Intertrimestral Anualizada del Índice de Precios de Transables en GTQ'           dla_ipei_q
 
 !transition_shocks
 'Shock de crecimiento externo'      s_d4_ln_y_star,
