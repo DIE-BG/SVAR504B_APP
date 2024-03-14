@@ -1,10 +1,10 @@
-isOpen  = exportToPPTX();
-if ~isempty(isOpen)
-    % If PowerPoint already started, then close first and then open a new one
-    exportToPPTX('close');
-end
-
-exportToPPTX('open',fullfile('presentacion','dieTemplate.pptx'));
+% isOpen  = exportToPPTX();
+% if ~isempty(isOpen)
+%     % If PowerPoint already started, then close first and then open a new one
+%     exportToPPTX('close');
+% end
+% 
+% exportToPPTX('open',fullfile('presentacion','dieTemplate.pptx'));
 
 %% Encabezado
 
@@ -124,7 +124,7 @@ exportToPPTX('addtext',sprintf('Corrimiento %s', MODEL.leg_act),...
 
 
 %%
-exportToPPTX( ...
-    'save', ...
-    'prueba');
-exportToPPTX('close');  
+% exportToPPTX( ...
+%     'save', ...
+%     'prueba');
+% exportToPPTX('close');  

@@ -1,10 +1,10 @@
-isOpen  = exportToPPTX();
-if ~isempty(isOpen)
-    % If PowerPoint already started, then close first and then open a new one
-    exportToPPTX('close');
-end
-
-exportToPPTX('open',fullfile('presentacion','dieTemplate.pptx'));
+% isOpen  = exportToPPTX();
+% if ~isempty(isOpen)
+%     % If PowerPoint already started, then close first and then open a new one
+%     exportToPPTX('close');
+% end
+% 
+% exportToPPTX('open',fullfile('presentacion','dieTemplate.pptx'));
 
 %% Encabezado
 
@@ -128,7 +128,7 @@ exportToPPTX('addpicture',...
                      'prediction_compared',sprintf('Comp_R_short_%s.png', MODEL.CORR_DATE)),...
              'Position',[16.93/2.54 0 16.93/2.54 17.57/2.54]);
 %%
-exportToPPTX( ...
-    'save', ...
-    'prueba');
-exportToPPTX('close');  
+% exportToPPTX( ...
+%     'save', ...
+%     'prueba');
+% exportToPPTX('close');  
