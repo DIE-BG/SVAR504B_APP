@@ -419,7 +419,7 @@ SimTools.scripts.pausaGuarda(...
     'AutoSave', params.AutoSave ...
 );
 end
-% if params.CloseAll
-% % close all
-% end
+if params.CloseAll
+% close all
+end
 end
