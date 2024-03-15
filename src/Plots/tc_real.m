@@ -14,7 +14,7 @@ parse(p, varargin{:});
 params = p.Results; 
 
 params.StartDate = {MODEL.DATES.hist_start, MODEL.DATES.hist_end - 20};
-params.EndDatePlot = {MODEL.DATES.hist_end};
+params.EndDatePlot = {MODEL.DATES.pred_end};
 
 %%
 

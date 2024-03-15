@@ -21,12 +21,14 @@ params.EndDatePlot = {MODEL.DATES.hist_end};
 
 params.StartDate_mm = {MODEL.DATES.hist_start_mm, MODEL.DATES.hist_end_mm-60};
 params.EndDatePlot_mm = {MODEL.DATES.hist_end_mm};
+params.tab_range = tab_range_source_data;
 
 % Datos corrimiento anterior
 load(fullfile('data', 'fulldata', MODEL.CORR_DATE_ANT, sprintf("PreProcessing-%s.mat", MODEL.CORR_DATE_ANT)))
 
 %% Producto y tasa de fondos federales
 toplot = {'y_star_qq', 'y_qq','i_star_mm'};    
+% Nombres de variables y definición de estado estacionario para i_star
 MODEL.PreProc.quarterly.y_star_qq.Comment = 'Producto de Estados Unidos';
 pre_proc.quarterly.y_star_qq.Comment = sprintf('Producto EEUU corr-%s', MODEL.CORR_DATE_ANT);
 MODEL.PreProc.quarterly.y_qq.Comment = 'Producto Real de Guatemala';
@@ -65,13 +67,13 @@ for rng = 1:length(params.StartDate)
                 if strcmp(toplot{i}, 'y_star_qq') || strcmp(toplot{i}, 'y_qq')
 
                 data_table = [];
-                    data_table(:, 1) = pre_proc.quarterly.(toplot{i})(tab_range-12);
-                    data_table(:, 2) = MODEL.PreProc.quarterly.(toplot{i})(tab_range-12);
+                    data_table(:, 1) = pre_proc.quarterly.(toplot{i})(params.tab_range);
+                    data_table(:, 2) = MODEL.PreProc.quarterly.(toplot{i})(params.tab_range);
                     text_Color = colors;
 
 
                 SimTools.scripts.plot_data_table( ...
-                    tab_range-12, ...
+                    params.tab_range, ...
                     data_table, ...
                     'Parent', table_p, ...
                     'SeriesNames', {pre_proc.quarterly.(toplot{i}).Comment{1}....
@@ -132,8 +134,9 @@ for rng = 1:length(params.StartDate)
                 else
 
                     data_table = [];
-                    data_table(:, 1) = MODEL.PreProc.monthly.(toplot{i})(tab_range_mm);
-                    data_table(:, 2) = pre_proc.monthly.(toplot{i})(tab_range_mm);
+                    data_table(:, 1) = pre_proc.monthly.(toplot{i})(tab_range_mm);
+                    data_table(:, 2) = MODEL.PreProc.monthly.(toplot{i})(tab_range_mm);
+                    
                     
                     text_Color = colors;
 
@@ -196,23 +199,23 @@ end
 %% Precio de importaciones y exportaciones
 % Tasas de variación intermensual anualizada e interanual
 % Tasas intermensual anualizada
-MODEL.PreProc.monthly.imp_dl_mm = MODEL.PreProc.monthly.imp_indx_mm.diff(-1)*4; %importaciones
-MODEL.PreProc.monthly.exp_dl_mm = MODEL.PreProc.monthly.exp_indx_mm.diff(-1)*4; %exportaciones
-
-% tasa interanual
-MODEL.PreProc.monthly.imp_indx_dl12_mm = MODEL.PreProc.monthly.imp_indx_mm.diff(-12); %importaciones
-MODEL.PreProc.monthly.exp_indx_dl12_mm = MODEL.PreProc.monthly.exp_indx_mm.diff(-12); %exportaciones
-
-% Nombres
-% importaciones
-MODEL.PreProc.monthly.imp_indx_mm.Comment = 'Índice de Precios de Importaciones EEUU';
-MODEL.PreProc.monthly.imp_indx_dl12_mm.Comment = 'Tasa de variación interanual Precio de Importaciones EEUU';
-MODEL.PreProc.monthly.imp_dl_mm.Comment = 'Tasa intermensual anualizada Precio de Importaciones EEUU';
-
-% exportaciones
-MODEL.PreProc.monthly.exp_indx_mm.Comment = 'Índice de Precios de exportaciones EEUU';
-MODEL.PreProc.monthly.exp_indx_dl12_mm.Comment = 'Tasa de variación interanual Precio de exportaciones EEUU';
-MODEL.PreProc.monthly.exp_dl_mm.Comment = 'Tasa intermensual anualizada Precio de exportaciones EEUU';
+% MODEL.PreProc.monthly.imp_dl_mm = MODEL.PreProc.monthly.imp_indx_mm.diff(-1)*12; %importaciones
+% MODEL.PreProc.monthly.exp_dl_mm = MODEL.PreProc.monthly.exp_indx_mm.diff(-1)*12; %exportaciones
+% 
+% % tasa interanual
+% MODEL.PreProc.monthly.imp_indx_dl12_mm = MODEL.PreProc.monthly.imp_indx_mm.diff(-12); %importaciones
+% MODEL.PreProc.monthly.exp_indx_dl12_mm = MODEL.PreProc.monthly.exp_indx_mm.diff(-12); %exportaciones
+% 
+% % Nombres
+% % importaciones
+% MODEL.PreProc.monthly.imp_indx_mm.Comment = 'Índice de Precios de Importaciones EEUU';
+% MODEL.PreProc.monthly.imp_indx_dl12_mm.Comment = 'Tasa de variación interanual Precio de Importaciones EEUU';
+% MODEL.PreProc.monthly.imp_dl_mm.Comment = 'Tasa intermensual anualizada Precio de Importaciones EEUU';
+% 
+% % exportaciones
+% MODEL.PreProc.monthly.exp_indx_mm.Comment = 'Índice de Precios de exportaciones EEUU';
+% MODEL.PreProc.monthly.exp_indx_dl12_mm.Comment = 'Tasa de variación interanual Precio de exportaciones EEUU';
+% MODEL.PreProc.monthly.exp_dl_mm.Comment = 'Tasa intermensual anualizada Precio de exportaciones EEUU';
 
 % variables a graficar
 toplot = {'imp_indx_mm', 'imp_dl_mm', 'imp_indx_dl12_mm', 'exp_indx_mm', 'exp_dl_mm', 'exp_indx_dl12_mm'};
@@ -221,7 +224,6 @@ for rng = params.StartDate_mm
     for i = 1:length(toplot)
         figure; 
          set( ...
-             
             gcf, ...
             'defaultaxesfontsize',12, ...
             'Position', [1 42.0182 1117.1 776.73]);
