@@ -106,7 +106,7 @@ list_nivel = {'ln_y','ln_s','ln_bm'};
 MODEL = PostProcessing(MODEL,...
                        'list',pp_list,...
                        'list_niv', list_nivel);
-return
+
 %% plots
 % datos fuente y Preprocesamiento
 PreProcPlots;
