@@ -21,9 +21,13 @@ DATES.hist_end_ant = qq(2023 ,3);
 DATES.hist_end_estimation = qq(2023,1);
 MODEL.DATES = DATES;
 
+% tab range for simulations
 tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2025,4), qq(2026,4)];
 
-% fechas para gráficas en frecuencia mensual
+% tab range for source data (quartely)
+tab_range_source_data = [MODEL.DATES.hist_end-8:MODEL.DATES.hist_end];
+
+% tab range for source data (monthly)
 MODEL.DATES.hist_end_mm = mm(2023, 12);
 MODEL.DATES.hist_start_mm = mm(2005,1);
 tab_range_mm = [MODEL.DATES.hist_end_mm-8:MODEL.DATES.hist_end_mm];

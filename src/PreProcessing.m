@@ -95,6 +95,27 @@ for i = 1:length(names)
     end
 end
 
+% Tasas de variación intermensual anualizada e interanual para precios
+% de importaciones y exportaciones
+% Tasas intermensual anualizada
+MODEL.PreProc.monthly.imp_dl_mm = MODEL.PreProc.monthly.imp_indx_mm.diff(-1)*12; %importaciones
+MODEL.PreProc.monthly.exp_dl_mm = MODEL.PreProc.monthly.exp_indx_mm.diff(-1)*12; %exportaciones
+
+% tasa interanual
+MODEL.PreProc.monthly.imp_indx_dl12_mm = MODEL.PreProc.monthly.imp_indx_mm.diff(-12); %importaciones
+MODEL.PreProc.monthly.exp_indx_dl12_mm = MODEL.PreProc.monthly.exp_indx_mm.diff(-12); %exportaciones
+
+% Nombres
+% importaciones
+MODEL.PreProc.monthly.imp_indx_mm.Comment = 'Índice de Precios de Importaciones EEUU';
+MODEL.PreProc.monthly.imp_indx_dl12_mm.Comment = 'Tasa de variación interanual Precio de Importaciones EEUU';
+MODEL.PreProc.monthly.imp_dl_mm.Comment = 'Tasa intermensual anualizada Precio de Importaciones EEUU';
+
+% exportaciones
+MODEL.PreProc.monthly.exp_indx_mm.Comment = 'Índice de Precios de exportaciones EEUU';
+MODEL.PreProc.monthly.exp_indx_dl12_mm.Comment = 'Tasa de variación interanual Precio de exportaciones EEUU';
+MODEL.PreProc.monthly.exp_dl_mm.Comment = 'Tasa intermensual anualizada Precio de exportaciones EEUU';
+
 % 2) varaibles con frecuencia trimestral (niveles y logaritmos)
 for i = 1:length(names)
     ind = regexp(names(i), '.*qq$', 'match');
