@@ -1,5 +1,5 @@
 %{
-Transformación de las variables desde su estado inicial (variables en 
+Transformación de las variables desde su estado inicial (variables en
 frecuencia mensual) hasta variaciones logaritmicas interanuales.
 
 Las principales fuentes son:
@@ -58,7 +58,7 @@ exc = {'i_star_mm', 'i_mm', 'a_mm', 'a_prom_mm', 'imp_indx_mm', 'exp_indx_mm'};
 
 for i = 1:length(names)
     if isempty(strmatch(names{i},exc,'exact'))
-    levels.(['ln_' names{i}]) = 100*log(levels.(names{i}));
+        levels.(['ln_' names{i}]) = 100*log(levels.(names{i}));
     end
 end
 
@@ -68,18 +68,18 @@ names = dbnames(levels);
 for i = 1:length(names)
     ind = regexp(names(i), 'ln_.*mm$', 'match');
     if ~isempty(ind{1})
-    levels.(names{i}(1:end-3)) = levels.(names{i}).convert('Q', 'method=', @mean);
+        levels.(names{i}(1:end-3)) = levels.(names{i}).convert('Q', 'method=', @mean);
     end
 end
-    
+
 % Variables mensuales no transformadas
 % tasa de interes domestica y extranjera
 names = dbnames(levels);
 list = {'i_mm', 'i_star_mm'};
 for i = 1:length(names)
-   if ~isempty(strmatch(names{i}, list, 'exact')) 
-   levels.(names{i}(1:end-3)) = levels.(names{i}).convert('Q', 'method=', @mean);     
-   end
+    if ~isempty(strmatch(names{i}, list, 'exact'))
+        levels.(names{i}(1:end-3)) = levels.(names{i}).convert('Q', 'method=', @mean);
+    end
 end
 levels.ln_y_star = levels.ln_y_star_qq;
 levels.ln_y = levels.ln_y_qq;
@@ -90,8 +90,8 @@ names = dbnames(levels);
 
 for i = 1:length(names)
     ind = regexp(names(i), '.*mm$', 'match');
-    if ~isempty(ind{1})  
-    MODEL.PreProc.monthly.(names{i}) = levels.(names{i});
+    if ~isempty(ind{1})
+        MODEL.PreProc.monthly.(names{i}) = levels.(names{i});
     end
 end
 
@@ -120,7 +120,7 @@ MODEL.PreProc.monthly.exp_dl_mm.Comment = 'Tasa intermensual anualizada Precio d
 for i = 1:length(names)
     ind = regexp(names(i), '.*qq$', 'match');
     if ~isempty(ind{1})
-    MODEL.PreProc.quarterly.(names{i}) = levels.(names{i});
+        MODEL.PreProc.quarterly.(names{i}) = levels.(names{i});
     end
 end
 
