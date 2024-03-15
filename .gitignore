@@ -3,6 +3,7 @@ plots
 
 plots\*\.png
 *.pdf
+*.pptx
 *snapshot*
 *.asv
 *.png

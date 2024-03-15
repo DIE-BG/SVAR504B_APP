@@ -106,7 +106,7 @@ list_nivel = {'ln_y','ln_s','ln_bm'};
 MODEL = PostProcessing(MODEL,...
                        'list',pp_list,...
                        'list_niv', list_nivel);
-     
+
 %% plots
 % datos fuente y Preprocesamiento
 PreProcPlots;
@@ -125,20 +125,20 @@ tc_real(MODEL,...
 velocidad_subplot;
 
 %% Descomposición de choques
-MODEL = SimTools.sim.shd_dsc(MODEL);
-MODEL = SimTools.sim.diff_shd_dsc(MODEL);
 
+MODEL = SimTools.sim.shd_dsc(MODEL);
+list = [MODEL.ExoVar(4:end), 'd4_ln_cpi', 'd4_ln_z', 'd4_ln_v', 'r'];
 % Rango Completo
 temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec\long');
 SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
                              'Rng', {},...
-                             'Variables',{'d4_ln_y'});
+                             'Variables',list);
 % Rango corto
 temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec\short');
 SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
                              'Rng', MODEL.DATES.hist_end-20:MODEL.DATES.hist_end+20,...
-                             'Variables',{'d4_ln_y'});                         
-                                                          
+                             'Variables',list);                         
+                                                    
 %% Presentación
 presentacion;
 
