@@ -73,7 +73,10 @@ MODEL = PostProcessing(MODEL,...
                        'list_niv', list_nivel);
 
 %% Gráficas 
-do_graphs = false;
+do_graphs = true;
+SimTools.scripts.plot_pred_corr_compared
+
+
 
 if do_graphs == true
     % datos fuente y Preprocesamiento
@@ -98,12 +101,12 @@ if do_graphs == true
 end
 
 %% Escenarios alternos
+esc_alt = false;
 
-Alterno;
-Contrafactual;
-
-
-return
+if esc_alt == true
+    Alterno;
+    Contrafactual;
+end
 %% Presentación
 presentacion;
 

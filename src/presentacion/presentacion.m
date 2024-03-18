@@ -42,6 +42,11 @@ TasasInteres;
 Crecimiento;
 BM_Vel;
 
+if esc_alt == true
+    EscAltPres;
+end   
+    
+    
 %%
 exportToPPTX('addslide','Layout','Encabezado de sección');
 exportToPPTX('addtext','Muchas Gracias','Position','title','fontsize',48);
