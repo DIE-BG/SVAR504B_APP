@@ -1,30 +1,64 @@
-%% ELEMENTOS GENERALES
 
+%{
+  SimulationPlots.m
+    Genera las gráficas de las variables provenientes del proceso de
+    simulación del modelo.
+    Contiene 4 Bloques principales
+        - Bloque 1: Gráficas de variables del modelo vs. corrimiento libre
+        anterior. 
+        - Bloque 2: Gráficas componentes de tasa real (r, i,
+        d4_ln_cpi_nosub). 
+            - Rangos: Completo y short. 
+            - Corrimientos: Actual y Anterior
+        - Bloque 3: Gráficas Inflaciones (d4_ln_cpi, d4_ln_cpi_sub,
+        d4_ln_cpi_nosub).
+            - Rangos: Completo y short. 
+            - Corrimientos: Actual y Anterior
+        - Bloque 4: Gráficas Componentes IPEI_Q (d4_ln_ipei, d4_ln_s, d4_ln_ipei_q).
+            - Rangos: Completo y short. 
+            - Corrimientos: Actual y Anterior
 
+DIE 2024
+MJMG, JGOR
+%}
+
+%% Configuración de elementos generales
 params = struct();
+% Folder de almacenamiento
 params.SavePath = fullfile( ...
     cd, ...
     'plots',...
     MODEL.CORR_DATE, ...
     MODEL.CORR_VER, ...
     'prediction_compared');
+% Inicio de rango plot (Para completa y short)
 params.StartDate = {MODEL.DATES.hist_start, MODEL.DATES.hist_end - 20};
+% Fin de rango plot (Para completa y short)
 params.EndDatePlot = {MODEL.DATES.pred_end, MODEL.DATES.hist_end + 20};
-
+% Nombre Fulldata anterior
 params.FullDataAnt_Name = MODEL.FULLDATANAME_ANT;
+% Variables a graficar en Bloque 1
 params.PlotList = get(MODEL.MF, 'xlist');
+% Leyendas (mes actual, mes anterior)
 params.LegendsNames = {MODEL.leg_ant, MODEL.leg_act};
+% ubicación de leyenda
 params.LegendLocation = 'SouthEast';
+% Línea de Estado estacionario
 params.PlotSSLine = true;
+% Anotaciones
 params.PlotAnnotations = true;
+% Ajustes anotaciones
 params.AnnotationXAdjustment = 0;
 params.AnnotationYAdjustment = 0;
-params.AnnoRange = qq(2021,4):4:qq(2024,4);
+% Rango de anotaciones
+params.AnnoRange = qq(2022,4):4:qq(2024,4);
+% Rango para tabla
 params.TabRange = tab_range;
+% Adicionales
 params.CloseAll = false;
 params.AutoSave = true;
 
-%%
+%% Limpieza y creación de folders
 SS = get(MODEL.M, 'sstate');
 % Verificación y creación del directorio para las gráficas
 if ~isfolder(params.SavePath)
@@ -34,23 +68,22 @@ else
     mkdir(params.SavePath)
 end
 
-% Carga de base de datos mes anterior
+%% Carga de base de datos mes anterior
 if ~isempty(params.FullDataAnt_Name)
     full_data_ant = databank.fromCSV(params.FullDataAnt_Name);
 end
 
+%% Bloque 1: Variables del modelo (xlist) versus corrimiento anterior
 list = params.PlotList;
-
-%%
-
+% Iteración para los rangos de ploteo
 for rng = 1 : length(params.StartDate)
-    % Recorte de base da datos
+    % Recorte de base da datos para cada plot
     if ~isempty(params.EndDatePlot{rng})
         full_data_ant_temp = dbclip(full_data_ant, params.StartDate{rng}:params.EndDatePlot{rng});
         F_pred_temp = dbclip(MODEL.F_pred, params.StartDate{rng}:params.EndDatePlot{rng});
     end
     
-    
+    % Iteración a traves de las variables
     for var = 1: length(list)
         
         %%
@@ -250,10 +283,11 @@ for rng = 1 : length(params.StartDate)
 end
 
 
-%% Gráfica r, i, d4_ln_cpi_sub
+%% Bloque 2: Componentes tasa de interés real (r, i, d4_ln_cpi_sub)
 
-
+% Iteración a traves de los corrimientos (actual y anterior)
 for corr = 1:length(params.LegendsNames)
+    % Iteración para los rangos de ploteo
     for rng = 1 : length(params.StartDate)
         
         if ~isempty(params.EndDatePlot{rng})
@@ -376,137 +410,11 @@ for corr = 1:length(params.LegendsNames)
     end
 end
 
-%% Gráfica Inflaciones CORRIMIENTO ACTUAL
 
-
+%% Bloque 3: Inflaciones (d4_ln_cpi, d4_ln_cpi_sub, d4_ln_cpi_nosub)
+% Iteración a traves de los corrimientos (actual y anterior)
 for corr = 1:length(params.LegendsNames)
-    for rng = 1 : length(params.StartDate)
-        
-        if ~isempty(params.EndDatePlot{rng})
-            full_data_ant_temp = dbclip(full_data_ant, params.StartDate{rng}:params.EndDatePlot{rng});
-            F_pred_temp = dbclip(MODEL.F_pred, params.StartDate{rng}:params.EndDatePlot{rng});
-        end
-        
-        if corr ==1
-            d4_ln_cpi_g = full_data_ant_temp.d4_ln_cpi;
-            d4_ln_cpi_sub_g = full_data_ant_temp.d4_ln_cpi_sub;
-            d4_ln_cpi_nosub_g = full_data_ant_temp.d4_ln_cpi_nosub;
-        else
-            d4_ln_cpi_g = F_pred_temp.d4_ln_cpi;
-            d4_ln_cpi_sub_g = F_pred_temp.d4_ln_cpi_sub;
-            d4_ln_cpi_nosub_g = F_pred_temp.d4_ln_cpi_nosub;
-        end
-        
-        
-        figure;
-        
-        set(gcf, ...
-            'defaultaxesfontsize',12, ...
-            'Position', [1 42.0182 1117.1 776.73] ...
-            );
-        main_p = uipanel('Units','normalized');
-        
-        % ----- Panel de gráfica -----
-        plot_p = uipanel( ...
-            main_p, ...
-            'Position', [0, 1 - 0.9, 1, 0.9], ...
-            'BackgroundColor', [1, 1, 1] ...
-            );
-        
-        ax = axes(plot_p, 'Units','normalized' ,'Position', [0.1 0.1 0.85 0.8]);
-        
-        plot(...
-            params.StartDate{rng}:params.EndDatePlot{rng}, ...
-            d4_ln_cpi_sub_g,'.-b', ...
-            'Color',"#77AC30",...
-            'MarkerSize', 17, ...
-            'LineWidth', 2 ...
-            );
-        hold on
-        plot(...
-            params.StartDate{rng}:params.EndDatePlot{rng}, ...
-            d4_ln_cpi_nosub_g,'.-', ...
-            'Color',"#D95319",...
-            'MarkerSize', 17, ...
-            'LineWidth', 2 ...
-            );
-        plot(...
-            params.StartDate{rng}:params.EndDatePlot{rng}, ...
-            d4_ln_cpi_g,'.-', ...
-            'Color',"#0072BD",...
-            'MarkerSize', 17, ...
-            'LineWidth', 2 ...
-            );
-        hold off
-        % highlight(params.StartDate{rng}:MODEL.DATES.hist_end);
-        zeroline;
-        if corr == 1
-            subt = ['Corrimiento ',MODEL.leg_ant];
-            fig_n = MODEL.CORR_DATE_ANT;
-            vline(MODEL.DATES.hist_end_ant,...
-                'LineWidth', 1,'LineStyle', '-.');
-        else
-            subt = ['Corrimiento ',MODEL.leg_act];
-            fig_n = MODEL.CORR_DATE;
-            vline(MODEL.DATES.hist_end,...
-                'LineWidth', 1, 'LineStyle', '-.');
-        end
-        
-        title( ...
-            {'Inflación Interanual', ...
-            subt,...
-            sprintf(...
-            '%s - %s', ...
-            dat2char(params.StartDate{rng}), ...
-            dat2char(params.EndDatePlot{rng})...
-            )} ,...
-            'Interpreter','none'...
-            );
-        
-        % ----- Panel de Tabla -----
-        table_p = uipanel( ...
-            main_p, ...
-            'Position', [0, 1 - 0.9 - 0.10, 1, 0.10], ...
-            'BackgroundColor', [1, 1, 1] ...
-            );
-        data_table = [];
-        data_table(:, 1) = d4_ln_cpi_sub_g(params.TabRange);
-        data_table(:, 2) = d4_ln_cpi_nosub_g(params.TabRange);
-        data_table(:, 3) = d4_ln_cpi_g(params.TabRange);
-        text_Color = [0.4660 0.6740 0.1880 ; 0.8500 0.3250 0.0980;0 0.4470 0.7410];
-        
-        SimTools.scripts.plot_data_table( ...
-            params.TabRange, ...
-            data_table, ...
-            'Parent', table_p, ...
-            'SeriesNames', {'Inflación Subyacente  Óptima MSE','Inflación No Subyacente','Inflación Total'}, ...
-            'TextColor', text_Color, ...
-            'FontSize', 9 ...
-            );
-        
-        axis on
-        
-        
-        if rng == 2
-            save_name = sprintf("Inflaciones_short_%s.png", fig_n);
-        else
-            save_name = sprintf("Inflaciones_%s.png", fig_n);
-        end
-        
-        SimTools.scripts.pausaGuarda(...
-            fullfile(params.SavePath, ...
-            save_name), ...
-            'AutoSave', params.AutoSave ...
-            );
-        
-    end
-end
-
-
-%% Gráfica Inflaciones CORRIMIENTO ACTUAL
-
-
-for corr = 1:length(params.LegendsNames)
+    % Iteración para los rangos de ploteo
     for rng = 1 : length(params.StartDate)
         
         if ~isempty(params.EndDatePlot{rng})
@@ -629,10 +537,10 @@ for corr = 1:length(params.LegendsNames)
     end
 end
 
-%% Componentes IPEI_Q
-
-
+%% Bloque 4: Componentes IPEI_Q (d4_ln_ipei, d4_ln_s, d4_ln_ipei_q)
+% Iteración a traves de los corrimientos (actual y anterior)
 for corr = 1:length(params.LegendsNames)
+    % Iteración para los rangos de ploteo
     for rng = 1 : length(params.StartDate)
         
         if ~isempty(params.EndDatePlot{rng})
@@ -754,3 +662,5 @@ for corr = 1:length(params.LegendsNames)
         
     end
 end
+
+%%
