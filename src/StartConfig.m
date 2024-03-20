@@ -22,9 +22,16 @@ MODEL.FULLDATANAME_ANT = fullfile( ...
     'data', 'fulldata', MODEL.CORR_DATE_ANT,...
     sprintf("MODEL-%s.mat", MODEL.CORR_DATE_ANT));
 
+
+%% Carga de info mes previo
+MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
+MODEL_ANT = MODEL_ANT.MODEL;
+
+
 %% Configuración de estructura DATES
 MODEL.DATES.hist_start = qq(2005, 1);
 MODEL.DATES.hist_end = qq(2023, 4);
+
 MODEL.DATES.pred_start = MODEL.DATES.hist_end + 1;
 MODEL.DATES.pred_end = MODEL.DATES.hist_end + 30;
 MODEL.DATES.hist_end_ant = qq(2023 ,3);
@@ -42,7 +49,9 @@ MODEL.DATES.hist_start_mm = mm(2005,1);
 tab_range_mm = MODEL.DATES.hist_end_mm-8:MODEL.DATES.hist_end_mm;
 
 
-%% Variables con shock estructural (Estructura Endogena del SVAR)
+%% Listas adicionales
+
+% Variables con shock estructural (Estructura Endogena del SVAR)
 MODEL.ExoVar = { ...
                 'd4_ln_y_star', ...1
                 'd4_ln_ipei', ...2
@@ -54,6 +63,21 @@ MODEL.ExoVar = { ...
                 'd4_ln_bm', ...8 
                 'i'}; %9
             
+<<<<<<< HEAD
 %% FullDataAnt
 % Corrimiento anterior
 MODEL_ANT = load(MODEL.FULLDATANAME_ANT);
+=======
+% Lista de variables para post-procesamiento
+pp_list = {'ln_y_star', 'ln_ipei', 'ln_z','ln_s','ln_cpi_sub','ln_ipei_q','ln_y','ln_bm','ln_v'};
+list_nivel = {'ln_y','ln_s','ln_bm'};
+
+% Variables y titulos para gráficas de reconstrucción de nivel
+% (PostPrLevels)
+list_lev = {'y','s','bm'};
+tit_lev ={{'Producto Interno Bruto','Millones de Quetzales'},{'Tipo de Cambio Nominal (GTQ/USD)'},...
+        {'Base Monetaria (Millones de Quetzales)'}};
+
+% Lista de gráficas de brechas
+list_gaps = {'ln_y_star','ln_ipei','ln_z', 'ln_y', 'ln_bm', 'ln_v', 'ln_ipei_q'};
+>>>>>>> MJGM-SCENARIOS
