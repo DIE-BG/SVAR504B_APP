@@ -74,13 +74,16 @@ MODEL = PostProcessing(MODEL,...
 
 %% Gráficas 
 do_graphs = true;
-SimTools.scripts.plot_pred_corr_compared
+%SimTools.scripts.plot_pred_corr_compared
 
 
 
 if do_graphs == true
     % datos fuente y Preprocesamiento
-    PreProcPlots;
+    PreProcPlots(MODEL, 'FullDataAnt', MODEL_ANT.MODEL.PreProc,...
+                    'Esc', 'v1',...
+                    'tab_range', tab_range_source_data,...
+                    'tab_range_mm', tab_range_mm);
     % Simulación
     SimulationPlots;
     % Post Procesamiento
@@ -88,20 +91,23 @@ if do_graphs == true
     
     % Otras Gráficas
     % Componentes Tipo de cambio real
-    tc_real(MODEL,...
-        'corr_ant', MODEL.CORR_DATE_ANT,...
-        'tab_range', tab_range,...
-        'pred_ant', qq(2023, 3));
+    tc_real(MODEL,'FullDataAnt', MODEL_ANT.MODEL,...
+              'Esc', 'v1',...
+              'tab_range', tab_range,...
+              'LegendsName', {'Libre', 'Alterno'});
     
     % Componentes Velocidad de Circulación de la Base Monetaria
-    velocidad_subplot;
+    velocidad_subplot(MODEL, 'FullDataAnt', MODEL_ANT.MODEL.PostProc,...
+                        'Esc', 'v1',...
+                        'tab_range', tab_range,...
+                        'LegendsName', {'Libre', 'Alterno'});
     
     % Descomposición de choques para variables seleccionadas
     Desc_shocks
 end
 
 %% Escenarios alternos
-esc_alt = false;
+esc_alt = true;
 
 if esc_alt == true
     Alterno;
@@ -111,11 +117,9 @@ end
 presentacion;
 
 %% Almacenamiento de datos de Pre y post procesamiento
-
 pre_proc = MODEL.PreProc;
 post_proc = MODEL.PostProc;
 save(fullfile('data', 'fulldata',MODEL.CORR_DATE, sprintf("PreProcessing-%s.mat", MODEL.CORR_DATE)), 'pre_proc');
 save(fullfile('data', 'fulldata',MODEL.CORR_DATE, sprintf("PostProcessing-%s.mat", MODEL.CORR_DATE)), 'post_proc');
 
 save(fullfile('data','fulldata',MODEL.CORR_DATE, sprintf("MODEL-%s.mat", MODEL.CORR_DATE)), 'MODEL');
-

@@ -20,7 +20,7 @@ MODEL.FULLDATANAME_ACT = fullfile( ...
 
 MODEL.FULLDATANAME_ANT = fullfile( ...
     'data', 'fulldata', MODEL.CORR_DATE_ANT,...
-    sprintf('fulldata_%s_%s.csv', MODEL.CORR_DATE_ANT,MODEL.CORR_VER));
+    sprintf("MODEL-%s.mat", MODEL.CORR_DATE_ANT));
 
 %% Configuración de estructura DATES
 MODEL.DATES.hist_start = qq(2005, 1);
@@ -53,3 +53,7 @@ MODEL.ExoVar = { ...
                 'd4_ln_s',...7
                 'd4_ln_bm', ...8 
                 'i'}; %9
+            
+%% FullDataAnt
+% Corrimiento anterior
+MODEL_ANT = load(MODEL.FULLDATANAME_ANT);

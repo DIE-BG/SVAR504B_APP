@@ -70,7 +70,7 @@ end
 
 %% Carga de base de datos mes anterior
 if ~isempty(params.FullDataAnt_Name)
-    full_data_ant = databank.fromCSV(params.FullDataAnt_Name);
+    full_data_ant = 	MODEL_ANT.MODEL.F_pred;
 end
 
 %% Bloque 1: Variables del modelo (xlist) versus corrimiento anterior
