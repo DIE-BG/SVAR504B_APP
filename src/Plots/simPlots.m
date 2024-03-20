@@ -4,8 +4,7 @@ p = inputParser;
     addParameter(p, 'StartDate', MODEL.DATES.hist_start);
     addParameter(p, 'EndDatePlot', MODEL.DATES.pred_end);
     addParameter(p, 'SavePath', fullfile(userpath, 'temp'));
-    addParameter(p, 'Esc_alt', {});
-    addParameter(p, 'FullDataAnt_Name', {});
+    addParameter(p, 'Esc_add', {});
     addParameter(p, 'PlotList', get(MODEL.MF, 'xlist'));
     addParameter(p, 'LegendsNames', {});
     addParameter(p, 'LegendLocation', 'best');
@@ -30,13 +29,10 @@ else
     mkdir(params.SavePath)
 end    
     
-%% Carga de base de datos mes anterior
-if ~isempty(params.FullDataAnt_Name)
-    full_data_ant = databank.fromCSV(params.FullDataAnt_Name);
-end   
+%% Carga de base de datos adicional
 
-if ~isempty(params.Esc_alt)
-   full_data_ant = params.Esc_alt; 
+if ~isempty(params.Esc_add)
+    full_data_add = params.Esc_add{2}; 
 end
 
 %% Bloque 1: Variables del modelo (xlist) (libre vs otro)
@@ -45,12 +41,12 @@ list = params.PlotList;
 for rng = 1 : length(params.StartDate)
     % Recorte de base da datos para cada plot
     if ~isempty(params.EndDatePlot{rng})
-        full_data_ant_temp = dbclip(full_data_ant, params.StartDate{rng}:params.EndDatePlot{rng});
+        full_data_add_temp = dbclip(full_data_add, params.StartDate{rng}:params.EndDatePlot{rng});
         F_pred_temp = dbclip(MODEL.F_pred, params.StartDate{rng}:params.EndDatePlot{rng});
     end
     
     % Iteración a traves de las variables
-    for var = 1: length(list)
+    for var = 1 : length(list)
         
         %%
         figure;
@@ -77,12 +73,12 @@ for rng = 1 : length(params.StartDate)
             'LineWidth', 2 ...
             );
         
-        if ~isempty(params.FullDataAnt_Name) || ~isempty(params.Esc_alt) 
+        if ~isempty(params.Esc_add) 
             hold on
             
             plot(...
                 params.StartDate{rng}:params.EndDatePlot{rng}, ...
-                full_data_ant_temp.(list{var}),'.-r', ...'MarkerSize', 15, ...
+                full_data_add_temp.(list{var}),'.-r', ...'MarkerSize', 15, ...
                 'LineWidth', 1.65, ...
                 'LineStyle', '--' ...
                 );
@@ -161,11 +157,11 @@ for rng = 1 : length(params.StartDate)
                 );
             
             % Anotaciones para corrimiento anterior si es que se grafica
-            if ~isempty(params.FullDataAnt_Name) || ~isempty(params.Esc_alt)
+            if ~isempty(params.Esc_add)
                 SimTools.scripts.die_anotaciones( ...
                     dat2dec(params.AnnoRange)', ...
-                    full_data_ant_temp.((list{var}))(params.AnnoRange), ...
-                    string(num2str(full_data_ant_temp.((list{var}))(params.AnnoRange), '%0.2f')), ...
+                    full_data_add_temp.((list{var}))(params.AnnoRange), ...
+                    string(num2str(full_data_add_temp.((list{var}))(params.AnnoRange), '%0.2f')), ...
                     'Container', plot_p, ...
                     'Color', 'r', ...
                     'IsAnt', true, ...
@@ -183,12 +179,12 @@ for rng = 1 : length(params.StartDate)
             );
         
         data_table = [];
-        if ~isempty(params.FullDataAnt_Name) || ~isempty(params.Esc_alt)
-            data_table(:, 1) = full_data_ant_temp.(list{var})(params.TabRange);
+        if ~isempty(params.Esc_add)
+            data_table(:, 1) = full_data_add_temp.(list{var})(params.TabRange);
             data_table(:, 2) = F_pred_temp.(list{var})(params.TabRange);
             text_Color = [1,0,0 ; 0,0,1];
         else
-            data_table(:, 1) = full_data_ant_temp.(list{var})(params.TabRange);
+            data_table(:, 1) = full_data_add_temp.(list{var})(params.TabRange);
             text_Color = [1, 1, 1];
         end
         
@@ -257,14 +253,14 @@ for corr = 1:length(params.LegendsNames)
     for rng = 1 : length(params.StartDate)
         
         if ~isempty(params.EndDatePlot{rng})
-            full_data_ant_temp = dbclip(full_data_ant, params.StartDate{rng}:params.EndDatePlot{rng});
+            full_data_add_temp = dbclip(full_data_add, params.StartDate{rng}:params.EndDatePlot{rng});
             F_pred_temp = dbclip(MODEL.F_pred, params.StartDate{rng}:params.EndDatePlot{rng});
         end
         
         if corr ==1
-            i_g = full_data_ant_temp.i;
-            d4_ln_cpi_sub_g = full_data_ant_temp.d4_ln_cpi_sub;
-            r_g = full_data_ant_temp.r;
+            i_g = full_data_add_temp.i;
+            d4_ln_cpi_sub_g = full_data_add_temp.d4_ln_cpi_sub;
+            r_g = full_data_add_temp.r;
         else
             i_g = F_pred_temp.i;
             d4_ln_cpi_sub_g = F_pred_temp.d4_ln_cpi_sub;
@@ -316,11 +312,11 @@ for corr = 1:length(params.LegendsNames)
         zeroline;
         if corr == 1
             subt = ['Corrimiento ',params.LegendsNames{1}];
-            if ~isempty(params.FullDataAnt_Name)
+            if strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
                 fig_n = MODEL.CORR_DATE_ANT;
                 vline(MODEL.DATES.hist_end_ant,...
                     'LineWidth', 1,'LineStyle', '-.');
-            elseif ~isempty(params.Esc_alt)
+            elseif ~strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
                 fig_n = 'Alterno';
                 vline(MODEL.DATES.hist_end,...
                 'LineWidth', 1,'LineStyle', '-.');
@@ -390,14 +386,14 @@ for corr = 1:length(params.LegendsNames)
     for rng = 1 : length(params.StartDate)
         
         if ~isempty(params.EndDatePlot{rng})
-            full_data_ant_temp = dbclip(full_data_ant, params.StartDate{rng}:params.EndDatePlot{rng});
+            full_data_add_temp = dbclip(full_data_add, params.StartDate{rng}:params.EndDatePlot{rng});
             F_pred_temp = dbclip(MODEL.F_pred, params.StartDate{rng}:params.EndDatePlot{rng});
         end
         
         if corr ==1
-            d4_ln_cpi_g = full_data_ant_temp.d4_ln_cpi;
-            d4_ln_cpi_sub_g = full_data_ant_temp.d4_ln_cpi_sub;
-            d4_ln_cpi_nosub_g = full_data_ant_temp.d4_ln_cpi_nosub;
+            d4_ln_cpi_g = full_data_add_temp.d4_ln_cpi;
+            d4_ln_cpi_sub_g = full_data_add_temp.d4_ln_cpi_sub;
+            d4_ln_cpi_nosub_g = full_data_add_temp.d4_ln_cpi_nosub;
         else
             d4_ln_cpi_g = F_pred_temp.d4_ln_cpi;
             d4_ln_cpi_sub_g = F_pred_temp.d4_ln_cpi_sub;
@@ -449,11 +445,11 @@ for corr = 1:length(params.LegendsNames)
         zeroline;
         if corr == 1
             subt = ['Corrimiento ',params.LegendsNames{1}];
-            if ~isempty(params.FullDataAnt_Name)
+            if strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
                 fig_n = MODEL.CORR_DATE_ANT;
                 vline(MODEL.DATES.hist_end_ant,...
                     'LineWidth', 1,'LineStyle', '-.');
-            elseif ~isempty(params.Esc_alt)
+            elseif ~strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
                 fig_n = 'Alterno';
                 vline(MODEL.DATES.hist_end,...
                 'LineWidth', 1,'LineStyle', '-.');
@@ -522,14 +518,14 @@ for corr = 1:length(params.LegendsNames)
     for rng = 1 : length(params.StartDate)
         
         if ~isempty(params.EndDatePlot{rng})
-            full_data_ant_temp = dbclip(full_data_ant, params.StartDate{rng}:params.EndDatePlot{rng});
+            full_data_add_temp = dbclip(full_data_add, params.StartDate{rng}:params.EndDatePlot{rng});
             F_pred_temp = dbclip(MODEL.F_pred, params.StartDate{rng}:params.EndDatePlot{rng});
         end
         
         if corr ==1
-            d4_ln_ipei_q_g = full_data_ant_temp.d4_ln_ipei_q;
-            d4_ln_ipei_g = full_data_ant_temp.d4_ln_ipei;
-            d4_ln_s_g = full_data_ant_temp.d4_ln_s;
+            d4_ln_ipei_q_g = full_data_add_temp.d4_ln_ipei_q;
+            d4_ln_ipei_g = full_data_add_temp.d4_ln_ipei;
+            d4_ln_s_g = full_data_add_temp.d4_ln_s;
         else
             d4_ln_ipei_q_g = F_pred_temp.d4_ln_ipei_q;
             d4_ln_ipei_g = F_pred_temp.d4_ln_ipei;
@@ -581,11 +577,11 @@ for corr = 1:length(params.LegendsNames)
         zeroline;
         if corr == 1
             subt = ['Corrimiento ',params.LegendsNames{1}];
-            if ~isempty(params.FullDataAnt_Name)
+            if strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
                 fig_n = MODEL.CORR_DATE_ANT;
                 vline(MODEL.DATES.hist_end_ant,...
                     'LineWidth', 1,'LineStyle', '-.');
-            elseif ~isempty(params.Esc_alt)
+            elseif ~strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
                 fig_n = 'Alterno';
                 vline(MODEL.DATES.hist_end,...
                 'LineWidth', 1,'LineStyle', '-.');
