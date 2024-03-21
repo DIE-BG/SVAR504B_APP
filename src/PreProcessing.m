@@ -124,7 +124,7 @@ for i = 1:length(names)
     end
 end
 
-MODEL.PreProc.monthly = databank.clip(MODEL.PreProc.monthly, MODEL.PreProc.monthly.a_mm.Start, MODEL.PreProc.monthly.a_mm.End);
+MODEL.PreProc.monthly = databank.clip(MODEL.PreProc.monthly, MODEL.DATES.hist_start_mm, MODEL.DATES.hist_end_mm);
 MODEL.PreProc.quarterly = databank.clip(MODEL.PreProc.quarterly, MODEL.DATES.hist_start, MODEL.DATES.hist_end);
 
 % variables observables

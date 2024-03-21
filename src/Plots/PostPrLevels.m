@@ -5,7 +5,7 @@ function PostPrLevels(MODEL, varargin)
 p = inputParser;
     addParameter(p, 'StartDate', MODEL.DATES.hist_start);
     addParameter(p, 'EndDatePlot', MODEL.DATES.pred_end);
-    addParameter(p, 'SavePath', fullfile(userpath, 'temp'));
+    addParameter(p, 'SavePath', {});
     addParameter(p, 'Esc_add', {});
     addParameter(p, 'PlotList', {'y'});
     addParameter(p, 'Titles', {});
@@ -21,6 +21,11 @@ p = inputParser;
     addParameter(p, 'AutoSave', true);
 parse(p, varargin{:});
 params = p.Results;
+
+%% SavePath
+if isempty(params.SavePath)
+    params.SavePath = fullfile('plots', MODEL.CORR_DATE, params.Esc_add{1}, 'PostProcessing');
+end
 
 %% Carga de base de datos adicional
 

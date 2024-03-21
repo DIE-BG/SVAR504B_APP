@@ -3,7 +3,7 @@ function simPlots(MODEL, varargin)
 p = inputParser;
     addParameter(p, 'StartDate', MODEL.DATES.hist_start);
     addParameter(p, 'EndDatePlot', MODEL.DATES.pred_end);
-    addParameter(p, 'SavePath', fullfile(userpath, 'temp'));
+    addParameter(p, 'SavePath', {});
     addParameter(p, 'Esc_add', {});
     addParameter(p, 'PlotList', get(MODEL.MF, 'xlist'));
     addParameter(p, 'LegendsNames', {});
@@ -21,6 +21,14 @@ params = p.Results;
     
 %% Limpieza y creación de folders
 SS = get(MODEL.M, 'sstate');
+
+%SavePath
+if  strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
+    params.SavePath = fullfile('plots', MODEL.CORR_DATE, 'v0', 'prediction_compared');
+else
+    params.SavePath = fullfile('plots', MODEL.CORR_DATE, params.Esc_add{1}, 'prediction_compared');
+end
+
 % Verificación y creación del directorio para las gráficas
 if ~isfolder(params.SavePath)
     mkdir(params.SavePath)

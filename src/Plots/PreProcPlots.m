@@ -15,9 +15,7 @@ p = inputParser;
 addParameter(p, 'StartDate', {MODEL.DATES.hist_start, MODEL.DATES.hist_end - 20});
 addParameter(p, 'EndDatePlot', {MODEL.DATES.hist_end});
 addParameter(p, 'SavePath', {});
-addParameter(p, 'Esc_alt', {}); % Para escenario alterno
-addParameter(p, 'Esc', {}); % libre v0, alterno v1, contrafactual v2
-addParameter(p, 'FullDataAnt', {}); % Para corrimiento anterior
+addParameter(p, 'Esc_add', {}); % libre v0, alterno v1, contrafactual v2
 addParameter(p, 'tab_range', {});
 addParameter(p, 'tab_range_mm', {});
 addParameter(p, 'TabRange', qq(2021,4):4:qq(2024,4));
@@ -28,7 +26,7 @@ params = p.Results;
 %% Limpieza y creación de folders
 % Verificación y creación del directorio para las gráficas
 if isempty(params.SavePath)
-    params.SavePath = fullfile('plots', MODEL.CORR_DATE, params.Esc, 'PreProcessing');
+    params.SavePath = fullfile('plots', MODEL.CORR_DATE, params.Esc_add{1}, 'PreProcessing');
 end
 
 if ~isfolder(params.SavePath)
@@ -39,15 +37,7 @@ else
 end   
 
 %% Carga de base de datos mes anterior
-if ~isempty(params.FullDataAnt)
-    full_data_ant = params.FullDataAnt;
-end   
-
-if ~isempty(params.Esc_alt)
-   full_data_ant = params.Esc_alt; 
-end
-
-
+full_data_add = params.Esc_add{2};
 
 %% configuracion general
 % Historia
@@ -98,7 +88,7 @@ for rng = 1:length(params.StartDate)
         if strcmp(toplot{i}, 'y_star_qq') || strcmp(toplot{i}, 'y_qq')
             
             data_table = [];
-            data_table(:, 1) = full_data_ant.quarterly.(toplot{i})(params.tab_range);
+            data_table(:, 1) = full_data_add.PreProc.quarterly.(toplot{i})(params.tab_range);
             data_table(:, 2) = MODEL.PreProc.quarterly.(toplot{i})(params.tab_range);
             text_Color = colors;
             
@@ -118,7 +108,7 @@ for rng = 1:length(params.StartDate)
             
             plt = plot(params.StartDate{rng}:params.EndDatePlot{1},...
                 [MODEL.PreProc.quarterly.(toplot{i}),...
-                full_data_ant.quarterly.(toplot{i})],...
+                full_data_add.PreProc.quarterly.(toplot{i})],...
                 'Marker', '.', ...
                 'MarkerSize', 17, ...
                 'LineWidth', 1.25);
@@ -162,7 +152,7 @@ for rng = 1:length(params.StartDate)
         else
             
             data_table = [];
-            data_table(:, 1) = full_data_ant.monthly.(toplot{i})(params.tab_range_mm);
+            data_table(:, 1) = full_data_add.PreProc.monthly.(toplot{i})(params.tab_range_mm);
             data_table(:, 2) = MODEL.PreProc.monthly.(toplot{i})(params.tab_range_mm);
             
             
@@ -184,7 +174,7 @@ for rng = 1:length(params.StartDate)
             
             plt = plot(params.StartDate_mm{rng}:params.EndDatePlot_mm{1},...
                 [MODEL.PreProc.monthly.(toplot{i}),...
-                full_data_ant.monthly.(toplot{i})],...
+                full_data_add.PreProc.monthly.(toplot{i})],...
                 'Marker', '.', ...
                 'MarkerSize', 17, ...
                 'LineWidth', 1.25, ...
@@ -253,7 +243,7 @@ for rng = params.StartDate_mm
             'BackgroundColor', [1, 1, 1]);
         
         data_table = [];
-        data_table(:, 1) = full_data_ant.monthly.(toplot{i})(params.tab_range_mm);
+        data_table(:, 1) = full_data_add.PreProc.monthly.(toplot{i})(params.tab_range_mm);
         data_table(:, 2) = MODEL.PreProc.monthly.(toplot{i})(params.tab_range_mm);
         
         text_Color = colors;
@@ -272,7 +262,7 @@ for rng = params.StartDate_mm
         
         plt = plot(rng{1}:params.EndDatePlot_mm{1},...
             [MODEL.PreProc.monthly.(toplot{i}),...
-            full_data_ant.monthly.(toplot{i})], ...
+            full_data_add.PreProc.monthly.(toplot{i})], ...
             'Marker', '.', ...
             'MarkerSize', 17, ...
             'LineWidth', 1.25);

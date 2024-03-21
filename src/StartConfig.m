@@ -22,7 +22,12 @@ MODEL.FULLDATANAME_ANT = fullfile( ...
     'data', 'fulldata', MODEL.CORR_DATE_ANT,...
     sprintf("MODEL-%s.mat", MODEL.CORR_DATE_ANT));
 
-
+%% Nombres de escenarios
+MODEL.esc_names = {'Libre',...
+                   'Alterno',...
+                   'Contrafactual',...
+                   'Combinado'};
+               
 %% Carga de info mes previo
 MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
 MODEL_ANT = MODEL_ANT.MODEL;
@@ -62,12 +67,7 @@ MODEL.ExoVar = { ...
                 'd4_ln_s',...7
                 'd4_ln_bm', ...8 
                 'i'}; %9
-            
-<<<<<<< HEAD
-%% FullDataAnt
-% Corrimiento anterior
-MODEL_ANT = load(MODEL.FULLDATANAME_ANT);
-=======
+
 % Lista de variables para post-procesamiento
 pp_list = {'ln_y_star', 'ln_ipei', 'ln_z','ln_s','ln_cpi_sub','ln_ipei_q','ln_y','ln_bm','ln_v'};
 list_nivel = {'ln_y','ln_s','ln_bm'};
@@ -80,4 +80,3 @@ tit_lev ={{'Producto Interno Bruto','Millones de Quetzales'},{'Tipo de Cambio No
 
 % Lista de gráficas de brechas
 list_gaps = {'ln_y_star','ln_ipei','ln_z', 'ln_y', 'ln_bm', 'ln_v', 'ln_ipei_q'};
->>>>>>> MJGM-SCENARIOS
