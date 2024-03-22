@@ -61,6 +61,11 @@ for rng = params.StartDate
             'MarkerSize', 7,...
             'LineWidth', 0.5,...
             'color', 'r');
+
+        % leyenda
+        legend({params.LegendsNames{1}, params.LegendsNames{2}},...
+                'Location','best', 'Interpreter', 'none',...
+                'FontSize', 8);
         
         hold off
         
@@ -69,10 +74,7 @@ for rng = params.StartDate
         %Reverse the stacking order so that the patch overlays the line
         set(gca, 'Children',flipud(chi));
         
-        % leyenda
-        legend({params.LegendsNames{2}, params.LegendsNames{1}},...
-                'Location','best', 'Interpreter', 'none',...
-                'FontSize', 8);
+
         
         %linea vertical
         vline(MODEL.DATES.hist_end, ...
