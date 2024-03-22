@@ -2,35 +2,43 @@ function tc_real(MODEL, varargin)
 %{
     Genera las graficas relacionadas al tipo de cambio real
         Tipo de cambio real por componentes (corrimiento actual)
-        subplot tipo de cambio real (corrimiento actual y anterior)
+    
+    tab_range: Rango trimestres que se utilizarán en la tabla
+    pred_ant: Trimestre de inicio de predicción del periodo anterior.
 %}
 
 p = inputParser;
-addParameter(p, 'corr_ant', {});
+addParameter(p, 'StartDate', {MODEL.DATES.hist_start, MODEL.DATES.hist_end - 20});
+addParameter(p, 'EndDatePlot', {MODEL.DATES.pred_end});
+addParameter(p, 'SavePath', {});
+addParameter(p, 'Esc_add', {}); % libre v0, alterno v1, contrafactual v2
 addParameter(p, 'tab_range', {});
-addParameter(p, 'pred_ant', {});
+addParameter(p, 'TabRange', qq(2021,4):4:qq(2024,4));
+addParameter(p, 'LegendsNames', {});
 
 parse(p, varargin{:});
 params = p.Results;
 
-params.StartDate = {MODEL.DATES.hist_start, MODEL.DATES.hist_end - 20};
-params.EndDatePlot = {MODEL.DATES.pred_end};
-
-%%
-
-if ~isfolder(fullfile('plots',...
-        MODEL.CORR_DATE, MODEL.CORR_VER,...
-        'otras'))
-    mkdir(fullfile('plots',...
-        MODEL.CORR_DATE, MODEL.CORR_VER,...
-        'otras'));
+%% Limpieza y creación de folders
+% Verificación y creación del directorio para las gráficas
+if isempty(params.SavePath)
+    params.SavePath = fullfile('plots', MODEL.CORR_DATE, params.Esc_add{1}, 'otras');
 end
 
-%% fulldata corrimiento anterior
-corr_ant = databank.fromCSV(fullfile('data', 'fulldata', params.corr_ant, sprintf("fulldata_%s_v0.csv", params.corr_ant)));
-load(fullfile('data', 'fulldata', params.corr_ant, sprintf("PreProcessing-%s.mat", params.corr_ant)));
-load(fullfile('data', 'fulldata', params.corr_ant, sprintf("PostProcessing-%s.mat", params.corr_ant)));
+if ~isfolder(params.SavePath)
+    mkdir(params.SavePath)
+else
+    rmdir(params.SavePath, 's')
+    mkdir(params.SavePath)
+end   
 
+%% Carga de base de datos mes anterior
+full_data_add = params.Esc_add{2};
+
+% leyendas
+if strcmp(params.Esc_add{1}, 'v0')
+    params.LegendsNames = {MODEL.leg_act, MODEL.leg_ant};
+end
 %% Tipo de cambio real por componentes
 
 % Corrimiento actual
@@ -38,6 +46,7 @@ colors = [[0 0 0]; [0 0.498 0]; [0.4940 0.1840 0.5560]; [0.667 0 0]];
 
 for rng = params.StartDate
     
+        
     figure;
     set( ...
         gcf, ...
@@ -75,7 +84,7 @@ for rng = params.StartDate
         strcat(dat2char(rng{1}), '-',...
         dat2char(params.EndDatePlot{1}))},...
         'Fontsize', 13);
-    
+  
     % Linea vertical (inicio prediccion)
     vline(MODEL.DATES.hist_end, ...
         'LineWidth', 1.5, ...
@@ -111,24 +120,19 @@ for rng = params.StartDate
     % Guardamos la gráfica
     if rng{1} == params.StartDate{1}
         SimTools.scripts.pausaGuarda(...
-            fullfile('plots',...
-            MODEL.CORR_DATE, MODEL.CORR_VER,...
-            'otras',...
+            fullfile(params.SavePath,...
             'Tipo de cambio real (componentes)act.png'), ...
             'AutoSave', true);
         
     elseif rng{1} == params.StartDate{2}
         SimTools.scripts.pausaGuarda(...
-            fullfile('plots',...
-            MODEL.CORR_DATE, MODEL.CORR_VER,...
-            'otras',...
+            fullfile(params.SavePath,....
             'Tipo de cambio real (componentes)act_short.png'), ...
             'AutoSave', true);
         
     end
     
-    % Corrimiento anterior
-    
+    % Corrimiento anterior 
     figure;
     set( ...
         gcf, ...
@@ -146,8 +150,8 @@ for rng = params.StartDate
     ax = axes(plot_p, 'Units','normalized' ,'Position', [0.1 0.1 0.85 0.8]);
     
     plot(rng{1}:params.EndDatePlot{1},...
-        [corr_ant.d4_ln_z, corr_ant.d4_ln_ipei,...
-        corr_ant.d4_ln_s, corr_ant.d4_ln_cpi_sub, ],...
+        [full_data_add.d4_ln_z, full_data_add.d4_ln_ipei,...
+        full_data_add.d4_ln_s, full_data_add.d4_ln_cpi_sub],...
         'Marker', 'none', 'MarkerSize', 17,...
         'LineWidth', 2);
     
@@ -161,17 +165,21 @@ for rng = params.StartDate
     grid off;
     
     % Titulo
+    if strcmp(params.Esc_add{1}, 'v0')
     title('Tasa de Variación del Tipo de Cambio Real (Porcentajes)',...
         {strcat("Corrimiento ",MODEL.leg_ant),...
         strcat(dat2char(rng{1}), '-',...
         dat2char(params.EndDatePlot{1}))},...
         'Fontsize', 13);
     
-    % Linea vertical (inicio prediccion)
-    vline(params.pred_ant, ...
-        'LineWidth', 1.5, ...
-        'LineStyle', '-');
-    
+    else
+    title('Tasa de Variación del Tipo de Cambio Real (Porcentajes)',...
+        {strcat("Comparativo ", params.LegendsNames{2}, "-", params.LegendsNames{1}),...
+        strcat(dat2char(rng{1}), '-',...
+        dat2char(params.EndDatePlot{1}))},...
+        'Fontsize', 13);
+    end
+       
     zeroline();
     
     % ----- Panel de Tabla -----
@@ -181,14 +189,14 @@ for rng = params.StartDate
     
     data_table = [];
     
-    data_table(:, 1) = corr_ant.d4_ln_z(params.tab_range-1);
-    data_table(:, 2) = corr_ant.d4_ln_ipei(params.tab_range-1);
-    data_table(:, 3) = corr_ant.d4_ln_s(params.tab_range-1);
-    data_table(:, 4) = corr_ant.d4_ln_cpi_sub(params.tab_range-1);
+    data_table(:, 1) = full_data_add.d4_ln_z(params.tab_range-1);
+    data_table(:, 2) = full_data_add.d4_ln_ipei(params.tab_range-1);
+    data_table(:, 3) = full_data_add.d4_ln_s(params.tab_range-1);
+    data_table(:, 4) = full_data_add.d4_ln_cpi_sub(params.tab_range-1);
     
     text_Color = colors;
     
-    SimTools.scripts.plot_data_table(params.tab_range, ...
+    SimTools.scripts.plot_data_table(params.tab_range-1, ...
         data_table, ...
         'Parent', table_p, ...
         'SeriesNames', {'Tipo de Cambio Real', 'Inflación Externa',...
@@ -202,158 +210,18 @@ for rng = params.StartDate
     % Guardamos la gráfica
     if rng{1} == params.StartDate{1}
         SimTools.scripts.pausaGuarda(...
-            fullfile('plots',...
-            MODEL.CORR_DATE, MODEL.CORR_VER,...
-            'otras',...
+            fullfile(params.SavePath,...
             'Tipo de cambio real (componentes)ant.png'), ...
             'AutoSave', true);
         
     elseif rng{1} == params.StartDate{2}
         SimTools.scripts.pausaGuarda(...
-            fullfile('plots',...
-            MODEL.CORR_DATE, MODEL.CORR_VER,...
-            'otras',...
+            fullfile(params.SavePath,...
             'Tipo de cambio real (componentes)ant_short.png'), ...
             'AutoSave', true);
         
     end
 end
-
-
-
-
-
-%% Tipo de cambio real subplots
-toplot = {'ln_z_sa', 's_sa', 'ln_ipei_sa', 'ln_cpi_sub_sa'};
-
-for rng = params.StartDate
-    for i = 1:length(toplot)
-        
-        set(gcf, ...
-            'defaultaxesfontsize',12, ...
-            'Position', [1 42.0182 1117.1 776.73]);
-        
-        if i == 1
-            subplot(2,2,i)
-            h = plot(rng{1}:params.EndDatePlot{1},...
-                [MODEL.PostProc.l_sa.(toplot{i}),... %corr actual
-                post_proc.l_sa.(toplot{i}),... %corr anterior
-                MODEL.PostProc.l_sa.(toplot{i}).clip(MODEL.DATES.hist_start, MODEL.DATES.hist_end)],... % historia
-                'Marker', '.',...
-                'MarkerSize', 7,...
-                'LineWidth', 1.25);
-            
-            % Colores
-            % historia
-            set(h(end), 'color', [0 0 1]);
-            % Corr actual
-            set(h(1), 'color', [0 0 1]);
-            % Corr anterior
-            set(h(2), 'color', [1 0 0]);
-            
-            %linea vertical
-            vline(MODEL.DATES.hist_end, ...
-                'LineWidth', 1, ...
-                'LineStyle', '-');
-            
-            %titulos
-            title('Tipo de Cambio Real');
-            
-            % leyenda
-            legend({MODEL.leg_act,...
-                MODEL.leg_ant},...
-                'Location','best', 'Interpreter', 'none',...
-                'FontSize', 8);
-            
-            
-        elseif i == 2
-            subplot(2,2,i)
-            h = plot(rng{1}:params.EndDatePlot{1},...
-                [MODEL.PostProc.niv_sa.(toplot{i}),... %corr actual
-                post_proc.niv_sa.(toplot{i}),... %corr anterior
-                MODEL.PostProc.niv_sa.(toplot{i}).clip(MODEL.DATES.hist_start, MODEL.DATES.hist_end)],... % historia
-                'Marker', '.',...
-                'MarkerSize', 7,...
-                'LineWidth', 1.25);
-            
-            % Colores
-            % historia
-            set(h(end), 'color', [0 0 1]);
-            % Corr actual
-            set(h(1), 'color', [0 0 1]);
-            % Corr anterior
-            set(h(2), 'color', [1 0 0]);
-            
-            %linea vertical
-            vline(MODEL.DATES.hist_end, ...
-                'LineWidth', 1, ...
-                'LineStyle', '-');
-            
-            %titulos
-            title('Tipo de cambio nominal Q/$');
-            
-            % leyenda
-            legend({MODEL.leg_act,...
-                MODEL.leg_ant},...
-                'Location','best', 'Interpreter', 'none',...
-                'FontSize', 8);
-            
-        elseif i >= 3
-            subplot(2,2,i)
-            h = plot(rng{1}:params.EndDatePlot{1},...
-                [MODEL.PostProc.l_sa.(toplot{i}),... %corr actual
-                post_proc.l_sa.(toplot{i}),... %corr anterior
-                MODEL.PostProc.l_sa.(toplot{i})],... % historia
-                'Marker', '.',...
-                'MarkerSize', 7,...
-                'LineWidth', 1.25);
-            
-            % Colores
-            % historia
-            set(h(end), 'color', [0 0 1]);
-            % Corr actual
-            set(h(1), 'color', [0 0 1]);
-            % Corr anterior
-            set(h(2), 'color', [1 0 0]);
-            
-            %linea vertical
-            vline(MODEL.DATES.hist_end, ...
-                'LineWidth', 1, ...
-                'LineStyle', '-');
-            
-            %titulos
-            title(MODEL.PostProc.l_sa.(toplot{i}).Comment{1});
-            
-            % leyenda
-            legend({MODEL.leg_act,...
-                MODEL.leg_ant},...
-                'Location','best', 'Interpreter', 'none',...
-                'FontSize', 8);
-            
-            sgtitle({'Componentes del Tipo de Cambio Real',...
-                strcat(dat2char(MODEL.DATES.hist_start), '-',...
-                dat2char(MODEL.DATES.pred_end))});
-            
-            if i == 4
-                if rng{1} == params.StartDate{1}
-                    SimTools.scripts.pausaGuarda(fullfile('plots',...
-                        MODEL.CORR_DATE, MODEL.CORR_VER,...
-                        'otras',...
-                        'TC_real_subplot.png'), ...
-                        'AutoSave', true);
-                    
-                elseif rng{1} == params.StartDate{2}
-                    SimTools.scripts.pausaGuarda(fullfile('plots',...
-                        MODEL.CORR_DATE, MODEL.CORR_VER,...
-                        'otras',...
-                        'TC_real_subplot_short.png'), ...
-                        'AutoSave', true);
-                end
-            end
-        end
-    end
-end
-
 
 close all;
 end

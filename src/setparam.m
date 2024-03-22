@@ -1,4 +1,9 @@
 %% ASIGNACION DE PARAMETROS
+%% Nombre de matrices de coeficientes
+MODEL.COV_MAT_NAME = 'COV_MAT.CSV';
+MODEL.GAMMA_0_NAME = 'GAMMA_0.CSV';
+MODEL.PHI_NAME = 'PHI.CSV';
+
 % Promedios históricos de cada una de las variables en el período
 % 2005Q1-2023Q1.
 
