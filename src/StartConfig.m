@@ -20,9 +20,14 @@ MODEL.FULLDATANAME_ACT = fullfile( ...
 
 MODEL.FULLDATANAME_ANT = fullfile( ...
     'data', 'fulldata', MODEL.CORR_DATE_ANT,...
-    sprintf('fulldata_%s_%s.csv', MODEL.CORR_DATE_ANT,MODEL.CORR_VER));
+    sprintf("MODEL-%s.mat", MODEL.CORR_DATE_ANT));
 
-
+%% Nombres de escenarios
+MODEL.esc_names = {'Libre',...
+                   'Alterno',...
+                   'Contrafactual',...
+                   'Combinado'};
+               
 %% Carga de info mes previo
 MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
 MODEL_ANT = MODEL_ANT.MODEL;
@@ -62,7 +67,7 @@ MODEL.ExoVar = { ...
                 'd4_ln_s',...7
                 'd4_ln_bm', ...8 
                 'i'}; %9
-            
+
 % Lista de variables para post-procesamiento
 pp_list = {'ln_y_star', 'ln_ipei', 'ln_z','ln_s','ln_cpi_sub','ln_ipei_q','ln_y','ln_bm','ln_v'};
 list_nivel = {'ln_y','ln_s','ln_bm'};

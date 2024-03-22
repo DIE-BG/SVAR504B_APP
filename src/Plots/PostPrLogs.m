@@ -5,7 +5,7 @@ function PostPrLogs(MODEL, varargin)
 p = inputParser;
     addParameter(p, 'StartDate', MODEL.DATES.hist_start);
     addParameter(p, 'EndDatePlot', MODEL.DATES.pred_end);
-    addParameter(p, 'SavePath', fullfile(userpath, 'temp'));
+    addParameter(p, 'SavePath', {});
     addParameter(p, 'Esc',{MODEL.CORR_VER, MODEL.F_pred});
     addParameter(p, 'PlotList', {});
     addParameter(p, 'LegendsNames', {});
@@ -24,7 +24,12 @@ params = p.Results;
 
 list = params.PlotList;
 
-%%
+%% Limpieza y creación de folders
+%SavePath
+if isempty(params.SavePath)
+    params.SavePath = fullfile('plots', MODEL.CORR_DATE, params.Esc{1}, 'PostProcessing');
+end
+
 if ~isfolder(params.SavePath)
     mkdir(params.SavePath)
 else
