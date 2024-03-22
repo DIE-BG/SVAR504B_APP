@@ -31,10 +31,10 @@ MODEL.Comb1.dbi.i(MODEL.DATES.pred_start) = MODEL.F.i(MODEL.DATES.hist_end);
 MODEL.Comb1.planSim = plan(MODEL.MF,MODEL.DATES.pred_start:MODEL.DATES.pred_end);
 % Variable a endogenizar (shock propio?? No necesariamente)
 MODEL.Comb1.planSim = endogenize(MODEL.Comb1.planSim,{'s_d4_ln_ipei'},MODEL.DATES.E1_dates); 
-MODEL.Comb1.planSim = endogenize(MODEL.CP1.planSim,{'s_i'},MODEL.DATES.pred_start); 
+MODEL.Comb1.planSim = endogenize(MODEL.Comb1.planSim,{'s_i'},MODEL.DATES.pred_start); 
 % Variable a exogenizar (Anclaje)
 MODEL.Comb1.planSim = exogenize(MODEL.Comb1.planSim,{'d4_ln_ipei'},MODEL.DATES.E1_dates);
-MODEL.Comb1.planSim = exogenize(MODEL.CP1.planSim,{'i'},MODEL.DATES.pred_start);
+MODEL.Comb1.planSim = exogenize(MODEL.Comb1.planSim,{'i'},MODEL.DATES.pred_start);
 
 % Simulación.
 
