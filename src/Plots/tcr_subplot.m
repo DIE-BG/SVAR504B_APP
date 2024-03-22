@@ -31,11 +31,6 @@ end
 
 %% Carga de base de datos mes anterior
 full_data_add = params.Esc_add{2};
-
-% leyendas
-if strcmp(params.Esc_add{1}, 'v0')
-    params.LegendsNames = {MODEL.leg_act, MODEL.leg_ant};
-end
   
 %% Gráfica
 toplot = {'ln_z_sa', 's_sa', 'ln_ipei_sa', 'ln_cpi_sub_sa'};
@@ -73,7 +68,7 @@ toplot = {'ln_z_sa', 's_sa', 'ln_ipei_sa', 'ln_cpi_sub_sa'};
                     'LineStyle', '-');
 
                 % leyenda
-                legend({params.LegendsNames{1}, params.LegendsNames{2}},...
+                legend({params.LegendsNames{2}, params.LegendsNames{1}},...
                     'Location','best', 'Interpreter', 'none',...
                     'FontSize', 8);
                 
@@ -122,7 +117,7 @@ toplot = {'ln_z_sa', 's_sa', 'ln_ipei_sa', 'ln_cpi_sub_sa'};
                 hold off
 
                 % leyenda
-                legend({params.LegendsNames{1}, params.LegendsNames{2}},...
+                legend({params.LegendsNames{2}, params.LegendsNames{1}},...
                     'Location','best', 'Interpreter', 'none',...
                     'FontSize', 8);
                 
