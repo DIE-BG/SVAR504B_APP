@@ -24,6 +24,10 @@ for i = 1:length(names)
     MODEL.F_pred.(names{i}).UserData.endhist = dat2char(MODEL.DATES.hist_end);
 end
 
+if ~isfolder(fullfile('data', 'fulldata', MODEL.CORR_DATE))
+    mkdir(fullfile('data', 'fulldata', MODEL.CORR_DATE))
+end   
+
 if params.SaveFullData
    temp_pred = MODEL.F_pred;
    databank.toCSV(temp_pred, MODEL.FULLDATANAME_ACT, Inf, 'Decimals=', 5, 'UserDataFields=', 'endhist');

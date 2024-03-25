@@ -69,8 +69,13 @@ for i = 1:length(folder_name)
         exportToPPTX('addtext','Muchas Gracias','Position','title','fontsize',48);
 
         %% Guardar y cerrar
+        save_path = fullfile('Resultados', MODEL.CORR_DATE);
+        if ~isfolder(save_path)
+            mkdir(save_path)
+        end
+        
         exportToPPTX( ...
             'save', ...
-            fullfile(sprintf('SVAR50-4B Corrimiento %s %s', MODEL.CORR_DATE, folder_name{i})));
+            fullfile(save_path, sprintf('SVAR50-4B Corrimiento %s %s', MODEL.CORR_DATE, folder_name{i})));
         exportToPPTX('close');   
 end
