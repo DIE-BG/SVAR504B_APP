@@ -5,16 +5,16 @@ MODEL.param_file_name = 'setparam.m';
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2024-02';
-MODEL.CORR_DATE_ANT = '2023-11';
+MODEL.CORR_DATE = '2022-11';
+MODEL.CORR_DATE_ANT = '2021-11';
 
-MODEL.leg_act = 'Febrero 2024';  
-MODEL.leg_ant = 'Noviembre 2023'; 
+MODEL.leg_act = 'Noviembre 2022';  
+MODEL.leg_ant = 'Noviembre 2021'; 
 
 % Fechas de fin de historia
-MODEL.DATES.hist_end_ant = qq(2023, 3);
-MODEL.DATES.hist_end = qq(2023, 4);
-MODEL.DATES.hist_end_mm = mm(2024, 02);
+MODEL.DATES.hist_end_ant = qq(2021, 3);
+MODEL.DATES.hist_end = qq(2022, 3);
+MODEL.DATES.hist_end_mm = mm(2022, 10);
 
 %% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
@@ -36,7 +36,7 @@ MODEL.DATES.pred_end = MODEL.DATES.hist_end + 30;
 MODEL.DATES.hist_end_estimation = qq(2023,1);
 
 % Rango de tablas para gráficos de simulación
-tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2022,4), qq(2023,4)];
+tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2024,4), qq(2025,4)];
 
 % Rango de tablas para gráficos de Pre - procesamiento
 % Trimestral
