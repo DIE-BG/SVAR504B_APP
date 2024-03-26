@@ -647,7 +647,146 @@ for rng = params.StartDate_mm
     end
     
 end
-%%
+
+%% Inflaciones
+toplot = {'cpi_mm', 'cpi_sub_mm', 'cpi_nosub_mm'};
+a = {-1, -12};
+
+for rng = params.StartDate_mm
+    for i = a
+        for j = 1:length(toplot)
+            set( ...
+                gcf, ...
+                'defaultaxesfontsize',12, ...
+                'Position', [1 42.0182 1117.1 776.73] ...
+                );
+
+
+                main_p = uipanel('Units','normalized');
+
+                % ----- Panel de gráfica -----
+                plot_p = uipanel( ...
+                    main_p, ...
+                    'Position', [0, 1 - 0.8, 1, 0.8], ...
+                    'BackgroundColor', [1, 1, 1] ...
+                    );
+
+                ax = axes(plot_p, 'Units','normalized' ,'Position', [0.1 0.1 0.85 0.8]);
+
+                if j <= 2
+                plot(rng{1}:params.EndDatePlot_mm{1},...
+                    [MODEL.PreProc.monthly.(toplot{j}).pct(i{1}), full_data_add.PreProc.monthly.(toplot{j}).pct(i{1})], ...
+                    'Marker', '.',...
+                    'MarkerSize', 9,...
+                    'LineWidth', 1.25);
+                
+                hold on
+                s = hline(4);
+                    set(s,'LineStyle','--','Color','k','LineWidth',1.5);
+                hold off
+                
+                elseif j == 3
+                plot(rng{1}:params.EndDatePlot_mm{1},...
+                    [MODEL.PreProc.monthly.cpi_mm.pct(i{1}) - MODEL.PreProc.monthly.cpi_sub_mm.pct(i{1}),...
+                    full_data_add.PreProc.monthly.cpi_mm.pct(i{1}) - full_data_add.PreProc.monthly.cpi_sub_mm.pct(i{1})],...
+                    'Marker', '.',...
+                    'MarkerSize', 9,...
+                    'LineWidth', 1.25);
+                
+                hold on
+                zeroline()
+                hold off
+                
+                end
+
+                % Colores
+                colororder([[0 0 1]; [1 0 0]])
+
+                % leyenda
+                legend(params.LegendsNames, 'Location','best');
+
+                %Titulos
+                if i{1} == -1 && ~strcmp(toplot{j}, 'cpi_nosub_mm')
+                title(MODEL.PreProc.monthly.(toplot{j}).Comment{1}, 'Variación Intermensual');
+                
+                elseif i{1} == -12 && ~strcmp(toplot{j}, 'cpi_nosub_mm')
+                title(MODEL.PreProc.monthly.(toplot{j}).Comment{1}, 'Variación Interanual');
+                
+                elseif i{1} == -1 && strcmp(toplot{j}, 'cpi_nosub_mm')
+                title('Inflación no subyacente', 'Variación Intermensual');    
+                    
+                elseif i{1} == -12 && strcmp(toplot{j}, 'cpi_nosub_mm')
+                title('Inflación no subyacente', 'Variación Interanual');
+                    
+                end
+                
+                if ~strcmp(toplot{j}, 'cpi_nosub_mm')
+                temp_act = MODEL.PreProc.monthly.(toplot{j}).pct(i{1});
+                temp_ant = full_data_add.PreProc.monthly.(toplot{j}).pct(i{1});
+                
+                elseif strcmp(toplot{j}, 'cpi_nosub_mm')
+                temp_act = MODEL.PreProc.monthly.cpi_mm.pct(i{1}) - MODEL.PreProc.monthly.cpi_sub_mm.pct(i{1});
+                temp_ant = full_data_add.PreProc.monthly.cpi_mm.pct(i{1}) - full_data_add.PreProc.monthly.cpi_sub_mm.pct(i{1});
+                
+                end
+                
+                % panel
+                table_p = uipanel( ...
+                    main_p, ...
+                    'Position', [0, 1 - 0.8 - 0.20, 1, 0.20], ...
+                    'BackgroundColor', [1, 1, 1] ...
+                    );
+
+                data_table = [];
+                data_table(:, 1) = temp_act(params.tab_range_mm);
+                data_table(:, 2) = temp_ant(params.tab_range_mm);
+                text_Color = [[0 0 1]; [1 0 0]];
+
+                SimTools.scripts.plot_data_table( ...
+                    params.tab_range_mm, ...
+                    data_table, ...
+                    'Parent', table_p, ...
+                    'SeriesNames', {MODEL.leg_act, MODEL.leg_ant}, ...
+                    'TextColor', text_Color, ...
+                    'ColNameWidth', 0.23, ...
+                    'FontSize', 11 ...
+                    );
+
+                axis on;   
+            
+                
+                %save
+                if rng{1} == params.StartDate_mm{1} && ~strcmp(toplot{j}, 'cpi_nosub_mm')
+                      SimTools.scripts.pausaGuarda(fullfile(params.SavePath,...
+                                sprintf("%s%s.png",  MODEL.PreProc.monthly.(toplot{j}).Comment{1}, string(i{1}))), ...
+                                'AutoSave', true);
+                
+                elseif rng{1} == params.StartDate_mm{2} && ~strcmp(toplot{j}, 'cpi_nosub_mm')
+                      SimTools.scripts.pausaGuarda(fullfile(params.SavePath,...
+                                sprintf("%s%s_short.png", MODEL.PreProc.monthly.(toplot{j}).Comment{1},  string(i{1}))), ...
+                                'AutoSave', true);
+                            
+                elseif rng{1} == params.StartDate_mm{1} && strcmp(toplot{j}, 'cpi_nosub_mm')
+                      SimTools.scripts.pausaGuarda(fullfile(params.SavePath,...
+                                sprintf("%s%s.png", 'Inflación no subyacente',  string(i{1}))), ...
+                                'AutoSave', true); 
+                    
+                elseif rng{1} == params.StartDate_mm{2} && strcmp(toplot{j}, 'cpi_nosub_mm')
+                      SimTools.scripts.pausaGuarda(fullfile(params.SavePath,...
+                                sprintf("%s%s_short.png", 'Inflación no subyacente',  string(i{1}))), ...
+                                'AutoSave', true);
+                            
+                end
+            
+            
+        end
+    end
+end
+
+
+        
+
+
 close all;
 
 end

@@ -1,5 +1,5 @@
 "Variables ->","ln_cpi_sub","ln_s","ln_bm","ln_cpi","ln_ipei","i_star","i","ln_y","ln_y_star"
-"Comments ->","","","","","","","","",""
+"Comments ->","Inflación subyacente","Tipo de cambio Q/$","Base Monetaria","Inflación total","","Tasa de interés de fondos federales","Tasa de interés","",""
 "Class[Size] ->","tseries[76-by-1]","tseries[76-by-1]","tseries[76-by-1]","tseries[76-by-1]","tseries[76-by-1]","tseries[76-by-1]","tseries[76-by-1]","tseries[76-by-1]","tseries[76-by-1]"
 ".endhist","2023Q4","2023Q4","2023Q4","2023Q4","2023Q4","2023Q4","2023Q4","2023Q4","2023Q4"
 "2005Q1",493.45676,204.11910,979.09954,426.31891,466.28397,2.66000,2.63667,1128.05393,967.05920
