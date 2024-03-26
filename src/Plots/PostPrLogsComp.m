@@ -1,12 +1,47 @@
 function PostPrLogsComp(MODEL, varargin)
 
-%% Logaritmos desestacionalizados y tendencia
+%{
+% Logaritmos desestacionalizados y tendencia
+    Genera las gráficas de los logaritmos desestacionalizados y su tendencia. 
+    Pueden compararse, o no, con otro escenario o con otro corrimiento.
+{
+## Syntax ##
 
+    MODEL = simPlots(MODEL, varargin)
+
+## Input Arguments ##
+
+__`MODEL`__ [ struct ] -
+Debe contener al menos la estructura con los resultados del proceso de
+simulación MODEL.F_pred.
+
+* 'StartDate' = {} [ `Cell` ] - fechas de inicio del plot (pueden ser una o mas).
+
+* 'EndDatePlot' = {} [ `Cell` ] - fechas de fin del plot (pueden ser una o mas).
+
+* 'Esc' = {}  [ `Cell` ] - Escenario principal a plotear. 
+    (usualmente escenario libre del corrimiento en curso). Cell array con  
+    dos elementos: (1) Versión del escenario principal (v0) y (2)
+    Base de datos con los pronósticos del modelo (ambas estructuras deben
+    tener los mismos campos por compatibilidad.
+
+* 'Esc_add' = {}  [ `Cell` ] - Escenario adicional a plotear. Cell array 
+    con dos elementos: (1) Versión o fecha del escenario adicional y (2)
+    Base de datos con los pronósticos del modelo (ambas estructuras deben
+    tener los mismos campos por compatibilidad.
+
+* 'PlotList' = {} [ `Cell` ] - Lista de variables a plotear. Compatible con
+    lista de logaritmos que entra en función PostProcessing
+
+- DIE
+- Marzo 2024
+- MJGM/JGOR
+%}
 p = inputParser;
     addParameter(p, 'StartDate', MODEL.DATES.hist_start);
     addParameter(p, 'EndDatePlot', MODEL.DATES.pred_end);
     addParameter(p, 'SavePath', {});
-    addParameter(p, 'Esc',{MODEL.CORR_VER, MODEL.F_pred});
+    addParameter(p, 'Esc',{MODEL.CORR_VER, MODEL.PostProc.(MODEL.CORR_VER)});
     addParameter(p, 'Esc_add', {});
     addParameter(p, 'PlotList', {});
     addParameter(p, 'LegendsNames', {});
@@ -47,7 +82,7 @@ for rng = 1:length(params.StartDate)
     for var = 1:length(list)
     if ~isempty(params.EndDatePlot{rng})
         full_data_add_temp = dbclip(full_data_add, params.StartDate{rng}:params.EndDatePlot{rng});
-        F_pred_temp = dbclip(MODEL.F_pred, params.StartDate{rng}:params.EndDatePlot{rng});
+%         F_pred_temp = dbclip(MODEL.F_pred, params.StartDate{rng}:params.EndDatePlot{rng});
     end
         
         %%

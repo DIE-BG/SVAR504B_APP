@@ -1,7 +1,35 @@
 function PostPrGaps(MODEL, varargin)
 
-%% Brechas corrimiento libre vs otro
+%{
+% Brechas vrs mes anterior u otro escenario.
+    Genera las gráficas de los niveles desestacionalizados. Pueden compararse,
+    o no, con otro escenario o con otro corrimiento.
+{
+## Syntax ##
 
+    MODEL = simPlots(MODEL, varargin)
+
+## Input Arguments ##
+
+__`MODEL`__ [ struct ] -
+Debe contener al menos la estructura con los resultados del proceso de
+simulación MODEL.F_pred.
+
+* 'StartDate' = {} [ `Cell` ] - fechas de inicio del plot (pueden ser una o mas).
+
+* 'EndDatePlot' = {} [ `Cell` ] - fechas de fin del plot (pueden ser una o mas).
+
+* 'Esc_add' = {}  [ `Cell` ] - Escenario adicional a plotear. Cell array 
+    con dos elementos: (1) Versión o fecha del escenario adicional y (2)
+    Base de datos con los pronósticos del modelo (ambas estructuras deben
+    tener los mismos campos por compatibilidad.
+
+* 'PlotList' = {} [ `Cell` ] - Lista de brechas a plotear.
+
+- DIE
+- Marzo 2024
+- MJGM/JGOR
+%}
 
 p = inputParser;
     addParameter(p, 'StartDate', MODEL.DATES.hist_start);

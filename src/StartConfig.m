@@ -11,6 +11,12 @@ MODEL.CORR_DATE_ANT = '2023-11';
 MODEL.leg_act = 'Febrero 2024';  
 MODEL.leg_ant = 'Noviembre 2023'; 
 
+% Fechas de fin de historia
+MODEL.DATES.hist_end_ant = qq(2023, 3);
+MODEL.DATES.hist_end = qq(2023, 4);
+MODEL.DATES.hist_end_mm = mm(2024, 02);
+
+%% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
     'data','corrimientos', MODEL.CORR_DATE, MODEL.CORR_VER, 'data_corr.csv');
 
@@ -22,37 +28,32 @@ MODEL.FULLDATANAME_ANT = fullfile( ...
     'data', 'fulldata', MODEL.CORR_DATE_ANT,...
     sprintf("MODEL-%s.mat", MODEL.CORR_DATE_ANT));
 
-%% Nombres de escenarios
-MODEL.esc_names = {'Libre',...
-                   'Alterno',...
-                   'Contrafactual',...
-                   'Combinado'};
-               
-%% Carga de info mes previo
-MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
-MODEL_ANT = MODEL_ANT.MODEL;
+% Configuración de estructura DATES
 
-
-%% Configuración de estructura DATES
 MODEL.DATES.hist_start = qq(2005, 1);
-MODEL.DATES.hist_end = qq(2023, 4);
-
 MODEL.DATES.pred_start = MODEL.DATES.hist_end + 1;
 MODEL.DATES.pred_end = MODEL.DATES.hist_end + 30;
-MODEL.DATES.hist_end_ant = qq(2023, 3);
 MODEL.DATES.hist_end_estimation = qq(2023,1);
 
 % Rango de tablas para gráficos de simulación
-tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2025,4), qq(2026,4)];
+tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2022,4), qq(2023,4)];
 
 % Rango de tablas para gráficos de Pre - procesamiento
 % Trimestral
 tab_range_source_data = MODEL.DATES.hist_end-8:MODEL.DATES.hist_end;
 % Mensual
-MODEL.DATES.hist_end_mm = mm(2023, 12);
 MODEL.DATES.hist_start_mm = mm(2005,1);
 tab_range_mm = MODEL.DATES.hist_end_mm-8:MODEL.DATES.hist_end_mm;
 
+%% Nombres de escenarios
+MODEL.esc_names = {'Escenario Libre',...
+                   'Escenario IPEI',...
+                   'Escenario Tasa Líder',...
+                   'Escenario Combinado'};
+               
+%% Carga de info mes previo
+MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
+MODEL_ANT = MODEL_ANT.MODEL;
 
 %% Listas adicionales
 
@@ -68,8 +69,10 @@ MODEL.ExoVar = { ...
                 'd4_ln_bm', ...8 
                 'i'}; %9
 
-% Lista de variables para post-procesamiento
+%% Lista de variables para post-procesamiento
+% Logaritmos desestacionalizados, tendencias y brechas
 pp_list = {'ln_y_star', 'ln_ipei', 'ln_z','ln_s','ln_cpi_sub','ln_ipei_q','ln_y','ln_bm','ln_v'};
+% Niveles desestacinoalizados y tendencias
 list_nivel = {'ln_y','ln_s','ln_bm'};
 
 % Variables y titulos para gráficas de reconstrucción de nivel
