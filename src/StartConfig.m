@@ -5,16 +5,16 @@ MODEL.param_file_name = 'setparam.m';
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2022-11';
+MODEL.CORR_DATE = '2021-11';
 MODEL.CORR_DATE_ANT = '2021-11';
 
-MODEL.leg_act = 'Noviembre 2022';  
+MODEL.leg_act = 'Noviembre 2021';  
 MODEL.leg_ant = 'Noviembre 2021'; 
 
 % Fechas de fin de historia
 MODEL.DATES.hist_end_ant = qq(2021, 3);
-MODEL.DATES.hist_end = qq(2022, 3);
-MODEL.DATES.hist_end_mm = mm(2022, 10);
+MODEL.DATES.hist_end = qq(2021, 3);
+MODEL.DATES.hist_end_mm = mm(2021, 10);
 
 %% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
@@ -49,7 +49,9 @@ tab_range_mm = MODEL.DATES.hist_end_mm-8:MODEL.DATES.hist_end_mm;
 MODEL.esc_names = {'Escenario Libre',...
                    'Escenario IPEI',...
                    'Escenario Tasa Líder',...
-                   'Escenario Combinado'};
+                   'Escenario Combinado',...
+                   'Escenario Dif. Histórica máxima',...
+                   'Escenario Dif. Máxima + Trayectoria Tasa'};
                
 %% Carga de info mes previo
 MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
