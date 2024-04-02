@@ -46,12 +46,12 @@ MODEL.DATES.hist_start_mm = mm(2005,1);
 tab_range_mm = MODEL.DATES.hist_end_mm-8:MODEL.DATES.hist_end_mm;
 
 %% Nombres de escenarios
-MODEL.esc_names = {'Escenario Libre',...
-                   'Escenario IPEI',...
-                   'Escenario Tasa Líder',...
-                   'Escenario Combinado',...
-                   'Escenario Dif. Histórica máxima',...
-                   'Escenario Dif. Máxima + Trayectoria Tasa'};
+MODEL.esc_names = {'Escenario Libre',...v0
+                   'Escenario IPEI',...v1
+                   'Escenario Tasa Líder',...v2
+                   'Escenario Combinado',...v3
+                   'Escenario Dif. Histórica máxima',...v4
+                   'Escenario Dif. Máxima + Trayectoria Tasa'}; %v5
                
 %% Carga de info mes previo
 MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
