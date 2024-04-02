@@ -141,11 +141,11 @@ for rng = 1:length(params.StartDate)
             if rng == 1
                 SimTools.scripts.pausaGuarda(fullfile(params.SavePath,...
                     sprintf("%s.png",MODEL.PreProc.quarterly.(toplot{i}).Comment{1})),...
-                    'AutoSave', true)
+                    'AutoSave', true);
             else
                 SimTools.scripts.pausaGuarda(fullfile(params.SavePath,...
                     sprintf("%s_short.png",MODEL.PreProc.quarterly.(toplot{i}).Comment{1})),...
-                    'AutoSave', true)
+                    'AutoSave', true);
             end
             
             
@@ -694,7 +694,7 @@ for rng = params.StartDate_mm
                     'LineWidth', 1.25);
                 
                 hold on
-                zeroline()
+                zeroline();
                 hold off
                 
                 end
