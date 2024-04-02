@@ -52,24 +52,24 @@ StartConfig;
 
 %% PRE-PROCESSING
 PreProcessing;
-
+disp('Preprocesamiento: ok');
 %% Lectura de Modelo, datos y proceso de filtrado
 MODEL = SimTools.sim.read_model(MODEL);
 % Lectura de datos con variables observables en data_corr.csv
 MODEL = SimTools.scripts.read_data_corr(MODEL);
 % Filtrado para obtención de no observables
 MODEL = SimTools.sim.kalman_smth(MODEL);
-
+disp('Filtrado: ok');
 %%
 MODEL = predictions(MODEL,...
     'SaveFullData', true);
-
+disp('Simulación: ok');
 %% POST-PROCESSING
 MODEL = PostProcessing(MODEL,...
     'list',pp_list,...
     'list_niv', list_nivel,...
     'Esc',{MODEL.CORR_VER, MODEL.F_pred});
-
+disp('Postprocesamiento: ok');
 %% Gráficas
 do_graphs = true;
 
@@ -151,9 +151,11 @@ end
 esc_alt = true;
 
 if esc_alt == true
-    Alterno;
-    Contrafactual;
-    Combinado;
+    v1_IPEI;
+    v2_CP1;
+    v3_Comb1_2;
+%     v4_CP2;
+%     v5_CP3;
 end
 
 %% Presentación
@@ -163,5 +165,6 @@ if prs == true
 end
 %% Almacenamiento de Estructura MODEL del mes corriente.
 save(fullfile('data','fulldata',MODEL.CORR_DATE, sprintf("MODEL-%s.mat", MODEL.CORR_DATE)), 'MODEL');
-
+disp('Almacenamiento estructura MODEL: ok');
+disp('---- FIN ----');
 toc
