@@ -28,12 +28,12 @@ m.ipei_mm = m.a_prom_mm*m.exp_indx_mm + (1-m.a_prom_mm)*m.imp_indx_mm;
 % TASAS DE VARIACION PRECIOS DE IMPORTACIONES Y EXPORTACIONES
 % Tasas de variación intermensual anualizada e interanual para precios
 % Tasas intermensual anualizada
-m.imp_dl_mm = m.imp_indx_mm.diff(-1)*12; %importaciones
-m.exp_dl_mm = m.exp_indx_mm.diff(-1)*12; %exportaciones
+m.imp_dl_mm = m.imp_indx_mm.pct(-1)*12; %importaciones
+m.exp_dl_mm = m.exp_indx_mm.pct(-1)*12; %exportaciones
 
 % tasa interanual
-m.imp_indx_dl12_mm = m.imp_indx_mm.diff(-12); %importaciones
-m.exp_indx_dl12_mm = m.exp_indx_mm.diff(-12); %exportaciones
+m.imp_indx_dl12_mm = m.imp_indx_mm.pct(-12); %importaciones
+m.exp_indx_dl12_mm = m.exp_indx_mm.pct(-12); %exportaciones
 
 % Nombres
 % importaciones
