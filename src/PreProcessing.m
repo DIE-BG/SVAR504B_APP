@@ -98,12 +98,12 @@ end
 % Tasas de variación intermensual anualizada e interanual para precios
 % de importaciones y exportaciones
 % Tasas intermensual anualizada
-MODEL.PreProc.monthly.imp_dl_mm = MODEL.PreProc.monthly.imp_indx_mm.diff(-1)*12; %importaciones
-MODEL.PreProc.monthly.exp_dl_mm = MODEL.PreProc.monthly.exp_indx_mm.diff(-1)*12; %exportaciones
+MODEL.PreProc.monthly.imp_dl_mm = MODEL.PreProc.monthly.imp_indx_mm.pct(-1)*12; %importaciones
+MODEL.PreProc.monthly.exp_dl_mm = MODEL.PreProc.monthly.exp_indx_mm.pct(-1)*12; %exportaciones
 
 % tasa interanual
-MODEL.PreProc.monthly.imp_indx_dl12_mm = MODEL.PreProc.monthly.imp_indx_mm.diff(-12); %importaciones
-MODEL.PreProc.monthly.exp_indx_dl12_mm = MODEL.PreProc.monthly.exp_indx_mm.diff(-12); %exportaciones
+MODEL.PreProc.monthly.imp_indx_dl12_mm = MODEL.PreProc.monthly.imp_indx_mm.pct(-12); %importaciones
+MODEL.PreProc.monthly.exp_indx_dl12_mm = MODEL.PreProc.monthly.exp_indx_mm.pct(-12); %exportaciones
 
 % Nombres
 % importaciones
