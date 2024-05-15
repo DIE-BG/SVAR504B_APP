@@ -20,3 +20,13 @@ temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec\short');
 SimTools.scripts.plot_shd_dsc(MODEL, 'SavePath', temp_path,...
                              'Rng', MODEL.DATES.hist_end-20:MODEL.DATES.hist_end+20,...
                              'Variables',list); 
+                         
+%% Primera diferencia
+MODEL = SimTools.sim.diff_shd_dsc(MODEL);
+
+% Gráficas
+% Rango corto
+temp_path = fullfile('plots',MODEL.CORR_DATE,MODEL.CORR_VER,'Shock_dec\diff');
+SimTools.scripts.plot_diff_shd_dsc(MODEL, 'SavePath', temp_path,...
+                  'Rng', MODEL.DATES.hist_end-20:MODEL.DATES.hist_end+20,...
+                  'Variables', list);
