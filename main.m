@@ -144,7 +144,12 @@ if do_graphs == true
         'LegendsNames',{MODEL.leg_ant, MODEL.leg_act});
     
     % Descomposición de choques para variables seleccionadas
-    Desc_shocks
+    Desc_shocks;
+    
+    % Graficas de contribuciones
+    contributions(MODEL,...
+                  'SavePath',fullfile('plots', MODEL.CORR_DATE, MODEL.CORR_VER, 'contributions'),...
+                  'Esc', {'v0', MODEL_ANT});
 end
 
 %% Escenarios alternos

@@ -28,7 +28,7 @@ MODEL.Esc.v1.dbi = dboverlay(MODEL.F,shocks);
 MODEL.Esc.v1.dbi.d4_ln_ipei(MODEL.DATES.E1_dates) = alt1.D4L_CPI_RW(MODEL.DATES.E1_dates);
 
 % Plan de simulación
-MODEL.Esc.v1.planSim = plan(MODEL.MF,MODEL.DATES.pred_start:MODEL.DATES.pred_end);
+MODEL.Esc.v1.planSim = plan(MODEL.MF, MODEL.DATES.pred_start:MODEL.DATES.pred_end);
 % Variable a endogenizar (shock propio?? No necesariamente)
 MODEL.Esc.v1.planSim = endogenize(MODEL.Esc.v1.planSim,{'s_d4_ln_ipei'},MODEL.DATES.E1_dates); 
 % Variable a exogenizar (Anclaje)
