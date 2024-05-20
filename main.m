@@ -70,6 +70,7 @@ MODEL = PostProcessing(MODEL,...
     'list_niv', list_nivel,...
     'Esc',{MODEL.CORR_VER, MODEL.F_pred});
 disp('Postprocesamiento: ok');
+
 %% Gráficas
 do_graphs = true;
 
@@ -149,7 +150,7 @@ if do_graphs == true
     % Graficas de contribuciones
     contributions(MODEL,...
                   'SavePath',fullfile('plots', MODEL.CORR_DATE, MODEL.CORR_VER, 'contributions'),...
-                  'Esc', {'v0', MODEL_ANT});
+                  'Esc_add', {'v0', MODEL_ANT});
 end
 
 %% Escenarios alternos
