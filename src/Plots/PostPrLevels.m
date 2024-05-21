@@ -57,11 +57,13 @@ if isempty(params.SavePath)
 end
 
 %% Carga de base de datos adicional
-
-
-% strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
 if ~isempty(params.Esc_add)
-    PostProcAdd = params.Esc_add{2}; 
+    PostProcAdd = params.Esc_add{2};
+    esc_col = params.Esc_add{3};
+end
+
+if isempty(params.Esc_add{3})
+    esc_col = [1 0 0];
 end
 
 list = params.PlotList;
@@ -99,7 +101,8 @@ for rng = 1:length(params.StartDate)
         
         plot(...
             params.StartDate{rng}:params.EndDatePlot{rng}, ...
-            PostProcAdd.niv_sa.(strcat(list{var},'_sa')),'.-r',...
+            PostProcAdd.niv_sa.(strcat(list{var},'_sa')),...
+            'Color', esc_col,...
             'LineWidth', 1.65, ...
             'LineStyle', '--' ...
             );
@@ -167,7 +170,7 @@ for rng = 1:length(params.StartDate)
         data_table = [];
             data_table(:, 1) = PostProcAdd.niv_sa.(strcat(list{var},'_sa'))(params.TabRange);
             data_table(:, 2) = MODEL.PostProc.v0.niv_sa.(strcat(list{var},'_sa'))(params.TabRange);
-            text_Color = [1,0,0 ; 0,0,1];
+            text_Color = [esc_col ; 0,0,1];
         
         SimTools.scripts.plot_data_table( ...
             params.TabRange, ...

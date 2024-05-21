@@ -30,12 +30,6 @@ for i = 1:length(folder_name)
         exportToPPTX('addtext','**NUMERAR DIPOSITIVAS**',...
                      'Position',[7.00/2.54, 1.05/2.54, 20.75/2.54, 2.11/2.54],...
                      'HorizontalAlignment', 'center','fontsize', 45);
-                 
-        %% Descripción
-        exportToPPTX('addslide','Layout','Título y objetos');
-        exportToPPTX('addtext',sprintf("%s", MODEL.esc_names{i}),'Position',...
-                     'title','fontsize',36,...
-                     'HorizontalAlignment','Left');
 
         %% CONTENIDO
         exportToPPTX('addslide','Layout','Título y objetos');
@@ -54,6 +48,18 @@ for i = 1:length(folder_name)
                     sprintf('\t Velocidad de Circulación de la Base Monetaria')},...
                     'Position','content','fontsize',22);%
 
+        %% Cambios
+        exportToPPTX('addslide','Layout','Título y objetos');
+        exportToPPTX('addtext',sprintf("%s: Cambios en datos", MODEL.esc_names{i}),'Position',...
+                     'title','fontsize',36,...
+                     'HorizontalAlignment','Left');
+                 
+       %% Resultados
+        exportToPPTX('addslide','Layout','Título y objetos');
+        exportToPPTX('addtext','Descripción', 'Position',...
+                     'title','fontsize',36,...
+                     'HorizontalAlignment','Left');
+                
         %% secciones
         if strcmp(folder_name{i}, 'v0')
            corr_date = MODEL.CORR_DATE_ANT;
@@ -69,9 +75,9 @@ for i = 1:length(folder_name)
         Crecimiento;
         BM_Vel;
 
-        if esc_alt == false
-            EscAltPres;
-        end   
+%         if esc_alt == false
+%             EscAltPres;
+%         end   
 
 
         %%

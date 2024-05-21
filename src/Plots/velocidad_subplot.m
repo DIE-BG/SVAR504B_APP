@@ -30,6 +30,14 @@ end
 %% Carga de base de datos mes anterior
 full_data_add = params.Esc_add{2};
 
+if isempty(params.Esc_add{3})
+    esc_col = [1, 0, 0];
+    
+else
+   esc_col = params.Esc_add{3};
+    
+end
+
 %% Gráfica
 toplot = {'ln_v_sa', 'ln_cpi_sub_sa', 'ln_y_sa', 'ln_bm_sa'};
 
@@ -56,7 +64,7 @@ for rng = params.StartDate
             'Marker', '.',...
             'MarkerSize', 7,...
             'LineWidth', 0.5,...
-            'color', 'r');
+            'color', esc_col);
 
         % leyenda
         legend({params.LegendsNames{2}, params.LegendsNames{1}},...

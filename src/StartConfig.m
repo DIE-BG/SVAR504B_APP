@@ -52,6 +52,11 @@ MODEL.esc_names = {'Escenario Libre',...v0
                    'Escenario Combinado'};%,...v3
 %                    'Escenario Dif. Histórica máxima',...v4
 %                    'Escenario Dif. Máxima + Trayectoria Tasa'}; %v5
+
+% Colores para escenarios ALTERNOS
+MODEL.esc_col = {[0.4660 0.6740 0.1880],...   v1
+                 [0.8500 0.3250 0.0980],...    %v2           
+                 [0.4940 0.1840 0.5560]}; %v3
                
 %% Carga de info mes previo
 MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
