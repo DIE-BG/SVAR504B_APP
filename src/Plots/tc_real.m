@@ -179,7 +179,19 @@ for rng = params.StartDate
         dat2char(params.EndDatePlot{1}))},...
         'Fontsize', 13);
     end
-       
+    
+    if strcmp(params.Esc_add{1}, 'v0')
+    vline(MODEL.DATES.hist_end_ant, ...
+        'LineWidth', 1.5, ...
+        'LineStyle', '-');
+    
+    else
+    vline(MODEL.DATES.hist_end, ...
+        'LineWidth', 1.5, ...
+        'LineStyle', '-');    
+    
+    end
+    
     zeroline();
     
     % ----- Panel de Tabla -----
