@@ -6,7 +6,7 @@ MODEL.param_file_name = 'setparam.m';
 MODEL.CORR_VER = 'v0';
 
 MODEL.CORR_DATE = '2024-05';
-MODEL.CORR_DATE_ANT = '2024-05';
+MODEL.CORR_DATE_ANT = '2024-04';
 
 MODEL.leg_act = 'Mayo 2024';  
 MODEL.leg_ant = 'Abril 2024'; 
@@ -36,7 +36,7 @@ MODEL.DATES.pred_end = MODEL.DATES.hist_end + 30;
 MODEL.DATES.hist_end_estimation = qq(2023,1);
 
 % Rango de tablas para gráficos de simulación
-tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2025,1), qq(2025,4)];
+tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2025,2), qq(2025,4)];
 
 % Rango de tablas para gráficos de Pre - procesamiento
 % Trimestral
@@ -52,6 +52,10 @@ MODEL.esc_names = {'Escenario Libre',...v0
                    'Escenario Combinado'};%,...v3
 %                    'Escenario Dif. Histórica máxima',...v4
 %                    'Escenario Dif. Máxima + Trayectoria Tasa'}; %v5
+
+MODEL.Esc.v1.name = MODEL.esc_names{2};
+MODEL.Esc.v2.name = MODEL.esc_names{3};
+MODEL.Esc.v3.name = MODEL.esc_names{4};
 
 % Colores para escenarios ALTERNOS
 MODEL.esc_col = {[0.4660 0.6740 0.1880],...   v1
