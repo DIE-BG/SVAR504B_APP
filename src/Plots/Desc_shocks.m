@@ -1,4 +1,4 @@
-%% Descomposición de choques
+    %% Descomposición de choques
 %{
     Script genera la descomposición de choques para las variables
     seleccionadas (list), en dos diferentes rangos. 
