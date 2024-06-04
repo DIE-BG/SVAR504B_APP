@@ -67,7 +67,6 @@ MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
 MODEL_ANT = MODEL_ANT.MODEL;
 
 %% Listas adicionales
-
 % Variables con shock estructural (Estructura Endogena del SVAR)
 MODEL.ExoVar = { ...
                 'd4_ln_y_star', ...1

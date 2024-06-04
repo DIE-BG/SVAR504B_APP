@@ -38,6 +38,7 @@ Departamento de Investigaciones Económicas - 2024.
 MJGM/JGOR
 
 %}
+clear
 tic
 MODEL.NAME = 'SVAR_50_4B';
 
@@ -50,9 +51,14 @@ structfun(@addpath, PATH)
 %% Carga de configuraciones generales del corrimiento base (v0)
 StartConfig;
 
+
+
 %% PRE-PROCESSING
 PreProcessing;
 disp('Preprocesamiento: ok');
+
+
+
 %% Lectura de Modelo, datos y proceso de filtrado
 MODEL = SimTools.sim.read_model(MODEL);
 % Lectura de datos con variables observables en data_corr.csv
@@ -60,12 +66,12 @@ MODEL = SimTools.scripts.read_data_corr(MODEL);
 % Filtrado para obtención de no observables
 MODEL = SimTools.sim.kalman_smth(MODEL);
 disp('Filtrado: ok');
-%%
+%% Simulación
 MODEL = predictions(MODEL,...
     'SaveFullData', true);
 disp('Simulación: ok');
 %% POST-PROCESSING
-MODEL = PostProcessing(MODEL,...
+MODEL = P   ostProcessing(MODEL,...
     'list',pp_list,...
     'list_niv', list_nivel,...
     'Esc',{MODEL.CORR_VER, MODEL.F_pred});
