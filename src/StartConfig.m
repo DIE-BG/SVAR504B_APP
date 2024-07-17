@@ -1,20 +1,20 @@
 %% Modelo y setparam
-MODEL.mod_file_name = 'SVAR50L.mod';
+MODEL.mod_file_name = MODEL.NAME;
 MODEL.param_file_name = 'setparam.m';
 
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2024-05';
-MODEL.CORR_DATE_ANT = '2024-04';
+MODEL.CORR_DATE = '2023-11';
+MODEL.CORR_DATE_ANT = '2023-11';
 
-MODEL.leg_act = 'Mayo 2024';  
-MODEL.leg_ant = 'Abril 2024'; 
+MODEL.leg_act = 'Noviembre 2023';  
+MODEL.leg_ant = 'Noviembre 2023'; 
 
 % Fechas de fin de historia
-MODEL.DATES.hist_end_ant = qq(2024, 1);
-MODEL.DATES.hist_end = qq(2024, 1);
-MODEL.DATES.hist_end_mm = mm(2024, 4);
+MODEL.DATES.hist_end_ant = qq(2023, 4);
+MODEL.DATES.hist_end = qq(2023, 4);
+MODEL.DATES.hist_end_mm = mm(2023, 12);
 
 %% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
@@ -63,20 +63,20 @@ MODEL.esc_col = {[0.4660 0.6740 0.1880],...   v1
                  [0.4940 0.1840 0.5560]}; %v3
                
 %% Carga de info mes previo
-MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
-MODEL_ANT = MODEL_ANT.MODEL;
+% MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
+% MODEL_ANT = MODEL_ANT.MODEL;
 
 %% Listas adicionales
 % Variables con shock estructural (Estructura Endogena del SVAR)
 MODEL.ExoVar = { ...
-                'd4_ln_y_star', ...1
-                'd4_ln_ipei', ...2
+                'dla_y_star', ...1
+                'dla_ipei', ...2
                 'i_star', ...3
-                'd4_ln_cpi_nosub',...4    
-                'd4_ln_y', ...5    
-                'd4_ln_cpi_sub', ...6
-                'd4_ln_s',...7
-                'd4_ln_bm', ...8 
+                'dla_cpi_nosub',...4    
+                'dla_y', ...5    
+                'dla_cpi_sub', ...6
+                'dla_s',...7
+                'dla_bm', ...8 
                 'i'}; %9
 
 %% Lista de variables para post-procesamiento

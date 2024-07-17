@@ -40,7 +40,7 @@ MJGM/JGOR
 %}
 clear
 tic
-MODEL.NAME = 'SVAR_50_4B';
+MODEL.NAME = 'SVAR50QQ.mod';
 
 PATH.data = genpath('data');
 PATH.src = genpath('src');
@@ -58,20 +58,31 @@ PreProcessing;
 disp('Preprocesamiento: ok');
 
 
-
 %% Lectura de Modelo, datos y proceso de filtrado
-MODEL = SimTools.sim.read_model(MODEL);
+% MODEL = SimTools.sim.read_model(MODEL);
+% Asignación de parámetros
+setparam;
+% Lectura del modelo
+MODEL.M = model(MODEL.mod_file_name, 'assign', s);
+MODEL.M = sstate(MODEL.M,'growth=',true,'MaxFunEvals',1000,'display=','off');
+MODEL.M = solve(MODEL.M,'error=',true);
+
 % Lectura de datos con variables observables en data_corr.csv
-MODEL = SimTools.scripts.read_data_corr(MODEL);
+% MODEL = SimTools.scripts.read_data_corr(MODEL);
 % Filtrado para obtención de no observables
-MODEL = SimTools.sim.kalman_smth(MODEL);
+% MODEL = SimTools.sim.kalman_smth(MODEL);
+% Filtrado 
+[MODEL.MF,MODEL.F] = filter(MODEL.M, MODEL.PreProc.obs,... 
+                            MODEL.PreProc.obs.ln_y.Range(1):MODEL.DATES.hist_end, ... 
+                            'meanOnly=',true);
+                        
 disp('Filtrado: ok');
 %% Simulación
 MODEL = predictions(MODEL,...
     'SaveFullData', true);
 disp('Simulación: ok');
 %% POST-PROCESSING
-MODEL = P   ostProcessing(MODEL,...
+MODEL = PostProcessing(MODEL,...
     'list',pp_list,...
     'list_niv', list_nivel,...
     'Esc',{MODEL.CORR_VER, MODEL.F_pred});

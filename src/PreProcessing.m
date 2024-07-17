@@ -91,14 +91,19 @@ MODEL.PreProc.obs.ln_y_star = q.ln_y_star_qq;
 
 MODEL.PreProc.monthly = databank.clip(MODEL.PreProc.monthly, MODEL.DATES.hist_start_mm, MODEL.DATES.hist_end_mm);
 MODEL.PreProc.quarterly = databank.clip(MODEL.PreProc.quarterly, MODEL.DATES.hist_start, MODEL.DATES.hist_end);
-MODEL.PreProc.obs = databank.clip(MODEL.PreProc.obs, MODEL.DATES.hist_start, MODEL.DATES.hist_end);
+MODEL.PreProc.obs = databank.clip(MODEL.PreProc.obs, MODEL.PreProc.obs.ln_y.Range(1), MODEL.DATES.hist_end);
 
 % filtro de observables
 obs = {'ln_y_star', 'ln_ipei', 'i_star', 'ln_y', 'ln_cpi_sub', 'ln_s', 'ln_bm', 'i', 'ln_cpi'};
 MODEL.PreProc.obs = MODEL.PreProc.obs*obs;
 
 for i = 1:length(obs)
-    MODEL.PreProc.obs.(obs{i}).UserData.endhist = dat2char(MODEL.DATES.hist_end);
+    MODEL.PreProc.obs.(obs{i}).UserData.endhist = dat2char(MODEL.DATES.hist_end);    
+end
+
+% Colocando m al inicio
+for i = 1:length(obs)
+   MODEL.PreProc.obs.(strcat('m_', obs{i})) = MODEL.PreProc.obs.(obs{i}); 
 end
 
 %% Exportamos datos
