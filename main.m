@@ -57,24 +57,30 @@ StartConfig;
 PreProcessing;
 disp('Preprocesamiento: ok');
 
-
-
 %% Lectura de Modelo, datos y proceso de filtrado
 MODEL = SimTools.sim.read_model(MODEL);
-% Lectura de datos con variables observables en data_corr.csv
-MODEL = SimTools.scripts.read_data_corr(MODEL);
 % Filtrado para obtención de no observables
-MODEL = SimTools.sim.kalman_smth(MODEL);
+[MODEL.MF, MODEL.F] = filter( ...
+    MODEL.M, ...
+    MODEL.PreProc.obs, ...
+    MODEL.DATES.hist_start:MODEL.DATES.hist_end, ...
+    'meanOnly=',true);
+
 disp('Filtrado: ok');
 %% Simulación
 MODEL = predictions(MODEL,...
     'SaveFullData', true);
 disp('Simulación: ok');
 %% POST-PROCESSING
-MODEL = P   ostProcessing(MODEL,...
+MODEL = PostProcessing(MODEL,...
     'list',pp_list,...
     'list_niv', list_nivel,...
+    'list_dla', list_dla,...
     'Esc',{MODEL.CORR_VER, MODEL.F_pred});
+
+% dla_y en F_pre para compararlo con SVAR50QQ
+MODEL.F_pred.dla_y = MODEL.PostProc.v0.dla.dla_y_sa;
+
 disp('Postprocesamiento: ok');
 
 %% Gráficas

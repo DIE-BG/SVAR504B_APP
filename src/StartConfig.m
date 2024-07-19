@@ -5,16 +5,16 @@ MODEL.param_file_name = 'setparam.m';
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2024-05';
-MODEL.CORR_DATE_ANT = '2024-04';
+MODEL.CORR_DATE = '2023-11';
+MODEL.CORR_DATE_ANT = '2023-11';
 
-MODEL.leg_act = 'Mayo 2024';  
-MODEL.leg_ant = 'Abril 2024'; 
+MODEL.leg_act = 'Noviembre 2023';  
+MODEL.leg_ant = 'Noviembre 2023'; 
 
 % Fechas de fin de historia
-MODEL.DATES.hist_end_ant = qq(2024, 1);
-MODEL.DATES.hist_end = qq(2024, 1);
-MODEL.DATES.hist_end_mm = mm(2024, 4);
+MODEL.DATES.hist_end_ant = qq(2023, 4);
+MODEL.DATES.hist_end = qq(2023, 4);
+MODEL.DATES.hist_end_mm = mm(2023, 12);
 
 %% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
@@ -90,6 +90,10 @@ list_nivel = {'ln_y','ln_s','ln_bm'};
 list_lev = {'y','s','bm'};
 tit_lev ={{'Producto Interno Bruto','Millones de Quetzales'},{'Tipo de Cambio Nominal (GTQ/USD)'},...
         {'Base Monetaria (Millones de Quetzales)'}};
+
+% Variables para gráficas de tasas de variación intertrimestral
+% anualizadas
+list_dla = {'dla_y'};
 
 % Lista de gráficas de brechas
 list_gaps = {'ln_y_star','ln_ipei','ln_z', 'ln_y', 'ln_bm', 'ln_v', 'ln_ipei_q'};

@@ -36,6 +36,7 @@ reconstruir el nivel original y luego procesar.
 p = inputParser;
     addParameter(p, 'list', {});
     addParameter(p, 'list_niv', {});
+    addParameter(p, 'list_dla', {});
     addParameter(p, 'Esc', {MODEL.CORR_VER, MODEL.F_pred});
 parse(p, varargin{:});
 params = p.Results; 
@@ -87,5 +88,15 @@ MODEL.PostProc.(params.Esc{1}).niv_bar = databank.apply(@(x) hpf(x),...
                                                         'RemoveEnd=',true,...
                                                         'Append=', '_bar',...   
                                                         'RemoveSource=',true);
+                                                    
+%% tasas de variación
+temp_db = databank.copy(params.Esc{2}, params.list_dla); 
+
+% tasas de variación
+MODEL.PostProc.(params.Esc{1}).dla = databank.apply(@(x) x12(x, 'MaxIter=', 10000), temp_db,...
+                                                    'StartsWith=','dla_',...
+                                                    'Append=', '_sa',...
+                                                    'RemoveSource=',true);                                                
+
                     
 end

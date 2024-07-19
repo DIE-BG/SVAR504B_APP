@@ -100,6 +100,11 @@ MODEL.PreProc.obs = MODEL.PreProc.obs*obs;
 for i = 1:length(obs)
     MODEL.PreProc.obs.(obs{i}).UserData.endhist = dat2char(MODEL.DATES.hist_end);
 end
+% Colocamos una m al inicio
+
+for i = 1:length(obs)
+    MODEL.PreProc.obs.(strcat('m_', obs{i})) = MODEL.PreProc.obs.(obs{i});
+end
 
 %% Exportamos datos
 if ~isfolder(fullfile('data', 'corrimientos', MODEL.CORR_DATE, MODEL.CORR_VER))

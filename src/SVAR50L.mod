@@ -56,7 +56,9 @@ MJGM
 'Inflacion Total Intertrimestral Anualizada'                                                        dla_cpi, 
 'Tasa de Variación Intertrimestral Anualizada de la Base Monetaria'                                 dla_bm, 
 'Tasa de Variación Intertrimestral Anualizada de la Velocidad de circulacion de la Base Monetaria'  dla_v,
-'Tasa de Variación Intertrimestral Anualizada del Índice de Precios de Transables en GTQ'           dla_ipei_q
+'Tasa de Variación Intertrimestral Anualizada del Índice de Precios de Transables en GTQ'           dla_ipei_q,
+'Tasa de Variación Intertrimestral Anualizada del producto externo'                                 dla_y_star,
+'Tasa de Variación Intertrimestral Anualizada del producto doméstico'                               dla_y,
 
 !transition_shocks
 'Shock de crecimiento externo'      s_d4_ln_y_star,
@@ -143,6 +145,8 @@ dla_cpi = 4*(ln_cpi - ln_cpi{-1});
 dla_z = 4*(ln_z - ln_z{-1}); 
 dla_v = 4*(ln_v - ln_v{-1}); 
 dla_ipei_q = 4*(ln_ipei_q - ln_ipei_q{-1});
+dla_y_star = 4*(ln_y_star - ln_y_star{-1});
+dla_y = 4*(ln_y - ln_y{-1});
 
 
 % Theoretical  identities 
