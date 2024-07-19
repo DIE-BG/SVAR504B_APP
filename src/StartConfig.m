@@ -5,16 +5,16 @@ MODEL.param_file_name = 'setparam.m';
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2023-11';
-MODEL.CORR_DATE_ANT = '2023-11';
+MODEL.CORR_DATE = '2021-11';
+MODEL.CORR_DATE_ANT = '2021-11';
 
-MODEL.leg_act = 'Noviembre 2023';  
-MODEL.leg_ant = 'Noviembre 2023'; 
+MODEL.leg_act = 'Noviembre 2021';  
+MODEL.leg_ant = 'Noviembre 2021'; 
 
 % Fechas de fin de historia
-MODEL.DATES.hist_end_ant = qq(2023, 4);
-MODEL.DATES.hist_end = qq(2023, 4);
-MODEL.DATES.hist_end_mm = mm(2023, 12);
+MODEL.DATES.hist_end_ant = qq(2021, 4);
+MODEL.DATES.hist_end = qq(2021, 4);
+MODEL.DATES.hist_end_mm = mm(2021, 12);
 
 %% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
@@ -33,7 +33,7 @@ MODEL.FULLDATANAME_ANT = fullfile( ...
 MODEL.DATES.hist_start = qq(2005, 1);
 MODEL.DATES.pred_start = MODEL.DATES.hist_end + 1;
 MODEL.DATES.pred_end = MODEL.DATES.hist_end + 30;
-MODEL.DATES.hist_end_estimation = qq(2023,1);
+MODEL.DATES.hist_end_estimation = qq(2023,4);
 
 % Rango de tablas para gráficos de simulación
 tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2025,2), qq(2025,4)];
@@ -63,8 +63,8 @@ MODEL.esc_col = {[0.4660 0.6740 0.1880],...   v1
                  [0.4940 0.1840 0.5560]}; %v3
                
 %% Carga de info mes previo
-% MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
-% MODEL_ANT = MODEL_ANT.MODEL;
+MODEL_ANT = load(sprintf('MODEL-%s.mat',MODEL.CORR_DATE_ANT));
+MODEL_ANT = MODEL_ANT.MODEL;
 
 %% Listas adicionales
 % Variables con shock estructural (Estructura Endogena del SVAR)
