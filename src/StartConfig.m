@@ -8,8 +8,8 @@ MODEL.CORR_VER = 'v0';
 MODEL.CORR_DATE = '2021-11';
 MODEL.CORR_DATE_ANT = '2021-11';
 
-MODEL.leg_act = 'Noviembre 2021';  
-MODEL.leg_ant = 'Noviembre 2021'; 
+MODEL.leg_act = 'SVAR50QQ Nov 2021';  
+MODEL.leg_ant = 'SVAR504B Nov 2021'; 
 
 % Fechas de fin de historia
 MODEL.DATES.hist_end_ant = qq(2021, 4);
