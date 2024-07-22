@@ -5,16 +5,16 @@ MODEL.param_file_name = 'setparam.m';
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2023-11';
-MODEL.CORR_DATE_ANT = '2023-11';
+MODEL.CORR_DATE = '2024-06';
+MODEL.CORR_DATE_ANT = '2024-05';
 
 MODEL.leg_act = 'Noviembre 2023';  
 MODEL.leg_ant = 'Noviembre 2023'; 
 
 % Fechas de fin de historia
-MODEL.DATES.hist_end_ant = qq(2023, 4);
-MODEL.DATES.hist_end = qq(2023, 4);
-MODEL.DATES.hist_end_mm = mm(2023, 12);
+MODEL.DATES.hist_end_ant = qq(2024, 2);
+MODEL.DATES.hist_end = qq(2024, 2);
+MODEL.DATES.hist_end_mm = mm(2024, 6);
 
 %% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
