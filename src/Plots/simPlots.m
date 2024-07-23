@@ -44,7 +44,10 @@ p = inputParser;
     addParameter(p, 'AutoSave', true);
 parse(p, varargin{:});
 params = p.Results;
-    
+
+%% Obteniendo la historia para las gráficas
+H = databank.fromCSV(fullfile(pwd, 'data', 'raw', 'hist.csv'));
+
 %% Limpieza y creación de folders
 SS = get(MODEL.M, 'sstate');
 
@@ -75,6 +78,7 @@ if isempty(params.Esc_add{3})
 end
 
 %% Bloque 1: Variables del modelo (xlist) (libre vs otro)
+
 list = params.PlotList;
 % Iteración para los rangos de ploteo
 for rng = 1 : length(params.StartDate)
@@ -122,6 +126,15 @@ for rng = 1 : length(params.StartDate)
                 'LineWidth', 1.65, ...
                 'LineStyle', '--' ...
                 );
+            
+            plot(...
+                params.StartDate{rng}:params.EndDatePlot{rng}, ...
+                H.(list{var}),...
+                'Color', [0 0 0],...
+                'LineWidth', 1.65,...
+                'LineStyle', '--'...
+                );
+               
             hold off
             %Returns handles to the patch and line objects
             chi = get(gca, 'Children');
@@ -353,7 +366,7 @@ for corr = 1:length(params.LegendsNames)
         if corr == 1
             subt = ['Corrimiento ',params.LegendsNames{1}];
             if strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
-                fig_n = MODEL.CORR_DATE_ANT;
+                fig_n = MODEL.leg_ant;
                 vline(MODEL.DATES.hist_end_ant,...
                     'LineWidth', 1,'LineStyle', '-.');
             elseif ~strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
@@ -363,7 +376,7 @@ for corr = 1:length(params.LegendsNames)
             end
         else
             subt = ['Corrimiento ',params.LegendsNames{2}];
-            fig_n = MODEL.CORR_DATE;
+            fig_n = MODEL.leg_act;
             vline(MODEL.DATES.hist_end,...
                 'LineWidth', 1, 'LineStyle', '-.');
         end
@@ -486,7 +499,7 @@ for corr = 1:length(params.LegendsNames)
         if corr == 1
             subt = ['Corrimiento ',params.LegendsNames{1}];
             if strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
-                fig_n = MODEL.CORR_DATE_ANT;
+                fig_n = MODEL.leg_ant;
                 vline(MODEL.DATES.hist_end_ant,...
                     'LineWidth', 1,'LineStyle', '-.');
             elseif ~strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
@@ -496,7 +509,7 @@ for corr = 1:length(params.LegendsNames)
             end
         else
             subt = ['Corrimiento ',params.LegendsNames{2}];
-            fig_n = MODEL.CORR_DATE;
+            fig_n = MODEL.leg_act;
             vline(MODEL.DATES.hist_end,...
                 'LineWidth', 1, 'LineStyle', '-.');
         end
@@ -618,7 +631,7 @@ for corr = 1:length(params.LegendsNames)
         if corr == 1
             subt = ['Corrimiento ',params.LegendsNames{1}];
             if strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
-                fig_n = MODEL.CORR_DATE_ANT;
+                fig_n = MODEL.leg_ant;
                 vline(MODEL.DATES.hist_end_ant,...
                     'LineWidth', 1,'LineStyle', '-.');
             elseif ~strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
@@ -628,7 +641,7 @@ for corr = 1:length(params.LegendsNames)
             end
         else
             subt = ['Corrimiento ',params.LegendsNames{2}];
-            fig_n = MODEL.CORR_DATE;
+            fig_n = MODEL.leg_act;
             vline(MODEL.DATES.hist_end,...
                 'LineWidth', 1, 'LineStyle', '-.');
         end
@@ -762,7 +775,7 @@ for corr = 1:length(params.LegendsNames)
         if corr == 1
             subt = ['Corrimiento ',params.LegendsNames{1}];
             if strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
-                fig_n = MODEL.CORR_DATE_ANT;
+                fig_n = MODEL.leg_ant;
                 vline(MODEL.DATES.hist_end_ant,...
                     'LineWidth', 1,'LineStyle', '-.');
             elseif ~strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
@@ -772,7 +785,7 @@ for corr = 1:length(params.LegendsNames)
             end
         else
             subt = ['Corrimiento ',params.LegendsNames{2}];
-            fig_n = MODEL.CORR_DATE;
+            fig_n = MODEL.leg_act;
             vline(MODEL.DATES.hist_end,...
                 'LineWidth', 1, 'LineStyle', '-.');
         end
@@ -907,7 +920,7 @@ for corr = 1:length(params.LegendsNames)
         if corr == 1
             subt = ['Corrimiento ',params.LegendsNames{1}];
             if strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
-                fig_n = MODEL.CORR_DATE_ANT;
+                fig_n = MODEL.leg_ant;
                 vline(MODEL.DATES.hist_end_ant,...
                     'LineWidth', 1,'LineStyle', '-.');
             elseif ~strcmp(params.Esc_add{1}, MODEL.CORR_DATE_ANT)
@@ -917,7 +930,7 @@ for corr = 1:length(params.LegendsNames)
             end
         else
             subt = ['Corrimiento ',params.LegendsNames{2}];
-            fig_n = MODEL.CORR_DATE;
+            fig_n = MODEL.leg_act;
             vline(MODEL.DATES.hist_end,...
                 'LineWidth', 1, 'LineStyle', '-.');
         end
