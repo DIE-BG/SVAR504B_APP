@@ -5,16 +5,16 @@ MODEL.param_file_name = 'setparam.m';
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2023-11';
-MODEL.CORR_DATE_ANT = '2023-11';
+MODEL.CORR_DATE = '2021-11';
+MODEL.CORR_DATE_ANT = '2021-11';
 
-MODEL.leg_act = 'SVAR50QQ Nov 2023';  
-MODEL.leg_ant = 'SVAR504B Nov 2023'; 
+MODEL.leg_act = 'SVAR50QQ Nov 2021';  
+MODEL.leg_ant = 'SVAR504B Nov 2021'; 
 
 % Fechas de fin de historia
-MODEL.DATES.hist_end_ant = qq(2023, 4);
-MODEL.DATES.hist_end = qq(2023, 4);
-MODEL.DATES.hist_end_mm = mm(2023, 12);
+MODEL.DATES.hist_end_ant = qq(2021, 3);
+MODEL.DATES.hist_end = qq(2021, 3);
+MODEL.DATES.hist_end_mm = mm(2021, 10);
 
 %% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
@@ -25,8 +25,8 @@ MODEL.FULLDATANAME_ACT = fullfile( ...
     sprintf('fulldata_%s_%s.csv', MODEL.CORR_DATE,MODEL.CORR_VER));
 
 MODEL.FULLDATANAME_ANT = fullfile( ...
-    'data', 'fulldata', MODEL.CORR_DATE_ANT,...
-    sprintf("MODEL-%s.mat", MODEL.CORR_DATE_ANT));
+    'data', 'fulldata', 'SVAR50', MODEL.CORR_DATE_ANT,...
+    sprintf("MODEL-%s_SVAR50.mat", MODEL.CORR_DATE_ANT));
 
 % Configuración de estructura DATES
 
