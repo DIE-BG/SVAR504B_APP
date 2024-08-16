@@ -40,7 +40,7 @@ MJGM/JGOR
 %}
 clear
 tic
-MODEL.NAME = 'SVAR50QQ.mod';
+MODEL.NAME = 'SVAR50IPEI.mod';
 
 PATH.data = genpath('data');
 PATH.src = genpath('src');
@@ -50,8 +50,6 @@ structfun(@addpath, PATH)
 
 %% Carga de configuraciones generales del corrimiento base (v0)
 StartConfig;
-
-
 
 %% PRE-PROCESSING
 PreProcessing;
@@ -73,7 +71,7 @@ MODEL.M = solve(MODEL.M,'error=',true);
 % MODEL = SimTools.sim.kalman_smth(MODEL);
 % Filtrado 
 [MODEL.MF,MODEL.F] = filter(MODEL.M, MODEL.PreProc.obs,... 
-                            MODEL.PreProc.obs.ln_y.Range(1):MODEL.DATES.hist_end, ... 
+                            MODEL.DATES.hist_start:MODEL.DATES.hist_end, ... 
                             'meanOnly=',true);
                         
 disp('Filtrado: ok');
@@ -97,6 +95,11 @@ if do_graphs == true
         'Esc_add', {'v0', MODEL_ANT},...
         'tab_range', tab_range_source_data,...
         'tab_range_mm', tab_range_mm);
+    
+    % datos fuente en frecuencia trimestral
+    PreProcPlots_q(MODEL,...
+        'Esc_add', {'v0', MODEL_ANT},...
+        'tab_range', tab_range_source_data)
     
     % Plots de Simulación
     simPlots(MODEL,...

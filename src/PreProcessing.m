@@ -20,10 +20,6 @@ q = databank.fromCSV(fullfile('data', 'raw', MODEL.CORR_DATE, 'quarterly.csv'));
 m = databank.fromCSV(fullfile('data', 'raw', MODEL.CORR_DATE, 'monthly.csv'));
 
 %% Transformaciones
-% CONSTRUCCION DEL IPEI
-m.exp_indx_mm = m.exp_indx_mm.clip(m.a_prom_mm.Start, m.a_prom_mm.End);
-m.imp_indx_mm = m.imp_indx_mm.clip(m.a_prom_mm.Start, m.a_prom_mm.End);
-m.ipei_mm = m.a_prom_mm*m.exp_indx_mm + (1-m.a_prom_mm)*m.imp_indx_mm;
 
 % TASAS DE VARIACION PRECIOS DE IMPORTACIONES Y EXPORTACIONES
 % Tasas de variación intermensual anualizada e interanual para precios
@@ -82,12 +78,20 @@ for i = 1:length(names)
     end
 end
 
+% trimestrailización de los índices de exportaciones e importaciones
+m_t.imp_indx = m.imp_indx_mm.convert('Q', 'Method=', @mean);
+m_t.exp_indx = m.exp_indx_mm.convert('Q', 'Method=', @mean);
+
+% Construcción del IPEI
+q.ln_IPEI = log(q.alpha_nuevo*m_t.exp_indx + (1-q.alpha_nuevo)*m_t.imp_indx)*100;
+
 %% CREACION DE ESTRUCTURA MODEL
 MODEL.PreProc.monthly = m;
 MODEL.PreProc.quarterly = q;
 MODEL.PreProc.obs = m_t;
 MODEL.PreProc.obs.ln_y = q.ln_y_qq;
 MODEL.PreProc.obs.ln_y_star = q.ln_y_star_qq;
+MODEL.PreProc.obs.ln_ipei = q.ln_IPEI;
 
 MODEL.PreProc.monthly = databank.clip(MODEL.PreProc.monthly, MODEL.DATES.hist_start_mm, MODEL.DATES.hist_end_mm);
 MODEL.PreProc.quarterly = databank.clip(MODEL.PreProc.quarterly, MODEL.DATES.hist_start, MODEL.DATES.hist_end);

@@ -5,16 +5,16 @@ MODEL.param_file_name = 'setparam.m';
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
-MODEL.CORR_DATE = '2024-06';
-MODEL.CORR_DATE_ANT = '2024-06';
+MODEL.CORR_DATE = '2023-11';
+MODEL.CORR_DATE_ANT = '2023-11';
 
-MODEL.leg_act = 'SVAR50QQ jun 2024';  
-MODEL.leg_ant = 'SVAR504B Jun 2024'; 
+MODEL.leg_act = 'SVAR50IPEI Nov 2023';  
+MODEL.leg_ant = 'SVAR504B Nov 2023'; 
 
 % Fechas de fin de historia
-MODEL.DATES.hist_end_ant = qq(2024, 2);
-MODEL.DATES.hist_end = qq(2024, 2);
-MODEL.DATES.hist_end_mm = mm(2024, 6);
+MODEL.DATES.hist_end_ant = qq(2023, 3);
+MODEL.DATES.hist_end = qq(2023, 3);
+MODEL.DATES.hist_end_mm = mm(2023, 11);
 
 %% Otros elementos y fechas
 MODEL.data_file_name = fullfile( ...
@@ -36,7 +36,7 @@ MODEL.DATES.pred_end = MODEL.DATES.hist_end + 30;
 MODEL.DATES.hist_end_estimation = qq(2023,4);
 
 % Rango de tablas para gráficos de simulación
-tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2025,2), qq(2025,4)];
+tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2024,4), qq(2024,5)];
 
 % Rango de tablas para gráficos de Pre - procesamiento
 % Trimestral
@@ -69,14 +69,14 @@ MODEL_ANT = MODEL_ANT.MODEL;
 %% Listas adicionales
 % Variables con shock estructural (Estructura Endogena del SVAR)
 MODEL.ExoVar = { ...
-                'dla_y_star', ...1
-                'dla_ipei', ...2
+                'd4_ln_y_star', ...1
+                'd4_ln_ipei', ...2
                 'i_star', ...3
-                'dla_cpi_nosub',...4    
-                'dla_y', ...5    
-                'dla_cpi_sub', ...6
-                'dla_s',...7
-                'dla_bm', ...8 
+                'd4_ln_cpi_nosub',...4    
+                'd4_ln_y', ...5    
+                'd4_ln_cpi_sub', ...6
+                'd4_ln_s',...7
+                'd4_ln_bm', ...8 
                 'i'}; %9
 
 %% Lista de variables para post-procesamiento

@@ -61,7 +61,7 @@ end
 
 %% ----- Seccion para la asignacion de parametros adicionales. -----
 % Estados Estacionarios de identidades en .mod
-s.dla_cpi_ss = s.dla_cpi_nosub_ss + s.dla_cpi_sub_ss;
-s.dla_z_ss = s.dla_s_ss + s.dla_ipei_ss - s.dla_cpi_sub_ss;
-s.dla_v_ss = s.dla_cpi_sub_ss + s.dla_y_ss - s.dla_bm_ss;
-s.r_ss = s.i_ss - s.dla_cpi_sub_ss;
+s.d4_ln_cpi_ss = s.d4_ln_cpi_nosub_ss + s.d4_ln_cpi_sub_ss;
+s.d4_ln_z_ss = s.d4_ln_s_ss + s.d4_ln_ipei_ss - s.d4_ln_cpi_sub_ss;
+s.d4_ln_v_ss = s.d4_ln_cpi_sub_ss + s.d4_ln_y_ss - s.d4_ln_bm_ss;
+s.r_ss = s.i_ss - s.d4_ln_cpi_sub_ss;
