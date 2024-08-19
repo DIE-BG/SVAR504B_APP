@@ -1,0 +1,231 @@
+  Reading input spec file from C:\Users\JGOR\Documents\SVAR50_APP\SVAR504B_APP\tp520ccb04_3fbe_4bf6_9f4f_581b44d8e6ee.spc
+
+1
+
+               U. S. Department of Commerce, U. S. Census Bureau
+
+             X-13ARIMA-SEATS quarterly seasonal adjustment Method,
+                          Release Version 1.1 Build 39
+
+
+           This software application provides an enhanced version of
+             Statistics Canada's X-11-ARIMA extension (Dagum, 1980)
+                 of the X-11 variant of the Census Method II of
+                      Shiskin, Young and Musgrave (1967).
+
+            It also provides an ARIMA model-based method following
+       Hillmer and Tiao (1982) and Burman (1980) that is very similar
+       to the update of the method of SEATS (Gomez and Maravall, 1996)
+                produced at the Bank of Spain by G. Caporello and
+               A. Maravall for TSW (Caporello and Maravall, 2004).
+          The present application includes additional enhancements.
+
+         X-13ARIMA-SEATS includes an automatic ARIMA model selection procedure
+          based largely on the procedure of Gomez and Maravall (1998)
+            as implemented in TRAMO (1996) and subsequent revisions.
+
+              Primary Programmers: Brian Monsell, Mark Otto and,
+                 for the ARIMA model-based signal extraction,
+                      Gianluca Caporello and Victor Gomez
+
+
+     Series Title- X-13ARIMA-SEATS run of tp520ccb04_3fbe_
+     Series Name- tp520ccb04_3fbe_
+     Aug 16, 2024  15.59.31 
+
+        -Period covered-  1st quarter,2004 to  4th quarter,2031
+        -Type of run - multiplicative seasonal adjustment
+
+        -Sigma limits for graduating extreme values are  1.5 and  2.5 .
+        -3x3 moving average used in section 1 of each iteration, 
+         3x5 moving average in section 2 of iterations B and C,
+         moving average for final seasonal factors chosen by Global MSR.
+        -Spectral estimates of original series, table D11 and table E3 will be searched for 
+         signficant seasonal and trading day peaks
+        -Spectral plots generated for series starting in 2008.1
+
+ FILE SAVE REQUESTS (* indicates file exists and will be overwritten)
+  C:\Users\JGOR\Documents\SVAR50_APP\SVAR504B_APP\tp520ccb04_3fbe_4bf6_9f4f_581b44d8e6ee.mdl  model specifications (regression and arima specs)
+  C:\Users\JGOR\Documents\SVAR50_APP\SVAR504B_APP\tp520ccb04_3fbe_4bf6_9f4f_581b44d8e6ee.fct  point forecasts and prediction intervals on the original scale
+  C:\Users\JGOR\Documents\SVAR50_APP\SVAR504B_APP\tp520ccb04_3fbe_4bf6_9f4f_581b44d8e6ee.bct  point backcasts and prediction intervals on the original scale
+  C:\Users\JGOR\Documents\SVAR50_APP\SVAR504B_APP\tp520ccb04_3fbe_4bf6_9f4f_581b44d8e6ee.d11  final seasonally adjusted data
+  C:\Users\JGOR\Documents\SVAR50_APP\SVAR504B_APP\tp520ccb04_3fbe_4bf6_9f4f_581b44d8e6ee.out  program output file
+  C:\Users\JGOR\Documents\SVAR50_APP\SVAR504B_APP\tp520ccb04_3fbe_4bf6_9f4f_581b44d8e6ee.err  program error file
+        X-13ARIMA-SEATS run of tp520ccb04_3fbe_            PAGE   1, SERIES tp520ccb04_3fbe_
+
+     Contents of spc file C:\Users\JGOR\Documents\SVAR50_APP\SVAR504B_APP\tp520ccb04_3fbe_4bf6_9f4f_581b44d8e6ee.spc
+
+ Line #
+ ------
+      1: # X12-ARIMA spec file default template.
+      2:  
+      3: # -The IRIS Toolbox.
+      4: # -Copyright (c) 2007-2013 IRIS Solutions Team.
+      5:  
+      6: series {
+      7:     data = (
+      8:         663.20689928
+      9:     663.90224201
+     10:     666.99525252
+     11:     668.86203208
+     12:     670.42587946
+     13:     671.50411075
+     14:     674.55010354
+     15:     675.63599293
+     16:     675.50264126
+     17:     678.10451006
+     18:     679.10433588
+     19:     676.42286552
+     20:     678.05725989
+     21:     681.04400654
+     22:     683.48199078
+     23:     686.89063019
+     24:     690.73752182
+     25:     695.52109635
+     26:     695.86787289
+     27:     682.87877860
+     28:     680.60174461
+     29:     685.63096582
+     30:     690.08854528
+     31:     693.33013000
+     32:     693.43701760
+     33:     691.82214967
+     34:     691.48472663
+     35:     693.98694304
+     36:     696.65330046
+     37:     699.60048294
+     38:     700.74679858
+     39:     700.62373950
+     40:     700.71473416
+     41:     700.11268349
+     42:     699.90971748
+     43:     700.41727364
+     44:     700.37419250
+     45:     698.85878568
+     46:     699.76324061
+     47:     699.21547330
+     48:     698.63930489
+     49:     698.73290112
+     50:     698.03463837
+     51:     692.15756943
+     52:     686.67520360
+     53:     687.45030594
+     54:     685.25967107
+     55:     682.67280643
+     56:     680.56751722
+     57:     682.32409311
+     58:     681.48898471
+     59:     681.32116688
+     60:     681.32817653
+     61:     680.20395118
+     62:     679.92985489
+     63:     682.08856755
+     64:     683.73435310
+     65:     685.77777988
+     66:     687.12032695
+     67:     688.26992237
+     68:     687.78911646
+     69:     687.76803309
+     70:     686.91067278
+     71:     687.00576060
+     72:     685.56734034
+     73:     682.24759130
+     74:     685.46035660
+     75:     687.15565395
+     76:     690.29740984
+     77:     693.57531888
+     78:     695.30512177
+     79:     697.24736456
+     80:     701.05644634
+     81:     704.59160855
+     82:     703.08514934
+     83:     702.32810247
+     84:     701.08124637
+     85:     700.15308955
+     86:     701.00801233
+     87:     699.96824427
+     88:     700.12421854
+     89:     700.75370414
+     90:     702.01232432
+     91:     701.26204928
+     92:     701.62689592
+     93:     702.40823020
+     94:     703.77827730
+     95:     703.11070237
+     96:     703.53776987
+     97:     704.36666781
+     98:     705.77373465
+     99:     705.13554340
+    100:     705.58641517
+    101:     706.43499302
+    102:     707.85864503
+    103:     707.23467294
+    104:     707.69791391
+    105:     708.55737686
+    106:     709.99068986
+    107:     709.37534038
+    108:     709.84629933
+    109:     710.71267338
+    110:     712.15216360
+    111:     711.54231366
+    112:     712.01813954
+    113:     712.88878569
+    114:     714.33198644
+    115:     713.72531599
+    116:     714.20381933
+    117:     715.07666914
+    118:     716.52162767
+    119:     715.91629690
+    120:  
+    121:     )
+    122:     period = 4
+    123:     start = 2004.1
+    124:     precision = 5
+    125:     decimals = 5
+    126:  
+    127: }
+    128:  
+    129: transform {
+    130:     function = log
+    131: }
+    132:  
+    133: automdl {
+    134:     maxorder = (2 1)
+    135: }
+    136:  
+    137: forecast {
+    138:     maxlead = 0
+    139:     maxback = 0
+    140:     save = (forecasts backcasts)
+    141: }
+    142:  
+    143: estimate {
+    144:     tol = 1.000000e-05
+    145:     maxiter = 50000
+    146:     save = (model)
+    147: }
+    148:  
+    149: #regression regression {
+    150: #regression #tdays     variables = ($tdays$)
+    151: #regression #dummy     start = $dummy_startyear$.$dummy_startper$
+    152: #regression #dummy     user = ($dummy_name$)
+    153: #regression #dummy     usertype = $dummy_type$
+    154: #regression #dummy     data = (
+    155: #regression #dummy     $dummy_data$
+    156: #regression #dummy     )
+    157: #regression }
+    158:  
+    159: x11 {
+    160:     mode = mult
+    161:     save = (d11 )
+    162:     appendbcst = no
+    163:     appendfcst = no
+    164: }
+        X-13ARIMA-SEATS run of tp520ccb04_3fbe_            PAGE   2, SERIES tp520ccb04_3fbe_
+
+ A 1  Time series data (for the span analyzed)
+  From      2004.1 to 2031.4
+  Observations        112
+ ------------------------------------------------------------------------------
+                  1st          2nd          3rd          4th           TOTAL  
+ ------------------------------------------------------------------------------
