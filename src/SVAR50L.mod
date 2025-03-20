@@ -121,7 +121,7 @@ ln_s = ln_s{-4} + d4_ln_s;
 ln_bm = ln_bm{-4} + d4_ln_bm;
 ln_cpi = ln_cpi{-4} + d4_ln_cpi; 
 ln_z = ln_z{-4} + d4_ln_z; 
-ln_v = ln_v{-4} + d4_ln_v; 
+ln_v = ln_cpi_sub + ln_y - ln_bm; 
 % Tradeable goods prices in GTQ
 ln_ipei_q = ln_ipei + ln_s;
 % Moving Sums

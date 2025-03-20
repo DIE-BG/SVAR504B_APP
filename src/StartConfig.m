@@ -6,10 +6,10 @@ MODEL.param_file_name = 'setparam.m';
 MODEL.CORR_VER = 'v0';
 
 MODEL.CORR_DATE = '2024-05';
-MODEL.CORR_DATE_ANT = '2024-04';
+MODEL.CORR_DATE_ANT = '2023-11';
 
 MODEL.leg_act = 'Mayo 2024';  
-MODEL.leg_ant = 'Abril 2024'; 
+MODEL.leg_ant = 'Noviembre 2023'; 
 
 % Fechas de fin de historia
 MODEL.DATES.hist_end_ant = qq(2024, 1);

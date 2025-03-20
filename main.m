@@ -1,6 +1,6 @@
 %{
 SVAR50-4B - Corrimiento
-SimTools: branch->  modelo-con-variables-de-medida.
+Sim: branch->  modelo-con-variables-de-medida.
 
 Modelo: SVAR50-4B Redefinido con observables en niveles. La estructura
 endogena principal (9 variables/ecuaciones) se mantiene.
@@ -31,7 +31,7 @@ Posterior a los procesos de tratamiento de datos y simulación se generan
 las descomposiciones de shocks, gráficas y presentación correspondientes.
 
 Nota: Derivado del cambio en el planteamiento del modelo estado-espacio no
-fue posible utilizar todas las funciones de SimTools en el proceso de
+fue posible utilizar todas las funciones de Sim en el proceso de
 corrimiento
 
 Departamento de Investigaciones Económicas - 2024.
@@ -60,18 +60,18 @@ disp('Preprocesamiento: ok');
 
 
 %% Lectura de Modelo, datos y proceso de filtrado
-MODEL = SimTools.sim.read_model(MODEL);
+MODEL = Sim.sim.read_model(MODEL);
 % Lectura de datos con variables observables en data_corr.csv
-MODEL = SimTools.scripts.read_data_corr(MODEL);
+MODEL = Sim.scripts.read_data_corr(MODEL);
 % Filtrado para obtención de no observables
-MODEL = SimTools.sim.kalman_smth(MODEL);
+MODEL = Sim.sim.kalman_smth(MODEL);
 disp('Filtrado: ok');
 %% Simulación
 MODEL = predictions(MODEL,...
     'SaveFullData', true);
 disp('Simulación: ok');
 %% POST-PROCESSING
-MODEL = P   ostProcessing(MODEL,...
+MODEL = PostProcessing(MODEL,...
     'list',pp_list,...
     'list_niv', list_nivel,...
     'Esc',{MODEL.CORR_VER, MODEL.F_pred});
@@ -162,8 +162,8 @@ if do_graphs == true
 end
 
 %% Escenarios alternos
-esc_alt = true;
-
+esc_alt = false;
+    
 if esc_alt == true
     v1_IPEI;
     v2_CP1;

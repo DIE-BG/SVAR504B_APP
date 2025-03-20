@@ -2,7 +2,7 @@
  Deployment SVAR50-4B
 
 Herramienta de Corrimientos: SVAR50-4B<br>
-SimTools: branch->  modelo-con-variables-de-medida.
+Sim: branch->  modelo-con-variables-de-medida.
 
 Modelo: SVAR50-4B Redefinido con observables en niveles. La estructura
 endogena principal (9 variables/ecuaciones) se mantiene.
@@ -33,7 +33,7 @@ Posterior a los procesos de tratamiento de datos y simulación se generan
 las descomposiciones de shocks, gráficas y presentación correspondientes.
 
 Nota: Derivado del cambio en el planteamiento del modelo estado-espacio no
-fue posible utilizar todas las funciones de SimTools en el proceso de
+fue posible utilizar todas las funciones de Sim en el proceso de
 corrimiento
 
 Departamento de Investigaciones Económicas - 2024.
