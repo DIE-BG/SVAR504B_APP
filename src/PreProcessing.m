@@ -45,7 +45,12 @@ m.exp_indx_mm.Comment = 'Índice de Precios de exportaciones EEUU';
 m.exp_indx_dl12_mm.Comment = 'Tasa de variación interanual Precio de exportaciones EEUU';
 m.exp_dl_mm.Comment = 'Tasa intermensual anualizada Precio de exportaciones EEUU';
 
-% LOGARITMOS
+%% Desestacionalización
+% Se desestacionaliza GDP y REM_GDP
+q.y_qq = q.y_qq.x12;
+q.y_qq.comment = 'Producto Interno Bruto real de Guatemala (desestacionalizado)';
+
+%% LOGARITMOS
 names = dbnames(m);
 % excepciones
 exc = {'i_star_mm', 'i_mm', 'a_mm', 'a_prom_mm', 'imp_indx_mm', 'exp_indx_mm'};
@@ -62,13 +67,15 @@ for i = 1:length(names)
         q.(['ln_' names{i}]) = 100*log(q.(names{i}));
 end
 
-% TRIMESTRALIZACION
+
+
+%% TRIMESTRALIZACION
 % Variaciones logaritmicas de varialbes mensuales
 names = dbnames(m);
 for i = 1:length(names)
     ind = regexp(names(i), 'ln_.*mm$', 'match');
     if ~isempty(ind{1})
-        m_t.(names{i}(1:end-3)) = m.(names{i}).convert('Q', 'method=', @mean);
+        m_t.(names{i}(1:end-3)) = m.(names{i}).convert('Q', 'method=', @last);
     end
 end
 
@@ -78,9 +85,12 @@ names = dbnames(m);
 list = {'i_mm', 'i_star_mm'};
 for i = 1:length(names)
     if ~isempty(strmatch(names{i}, list, 'exact'))
-        m_t.(names{i}(1:end-3)) = m.(names{i}).convert('Q', 'method=', @mean);
+        m_t.(names{i}(1:end-3)) = m.(names{i}).convert('Q', 'method=', @last);
     end
 end
+
+
+
 
 %% CREACION DE ESTRUCTURA MODEL
 MODEL.PreProc.monthly = m;
