@@ -1,15 +1,15 @@
 %% Modelo y setparam
-MODEL.mod_file_name = 'SVAR50L.mod';
+MODEL.mod_file_name = 'SVAR51.mod';
 MODEL.param_file_name = 'setparam.m';
 
 %% Configuración del corrimento
 MODEL.CORR_VER = 'v0';
 
 MODEL.CORR_DATE = '2024-05';
-MODEL.CORR_DATE_ANT = '2023-11';
+MODEL.CORR_DATE_ANT = '2024-04';
 
 MODEL.leg_act = 'Mayo 2024';  
-MODEL.leg_ant = 'Noviembre 2023'; 
+MODEL.leg_ant = 'Abril 2024'; 
 
 % Fechas de fin de historia
 MODEL.DATES.hist_end_ant = qq(2024, 1);
@@ -36,7 +36,7 @@ MODEL.DATES.pred_end = MODEL.DATES.hist_end + 30;
 MODEL.DATES.hist_end_estimation = qq(2023,1);
 
 % Rango de tablas para gráficos de simulación
-tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+3, qq(2025,2), qq(2025,4)];
+tab_range = [MODEL.DATES.hist_end, MODEL.DATES.pred_start:MODEL.DATES.pred_start+6];
 
 % Rango de tablas para gráficos de Pre - procesamiento
 % Trimestral
